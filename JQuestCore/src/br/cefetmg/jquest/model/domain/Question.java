@@ -13,9 +13,9 @@ public class Question {
     private Long id;
     private Domain domain;
     private Module module;
-    private String enunciado;
-    private String dificuldade;
-    private char tipo;
+    private String headline;
+    private String dificulty;
+    private char type;
 
     public Question() {}
 
@@ -23,9 +23,9 @@ public class Question {
         this.id = id;
         this.domain = domain;
         this.module = module;
-        this.enunciado = enunciado;
-        this.dificuldade = dificuldade;
-        this.tipo = tipo;
+        this.headline = enunciado;
+        this.dificulty = dificuldade;
+        this.type = tipo;
     }
 
     public Long getId() {
@@ -53,27 +53,27 @@ public class Question {
     }
 
     public String getEnunciado() {
-        return enunciado;
+        return headline;
     }
 
     public void setEnunciado(String enunciado) {
-        this.enunciado = enunciado;
+        this.headline = enunciado;
     }
 
     public String getDificuldade() {
-        return dificuldade;
+        return dificulty;
     }
 
     public void setDificuldade(String dificuldade) {
-        this.dificuldade = dificuldade;
+        this.dificulty = dificuldade;
     }
 
     public char getTipo() {
-        return tipo;
+        return type;
     }
 
     public void setTipo(char tipo) {
-        this.tipo = tipo;
+        this.type = tipo;
     }
     
 }

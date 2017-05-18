@@ -13,7 +13,7 @@ public class User {
     private String name;
     private String email;
     private Long id;
-    private String senha;
+    private String password;
 
     public User() {}
     
@@ -21,7 +21,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.id = id;
-        this.senha = senha;
+        this.password = senha;
     }
     
     public String getName() {
@@ -49,11 +49,11 @@ public class User {
     }
 
     public String getSenha() {
-        return senha;
+        return password;
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        this.password = senha;
     }
     
 }

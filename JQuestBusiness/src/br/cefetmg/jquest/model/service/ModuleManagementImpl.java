@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Aluno
  */
-public class ModuleManagamentImpl implements ModuleManagement {
+public class ModuleManagementImpl implements ModuleManagement {
 
     @Override
     public Long moduleInsert(Module module) throws BusinessException, PersistenceException {

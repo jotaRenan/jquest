@@ -6,7 +6,10 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Domain;
+import br.cefetmg.jquest.model.exception.PersistenceException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,7 +21,7 @@ public class DomainDAOImpl implements DomainDAO {
     
     private static DomainDAOImpl domainDAO = null;
     private static HashMap<Long, Domain> domainDB = new HashMap<Long, Domain>();
-
+    private static long domainCount = 0;
     private DomainDAOImpl() {
     }
 
@@ -30,28 +33,65 @@ public class DomainDAOImpl implements DomainDAO {
     }
 
     @Override
-    public void insert(Domain domain) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insert(Domain domain) throws PersistenceException {
+        if (domain == null) {
+            throw new PersistenceException("Domain cannot be null");
+        }
+        Long domainId = domain.getId();
+        
+        if (domainId != null && domainDB.containsKey(domainId)) {
+            throw new PersistenceException("Duplicate key");
+        }
+        domainId = ++domainCount;
+        domain.setId(domainId);
+        domainDB.put(domainId, domain);
     }
 
     @Override
-    public void update(Domain domain) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Domain domain) throws PersistenceException {
+        if (domain == null) {
+            throw new PersistenceException("Domain cannot be null");
+        }
+        Long domainId = domain.getId();
+        if (domainId == null ) {
+            throw new PersistenceException("Entity Id cannot be null");
+        }
+        if (!domainDB.containsKey(domainId)) {
+            throw new PersistenceException("Domain with id " + domain.getId() + " is not persisted");
+        }
+        domainDB.replace(domainId, domain);
     }
 
     @Override
-    public Domain remove(Long domainId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Domain remove(Long domainId) throws PersistenceException {
+        if (domainId == null) {
+            throw new PersistenceException("Domain ID cant be null");
+        }
+        if (!domainDB.containsKey(domainId)){
+            throw new PersistenceException("Domain with id " + domainId + " is not persisted");
+        }
+        return domainDB.remove(domainId);
     }
 
     @Override
-    public Domain getDomainById(Long domainId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Domain getDomainById(Long domainId) throws PersistenceException {
+        if (domainId == null) {
+            throw new PersistenceException("Domain ID cant be null");
+        }
+        if (!domainDB.containsKey(domainId)){
+            throw new PersistenceException("Domain with id " + domainId + " is not persisted");
+        }
+        return domainDB.get(domainId);
     }
 
     @Override
-    public List<Domain> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Domain> listAll() throws PersistenceException {
+        List<Domain> domainList = new ArrayList<>();
+        Iterator<Domain> it = domainDB.values().iterator();
+        while (it.hasNext()) {
+            domainList.add(it.next());
+        }
+        return domainList;
     }
     
 }

@@ -10,5 +10,12 @@ package br.cefetmg.jquest.model.exception;
  * @author Jota Renan
  */
 public class PersistenceException extends Exception {
+
+    public PersistenceException(String message) {
+        super(message);
+    }
     
+    public PersistenceException(Exception ex) {
+        super(ex);
+    }
 }

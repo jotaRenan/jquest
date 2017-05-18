@@ -6,6 +6,7 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Question;
+import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 
 /**
@@ -13,9 +14,9 @@ import java.util.List;
  * @author Jota Renan
  */
 public interface QuestionDAO {
-    public void insert(Question question);
-    public void update(Question question);
-    public Question remove(Long questionId);
-    public Question getQuestionById(Long questionId);
-    public List<Question> listAll(); 
+    public void insert(Question question) throws PersistenceException;
+    public void update(Question question) throws PersistenceException;
+    public Question remove(Long questionId) throws PersistenceException;
+    public Question getQuestionById(Long questionId) throws PersistenceException;
+    public List<Question> listAll() throws PersistenceException; 
 }

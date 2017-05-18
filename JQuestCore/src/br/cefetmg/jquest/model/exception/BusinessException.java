@@ -10,5 +10,11 @@ package br.cefetmg.jquest.model.exception;
  * @author Jota Renan
  */
 public class BusinessException extends Exception {
-    
+
+    public BusinessException(String message) {
+        super(message);
+    }
+    public BusinessException(Exception ex) {
+        super(ex);
+    }
 }

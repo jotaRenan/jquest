@@ -6,6 +6,7 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Domain;
+import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 
 /**
@@ -13,9 +14,9 @@ import java.util.List;
  * @author Jota Renan
  */
 public interface DomainDAO {
-    public void insert(Domain domain);
-    public void update(Domain domain);
-    public Domain remove(Long domainId);
-    public Domain getDomainById(Long domainId);
-    public List<Domain> listAll(); 
+    public void insert(Domain domain) throws PersistenceException;
+    public void update(Domain domain) throws PersistenceException;
+    public Domain remove(Long domainId) throws PersistenceException;
+    public Domain getDomainById(Long domainId) throws PersistenceException;
+    public List<Domain> listAll() throws PersistenceException; 
 }

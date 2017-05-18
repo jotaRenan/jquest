@@ -5,6 +5,7 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.ModuleDAO;
 import br.cefetmg.jquest.model.domain.Module;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -16,8 +17,14 @@ import java.util.List;
  */
 public class ModuleManagementImpl implements ModuleManagement {
 
+    private final ModuleDAO moduleDAO;
+
+    public ModuleManagementImpl(ModuleDAO moduleDAO) {
+        this.moduleDAO = moduleDAO;
+    }
+    
     @Override
-    public Long moduleInsert(Module module) throws BusinessException, PersistenceException {
+    synchronized public Long moduleInsert(Module module) throws BusinessException, PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

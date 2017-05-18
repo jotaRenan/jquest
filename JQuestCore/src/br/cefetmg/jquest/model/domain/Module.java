@@ -13,13 +13,15 @@ import java.util.List;
  */
 public class Module {
     private String name;
+    private String description;
     private Long id;
     private List<Question> questions;
 
     public Module() {}
 
-    public Module(String name, Long id, List<Question> questions) {
+    public Module(String name, String description, Long id, List<Question> questions) {
         this.name = name;
+        this.description = description;
         this.id = id;
         this.questions = questions;
     }
@@ -32,6 +34,14 @@ public class Module {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     public Long getId() {
         return id;
     }

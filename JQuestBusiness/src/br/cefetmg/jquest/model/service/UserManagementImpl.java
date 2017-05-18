@@ -5,6 +5,7 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.UserDAO;
 import br.cefetmg.jquest.model.domain.User;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -16,6 +17,12 @@ import java.util.List;
  */
 public class UserManagementImpl implements UserManagement {
 
+    private final UserDAO userDAO;
+
+    public UserManagementImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+    
     @Override
     public Long userInsert(User user) throws BusinessException, PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -6,6 +6,7 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Question;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +15,19 @@ import java.util.List;
  */
 public class QuestionDAOImpl implements QuestionDAO {
 
+    private static QuestionDAOImpl questionDAO = null;
+    private static HashMap<Long, Question> questionDB = new HashMap<Long, Question>();
+
+    private QuestionDAOImpl() {
+    }
+    
+    public static QuestionDAOImpl getInstance() {
+        if (questionDAO == null) {
+            questionDAO = new QuestionDAOImpl();
+        }
+        return questionDAO;
+    }
+    
     @Override
     public void insert(Question question) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

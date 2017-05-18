@@ -6,6 +6,7 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Domain;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,6 +14,20 @@ import java.util.List;
  * @author Aluno
  */
 public class DomainDAOImpl implements DomainDAO {
+
+    
+    private static DomainDAOImpl domainDAO = null;
+    private static HashMap<Long, Domain> domainDB = new HashMap<Long, Domain>();
+
+    private DomainDAOImpl() {
+    }
+
+    public static DomainDAOImpl getInstance() {
+        if (domainDAO == null) {
+            domainDAO = new DomainDAOImpl();
+        }
+        return domainDAO;
+    }
 
     @Override
     public void insert(Domain domain) {

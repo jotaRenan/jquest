@@ -6,6 +6,7 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Module;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,6 +14,20 @@ import java.util.List;
  * @author Aluno
  */
 public class ModuleDAOImpl implements ModuleDAO {
+
+    
+    private static ModuleDAOImpl moduleDAO = null;
+    private static HashMap<Long, Module> moduleDB = new HashMap<Long, Module>();
+
+    private ModuleDAOImpl() {
+    }
+
+    public static ModuleDAOImpl getInstance() {
+        if (moduleDAO == null) {
+            moduleDAO = new ModuleDAOImpl();
+        }
+        return moduleDAO;
+    }
 
     @Override
     public void insert(Module module) {

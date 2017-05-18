@@ -5,6 +5,7 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.QuestionDAO;
 import br.cefetmg.jquest.model.domain.Question;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -16,8 +17,14 @@ import java.util.List;
  */
 public class QuestionManagementImpl implements QuestionManagement {
 
+    private final QuestionDAO questionDAO;
+
+    public QuestionManagementImpl(QuestionDAO questionDAO) {
+        this.questionDAO = questionDAO;
+    }
+    
     @Override
-    public Question questionInsert(Question question) throws BusinessException, PersistenceException {
+    synchronized public Question questionInsert(Question question) throws BusinessException, PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

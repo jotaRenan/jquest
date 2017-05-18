@@ -5,6 +5,7 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.DomainDAO;
 import br.cefetmg.jquest.model.domain.Domain;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -16,13 +17,19 @@ import java.util.List;
  */
 public class DomainManagementImpl implements DomainManagement {
 
+    private final DomainDAO domainDAO;
+
+    public DomainManagementImpl(DomainDAO domainDAO) {
+        this.domainDAO = domainDAO;
+    }
+    
     @Override
     public List<Domain> getAll() throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Long domainInsert(Domain domain) throws BusinessException, PersistenceException {
+     synchronized public Long domainInsert(Domain domain) throws BusinessException, PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

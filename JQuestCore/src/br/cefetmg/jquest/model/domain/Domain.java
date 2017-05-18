@@ -13,13 +13,15 @@ import java.util.List;
  */
 public class Domain {
     private String name;
+    private String description;
     private Long id;
     private List<Module> modules;
 
     public Domain() {}
     
-    public Domain(String name, Long id, List<Module> modules) {
+    public Domain(String name, String description, Long id, List<Module> modules) {
         this.name = name;
+        this.description = description;
         this.id = id;
         this.modules = modules;
     }
@@ -30,6 +32,14 @@ public class Domain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {

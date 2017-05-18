@@ -5,10 +5,55 @@
  */
 package br.cefetmg.jquest.model.domain;
 
+import java.util.List;
+
 /**
  *
  * @author Aluno
  */
 public class Module {
+    private String name;
+    private Long id;
+    private List<Question> questions;
+
+    public Module() {}
+
+    public Module(String name, Long id, List<Question> questions) {
+        this.name = name;
+        this.id = id;
+        this.questions = questions;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+    
+    public void addQuestion(Question question) {
+        questions.add(question);
+    }
+    
+    public void deleteQuestion(Question question) {
+        questions.remove(question);
+    } 
     
 }

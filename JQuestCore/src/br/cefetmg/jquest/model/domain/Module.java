@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Aluno
+ * @author Paula Ribeiro
  */
 public class Module {
     private String name;

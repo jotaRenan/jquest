@@ -7,7 +7,7 @@ package br.cefetmg.jquest.model.domain;
 
 /**
  *
- * @author Aluno
+ * @author Paula Ribeiro
  */
 public class Question {
     private Long id;

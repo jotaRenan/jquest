@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author Aluno
+ * @author Paula Ribeiro
  */
 public class DomainManagementImpl implements DomainManagement {
 
@@ -24,28 +24,66 @@ public class DomainManagementImpl implements DomainManagement {
     }
     
     @Override
-    public List<Domain> getAll() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-     synchronized public Long domainInsert(Domain domain) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    synchronized public Long domainInsert(Domain domain) throws BusinessException, PersistenceException {
+        if (domain == null)
+            throw new BusinessException("Domain cannot be null");
+        
+        if (domain.getName() == null)
+            throw new BusinessException("Domain's name cannot be null");
+        
+        if (domain.getDescription() == null)
+            throw new BusinessException("Domain's description cannot be null");
+        
+        domainDAO.insert(domain);
+        return domain.getId();
     }
 
     @Override
     public void domainUpdate(Domain domain) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (domain == null)
+            throw new BusinessException("Domain cannot be null");
+        
+        if (domain.getName() == null)
+            throw new BusinessException("Domain's name cannot be null");
+        
+        if (domain.getDescription() == null)
+            throw new BusinessException("Domain's description cannot be null");
+        
+        if (domain.getId() == null)
+            throw new BusinessException("Domain's id cannot be null when updating");
+        
+        domainDAO.getDomainById(domain.getId()); //if there the id isn't valid it throws an exception
+            
+        domainDAO.update(domain);
     }
 
     @Override
     public void domainRemove(Long domainId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (domainId == null)
+            throw new PersistenceException("Domain's id cannot be null");
+        
+        domainDAO.getDomainById(domainId); //if there the id isn't valid it throws an exception
+        
+        domainDAO.remove(domainId);
+        
     }
 
     @Override
     public Domain getDomainById(Long domainId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (domainId == null)
+            throw new PersistenceException("Domain's id cannot be null");
+        
+        return domainDAO.getDomainById(domainId); //if there the id isn't valid it throws an exception
+    }
+    
+    @Override
+    public List<Domain> getAll() throws PersistenceException {
+        List<Domain> list = domainDAO.listAll();
+        
+        if (list.isEmpty())
+            throw new PersistenceException("No domains found");
+        
+        return list;
     }
     
 }

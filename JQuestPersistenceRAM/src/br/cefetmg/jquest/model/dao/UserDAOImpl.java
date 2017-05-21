@@ -33,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
     }
     
     @Override
-    synchronized public void insert(User user) throws PersistenceException {
+    synchronized public Long insert(User user) throws PersistenceException {
         if (user == null) {
             throw new PersistenceException("User cannot be null");
         }
@@ -45,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
         userId = ++userCount;
         user.setId(userId);
         userDB.put(userId, user);
+        return userId;
     }
 
     @Override
@@ -85,12 +86,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> listAll() {
-        List<User> userList = new ArrayList<>();
-        Iterator<User> it = userDB.values().iterator();
-        while (it.hasNext()) {
-            userList.add(it.next());
-        }
-        return userList;
+        return new ArrayList<>(userDB.values());
     }
-    
 }

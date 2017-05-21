@@ -25,27 +25,60 @@ public class UserManagementImpl implements UserManagement {
     
     @Override
     public Long userInsert(User user) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (user == null) {
+            throw new BusinessException("User cannot be null");
+        }
+        if (user.getId() == null) {
+            throw new BusinessException("User's ID cannot be null");
+        }
+        if (user.getName() == null) {
+            throw new BusinessException("User's email cannot be null");
+        }
+        if (user.getSenha() == null) {
+            throw new BusinessException("User's password cannot be null");
+        }
+        if (user.getEmail() == null ) {
+            throw new BusinessException("User's email cannot be null");
+        }
+        return userDAO.insert(user);
     }
 
     @Override
     public void userUpdate(User user) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (user == null) {
+            throw new BusinessException("User cannot be null");
+        }
+        if (user.getName() == null) {
+            throw new BusinessException("User's email cannot be null");
+        }
+        if (user.getSenha() == null) {
+            throw new BusinessException("User's password cannot be null");
+        }
+        if (user.getEmail() == null ) {
+            throw new BusinessException("User's email cannot be null");
+        }
+        userDAO.update(user);
     }
 
     @Override
     public void userRemove(Long userId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (userId == null) {
+            throw new PersistenceException("User's Id cannot be null");
+        }
+        userDAO.remove(userId);
     }
 
     @Override
     public User getUserById(Long userId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (userId == null) {
+            throw new PersistenceException("User's Id cannot be null");
+        }
+        return userDAO.getUserById(userId);
     }
 
     @Override
     public List<User> getAll() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return userDAO.listAll();
     }
     
 }

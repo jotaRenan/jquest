@@ -1,0 +1,9 @@
+/JQuestCore/dist/
+/JQuestCore/build/
+/JQuestCore/nbproject/private/
+/JQuestPersistenceRAM/build/
+/JQuestPersistenceRAM/nbproject/private/
+/JQuestPersistenceProstgres/nbproject/private/
+/JQuestBusiness/dist/
+/JQuestBusiness/build/
+/JQuestBusiness/nbproject/private/

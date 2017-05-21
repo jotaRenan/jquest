@@ -51,8 +51,6 @@ public class DomainManagementImpl implements DomainManagement {
         
         if (domain.getId() == null)
             throw new BusinessException("Domain's id cannot be null when updating");
-        
-        domainDAO.getDomainById(domain.getId()); //if the id isn't valid it throws an exception
             
         domainDAO.update(domain);
     }
@@ -62,10 +60,7 @@ public class DomainManagementImpl implements DomainManagement {
         if (domainId == null)
             throw new PersistenceException("Domain's id cannot be null");
         
-        domainDAO.getDomainById(domainId); //if the id isn't valid it throws an exception
-        
         domainDAO.remove(domainId);
-        
     }
 
     @Override

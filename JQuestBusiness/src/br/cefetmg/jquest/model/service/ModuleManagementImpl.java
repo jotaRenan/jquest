@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author Aluno
+ * @author Paula Ribeiro
  */
 public class ModuleManagementImpl implements ModuleManagement {
 
@@ -25,27 +25,60 @@ public class ModuleManagementImpl implements ModuleManagement {
     
     @Override
     synchronized public Long moduleInsert(Module module) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (module == null)
+            throw new BusinessException("Module cannot be null");
+        
+        if (module.getName() == null)
+            throw new BusinessException("Module's name cannot be null");
+        
+        if (module.getDescription() == null)
+            throw new BusinessException("Module's description cannot be null");
+        
+        moduleDAO.insert(module);
+        return module.getId();
     }
 
     @Override
     public void moduleUpdate(Module module) throws BusinessException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (module == null)
+            throw new BusinessException("Module cannot be null");
+        
+        if (module.getName() == null)
+            throw new BusinessException("Module's name cannot be null");
+        
+        if (module.getDescription() == null)
+            throw new BusinessException("Module's description cannot be null");
+        
+        if (module.getId() == null)
+            throw new BusinessException("Module's id cannot be null when updating");
+            
+        moduleDAO.update(module);
     }
 
     @Override
     public void moduleRemove(Long moduleId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (moduleId == null)
+            throw new PersistenceException("Module's id cannot be null");
+        
+        moduleDAO.remove(moduleId);
     }
 
     @Override
     public Module getModuleById(Long moduleId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (moduleId == null)
+            throw new PersistenceException("ModuleId's id cannot be null");
+        
+        return moduleDAO.getModuleById(moduleId); //if the id isn't valid it throws an exception
     }
 
     @Override
     public List<Module> getAll() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Module> list = moduleDAO.listAll();
+        
+        if (list.isEmpty())
+            throw new PersistenceException("No modules found");
+        
+        return list;
     }
     
 }

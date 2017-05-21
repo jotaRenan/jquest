@@ -6,7 +6,10 @@
 package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Question;
+import br.cefetmg.jquest.model.exception.PersistenceException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,6 +20,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     private static QuestionDAOImpl questionDAO = null;
     private static HashMap<Long, Question> questionDB = new HashMap<Long, Question>();
+    private static long questionCount = 0;
 
     private QuestionDAOImpl() {
     }
@@ -29,28 +33,66 @@ public class QuestionDAOImpl implements QuestionDAO {
     }
     
     @Override
-    public void insert(Question question) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    synchronized public void insert(Question question) throws PersistenceException{
+        if (question == null) {
+             throw new PersistenceException("Question cannot be null");           
+        }
+        Long questionId = question.getId();
+        
+        if (questionId != null && questionDB.containsKey(questionId)) {
+            throw new PersistenceException("Duplicate key");
+        }
+        questionId = ++questionCount;
+        question.setId(questionId);
+        questionDB.put(questionId, question);
     }
 
     @Override
-    public void update(Question question) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    synchronized public void update(Question question) throws PersistenceException {
+        if (question == null) {
+            throw new PersistenceException("Question cannot be null");
+        }
+        Long questionId = question.getId();
+        if (questionId == null) {
+            throw new PersistenceException("Entity Id cannot be null");
+        }
+        if (questionDB.containsKey(questionId)) {
+            throw new PersistenceException("Question with id " + question.getId() + " is not persisted");
+        }
+        questionDB.replace(questionId, question);
     }
 
     @Override
-    public Question remove(Long questionId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    synchronized public Question remove(Long questionId) throws PersistenceException{
+        if (questionId == null) {
+            throw new PersistenceException("Question ID cannot be null");
+        }
+        if (!questionDB.containsKey(questionId)) {
+            throw new PersistenceException("Question with id " + questionId + " is not persisted");
+        }
+        return questionDB.remove(questionId);
     }
 
     @Override
-    public Question getQuestionById(Long questionId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    synchronized public Question getQuestionById(Long questionId) throws PersistenceException{
+        if (questionId == null) {
+            throw new PersistenceException("Question ID cannot be null");
+        }
+        if (!questionDB.containsKey(questionId)) {
+            throw new PersistenceException("Question with id " + questionId + " is not persisted");
+        }
+        return questionDB.get(questionId);
     }
 
     @Override
     public List<Question> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Question> questionList = new ArrayList<>();
+        Iterator<Question> it = questionDB.values().iterator();
+        while (it.hasNext()) {
+            questionList.add(it.next());
+        }
+        return questionList;
     }
+
     
 }

@@ -54,7 +54,6 @@ public class UserDAOImpl implements UserDAO {
         }
         Long userId = user.getId();
         if (userId == null ) {
-            throw new PersistenceException("Entity Id cannot be null");
         }
         if (!userDB.containsKey(userId)) {
             throw new PersistenceException("User with id " + user.getId() + " is not persisted");

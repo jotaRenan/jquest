@@ -86,6 +86,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> listAll() {
-        return new ArrayList<>(userDB.values());
+        List<User> userList = new ArrayList<>();
+        Iterator<User> it = userDB.values().iterator();
+        while (it.hasNext()) {
+            userList.add(it.next());
+        }
+        return userList;
     }
+    
 }

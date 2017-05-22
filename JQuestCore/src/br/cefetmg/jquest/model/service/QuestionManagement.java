@@ -15,7 +15,7 @@ import java.util.List;
  * @author Jota Renan
  */
 public interface QuestionManagement {
-    public Question questionInsert(Question question) throws BusinessException, PersistenceException;
+    public Long questionInsert(Question question) throws BusinessException, PersistenceException;
     public void questionUpdate(Question question) throws BusinessException, PersistenceException;
     public void questionRemove(Long questionId) throws PersistenceException;
     public Question getQuestionById(Long questionId) throws PersistenceException;

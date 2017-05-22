@@ -9,22 +9,22 @@ package br.cefetmg.jquest.model.domain;
  *
  * @author Thalesgsn
  */
-public class OpenEndedAwnser {
+public class OpenEndedAnswer {
 
     private long idQuestion;
 
     private long idUser;
 
-    private long seqAwnserUser;
+    private long seqAnswerUser;
 
-    private String txtAwnser;
+    private String txtAnswer;
 
     private double valueScore;
 
     /**
      * Empty JavaBeans constructor.
      */
-    public OpenEndedAwnser() {
+    public OpenEndedAnswer() {
     }
 
     /**
@@ -38,12 +38,12 @@ public class OpenEndedAwnser {
      * @param TxtAwnser Refers to the awnser text of the user.
      * @param ValueGrade Refers to the grade of the user awnser
      */
-    public OpenEndedAwnser(long IdQuestion, long IdAwnser, long SeqAwnserUser,
+    public OpenEndedAnswer(long IdQuestion, long IdAwnser, long SeqAwnserUser,
             String TxtAwnser, double ValueGrade) {
         this.idQuestion = IdQuestion;
         this.idUser = IdAwnser;
-        this.seqAwnserUser = SeqAwnserUser;
-        this.txtAwnser = TxtAwnser;
+        this.seqAnswerUser = SeqAwnserUser;
+        this.txtAnswer = TxtAwnser;
         this.valueScore = ValueGrade;
     }
 
@@ -84,30 +84,30 @@ public class OpenEndedAwnser {
     }
 
     /**
-     * Get the value of txtAwnser
+     * Get the value of txtAnswer
      *
-     * @return the value of txtAwnser
+     * @return the value of txtAnswer
      */
-    public String getTxtAwnser() {
-        return txtAwnser;
+    public String getTxtAnswer() {
+        return txtAnswer;
     }
 
     /**
-     * Set the value of txtAwnser
+     * Set the value of txtAnswer
      *
-     * @param TxtAwnser new value of txtAwnser
+     * @param TxtAwnser new value of txtAnswer
      */
-    public void setTxtAwnser(String TxtAwnser) {
-        this.txtAwnser = TxtAwnser;
+    public void setTxtAnswer(String TxtAwnser) {
+        this.txtAnswer = TxtAwnser;
     }
 
     /**
-     * Get the value of seqAwnserUser
+     * Get the value of seqAnswerUser
      *
-     * @return the value of seqAwnserUser
+     * @return the value of seqAnswerUser
      */
-    public long getSeqAwnserUser() {
-        return seqAwnserUser;
+    public long getSeqAnswerUser() {
+        return seqAnswerUser;
     }
 
  
@@ -116,7 +116,7 @@ public class OpenEndedAwnser {
      *
      * @param IDAwnser new value of IDUser
      */
-    public void setIDAwnser(long IDAwnser) {
+    public void setIDAnswer(long IDAwnser) {
         this.idUser = IDAwnser;
     }
 

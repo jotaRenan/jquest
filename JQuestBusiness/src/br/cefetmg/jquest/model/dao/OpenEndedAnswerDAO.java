@@ -5,58 +5,58 @@
  */
 package br.cefetmg.jquest.model.dao;
 
-import br.cefetmg.jquest.model.domain.OpenEndedAwnser;
+import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 
 /**
  * @author Thalesgsn
  */
-public interface OpenEndedAwnserDAO {
+public interface OpenEndedAnswerDAO {
     
     /**
-     * Insert the OpenEndedAwnser object in the persistence.
-     * @param openEndedAwnser The object to be stored by the DAO.
+     * Insert the OpenEndedAnswer object in the persistence.
+     * @param openEndedAnswer The object to be stored by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void insert(OpenEndedAwnser openEndedAwnser) throws PersistenceException;
+    public void insert(OpenEndedAnswer openEndedAnswer) throws PersistenceException;
     
     /**
-     * Updates the OpenEndedAwnser object in the persistence.
-     * @param openEndedAwnser The object to be updated by the DAO.
+     * Updates the OpenEndedAnswer object in the persistence.
+     * @param openEndedAnswer The object to be updated by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void update(OpenEndedAwnser openEndedAwnser) throws PersistenceException;
+    public void update(OpenEndedAnswer openEndedAnswer) throws PersistenceException;
     
     /**
-     * Removes the OpenEndedAwnser object in the persistence.
+     * Removes the OpenEndedAnswer object in the persistence.
      * @param idQuestion The id of the question Answered.
      * @param idUser The id of the user who Answered the question.
-     * @param seqAwnserUser The sequential number of the user answer to this question.
+     * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be removed by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAwnser remove(long idQuestion, long idUser, long seqAwnserUser) throws PersistenceException;
+    public OpenEndedAnswer remove(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException;
     
     /**
-     * Get the OpenEndedAwnser object by id in the persistence.
+     * Get the OpenEndedAnswer object by id in the persistence.
      * @param idQuestion The id of the question Answered.
      * @param idUser The id of the user who Answered the question.
-     * @param seqAwnserUser The sequential number of the user answer to this question.
+     * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be removed by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAwnser getOpenEndedAwnserById(long idQuestion, long idUser, long seqAwnserUser) throws PersistenceException;
+    public OpenEndedAnswer getOpenEndedAnswerById(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException;
     
     /**
-     * List all the OpenEndedAwnser objects in the persistence.
-     * @return A <b>List</b> of all OpenEndedAwnsers Objects.
+     * List all the OpenEndedAnswer objects in the persistence.
+     * @return A <b>List</b> of all OpenEndedAnswers Objects.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public List<OpenEndedAwnser> listAll() throws PersistenceException; 
+    public List<OpenEndedAnswer> listAll() throws PersistenceException; 
 }

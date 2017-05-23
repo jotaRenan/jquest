@@ -29,15 +29,17 @@ public class UserManagementImpl implements UserManagement {
             throw new BusinessException("User cannot be null");
         }
         if (user.getId() == null) {
-            throw new BusinessException("User's ID cannot be null");
+            throw new BusinessException("User's ID is required");
         }
-        if (user.getName() == null) {
-            throw new BusinessException("User's email cannot be null");
+        if (user.getName() == null
+                || user.getName().equals("")) {
+            throw new BusinessException("User's name cannot be null");
         }
         if (user.getSenha() == null) {
             throw new BusinessException("User's password cannot be null");
         }
-        if (user.getEmail() == null ) {
+        if (user.getEmail() == null
+                || user.getEmail().equals("")) {
             throw new BusinessException("User's email cannot be null");
         }
         return userDAO.insert(user);

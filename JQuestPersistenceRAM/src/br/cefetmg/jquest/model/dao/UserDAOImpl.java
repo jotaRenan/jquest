@@ -21,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
     private static UserDAOImpl userDAO = null;
     private static HashMap<Long, User> userDB = new HashMap<Long, User>();
     private static long userCount = 0;
-    private UserDAOImpl(){
+    public UserDAOImpl(){
         
     }
     
@@ -72,6 +72,7 @@ public class UserDAOImpl implements UserDAO {
         if (!userDB.containsKey(userId)){
             throw new PersistenceException("User with id " + userId + " is not persisted");
         }
+        userCount--;
         return userDB.remove(userId);
     }
 

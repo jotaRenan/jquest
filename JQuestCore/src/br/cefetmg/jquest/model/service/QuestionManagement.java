@@ -19,5 +19,7 @@ public interface QuestionManagement {
     public void questionUpdate(Question question) throws BusinessException, PersistenceException;
     public void questionRemove(Long questionId) throws PersistenceException;
     public Question getQuestionById(Long questionId) throws PersistenceException;
+    public List<Question> getQuestionByModuleId(Long moduleId) throws PersistenceException;
+    public List<Question> getQuestionByDomainId(Long domainId) throws PersistenceException;
     public List<Question> getAll() throws PersistenceException;
 }

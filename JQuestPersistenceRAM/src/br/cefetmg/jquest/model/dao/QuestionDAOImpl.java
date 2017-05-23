@@ -94,5 +94,16 @@ public class QuestionDAOImpl implements QuestionDAO {
         return questionList;
     }
 
+    @Override
+    public List<Question> getQuestionsByModuleId(Long moduleId) throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Question> getQuestionsByDomainId(Long domainId) throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     
 }

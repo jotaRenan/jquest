@@ -18,5 +18,7 @@ public interface QuestionDAO {
     public void update(Question question) throws PersistenceException;
     public Question remove(Long questionId) throws PersistenceException;
     public Question getQuestionById(Long questionId) throws PersistenceException;
+    public List<Question> getQuestionsByModuleId(Long moduleId) throws PersistenceException;
+    public List<Question> getQuestionsByDomainId(Long domainId) throws PersistenceException;
     public List<Question> listAll() throws PersistenceException; 
 }

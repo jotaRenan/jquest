@@ -59,6 +59,7 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {
+            domain.setName("Teste");
             return;
         }
         fail("Domain with null name registered");
@@ -70,6 +71,7 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {
+            domain.setDescription("Teste");
             return;
         }
         fail("Domain with null description registered");

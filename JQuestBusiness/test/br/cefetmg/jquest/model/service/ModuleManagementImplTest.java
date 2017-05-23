@@ -59,6 +59,7 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleInsert(module);
         } catch (BusinessException | PersistenceException ex) {
+            module.setName("Teste");
             return;
         }
         fail("Module with null name registered");
@@ -70,6 +71,7 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleInsert(module);
         } catch (BusinessException | PersistenceException ex) {
+            module.setDescription("Teste");
             return;
         }
         fail("Module with null description registered");

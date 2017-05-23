@@ -36,19 +36,19 @@ public class Question {
         this.id = id;
     }
 
-    public Long getDomain() {
+    public Long getDomainId() {
         return domainId;
     }
 
-    public void setDomain(Long domainId) {
+    public void setDomainId(Long domainId) {
         this.domainId = domainId;
     }
 
-    public Long getModule() {
+    public Long getModuleId() {
         return moduleId;
     }
 
-    public void setModule(Long moduleId) {
+    public void setModuleId(Long moduleId) {
         this.moduleId = moduleId;
     }
 

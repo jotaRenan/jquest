@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author Aluno
+ * @author Gabriel Haddad
  */
 public class QuestionManagementImpl implements QuestionManagement {
 
@@ -28,26 +28,22 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question == null)
             throw new BusinessException("Question cannot be null");
         
-        if (question.getId() == null)
-            throw new BusinessException("Question's Id cannot be null");
-        
-        if (question.getEnunciado() == null)
+        if (question.getHeadline() == null)
             throw new BusinessException("Question's statement cannot be null");
         
-        if (question.getDificuldade() == null)
+        if (question.getDificulty() == null)
             throw new BusinessException("Question's dificulty cannot be null");
         
-        if (question.getDomain()== null)
+        if (question.getDomainId()== null)
             throw new BusinessException("Question's domain cannot be null");
         
-        if (question.getModule()== null)
+        if (question.getModuleId()== null)
             throw new BusinessException("Question's module cannot be null");
         
-        if (question.getTipo() == ' ')
+        if (question.getType() == ' ')
             throw new BusinessException("Question's type cannot be empty");
                     
-        questionDAO.insert(question);
-        return question.getId();
+        return questionDAO.insert(question);
     }
 
     @Override
@@ -58,19 +54,19 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question.getId() == null) 
             throw new BusinessException("Question's Id cannot be null");
 
-        if (question.getEnunciado() == null) 
+        if (question.getHeadline() == null) 
             throw new BusinessException("Question's statement cannot be null");
 
-        if (question.getDificuldade() == null)
+        if (question.getDificulty() == null)
             throw new BusinessException("Question's description cannot be null");
 
-        if (question.getDomain() == null) 
+        if (question.getDomainId() == null) 
             throw new BusinessException("Question's domain cannot be null");
 
-        if (question.getModule() == null) 
+        if (question.getModuleId() == null) 
             throw new BusinessException("Question's module cannot be null");
         
-        if (question.getTipo() == ' ')
+        if (question.getType() == ' ')
             throw new BusinessException("Question's type cannot be empty");
 
         questionDAO.update(question);

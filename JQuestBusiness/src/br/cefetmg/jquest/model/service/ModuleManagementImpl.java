@@ -28,6 +28,9 @@ public class ModuleManagementImpl implements ModuleManagement {
         if (module == null)
             throw new BusinessException("Module cannot be null");
         
+        if (module.getDomainId() == null)
+            throw new BusinessException("Module's domain cannot be null");
+            
         if (module.getName() == null)
             throw new BusinessException("Module's name cannot be null");
         

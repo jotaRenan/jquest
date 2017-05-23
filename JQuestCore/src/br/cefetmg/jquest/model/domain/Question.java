@@ -11,21 +11,21 @@ package br.cefetmg.jquest.model.domain;
  */
 public class Question {
     private Long id;
-    private Long domainId;
-    private Long moduleId;
+    private Domain domain;
+    private Module module;
     private String headline;
     private String dificulty;
     private char type;
 
     public Question() {}
 
-    public Question(Long id, Long domainId, Long moduleId, String headline, String dificulty, char type) {
+    public Question(Long id, Domain domain, Module module, String enunciado, String dificuldade, char tipo) {
         this.id = id;
-        this.domainId = domainId;
-        this.moduleId = moduleId;
-        this.headline = headline;
-        this.dificulty = dificulty;
-        this.type = type;
+        this.domain = domain;
+        this.module = module;
+        this.headline = enunciado;
+        this.dificulty = dificuldade;
+        this.type = tipo;
     }
 
     public Long getId() {
@@ -36,44 +36,44 @@ public class Question {
         this.id = id;
     }
 
-    public Long getDomainId() {
-        return domainId;
+    public Domain getDomain() {
+        return domain;
     }
 
-    public void setDomainId(Long domainId) {
-        this.domainId = domainId;
+    public void setDomain(Domain domain) {
+        this.domain = domain;
     }
 
-    public Long getModuleId() {
-        return moduleId;
+    public Module getModule() {
+        return module;
     }
 
-    public void setModuleId(Long moduleId) {
-        this.moduleId = moduleId;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
-    public String getHeadline() {
+    public String getEnunciado() {
         return headline;
     }
 
-    public void setHeadline(String enunciado) {
+    public void setEnunciado(String enunciado) {
         this.headline = enunciado;
     }
 
-    public String getDificulty() {
+    public String getDificuldade() {
         return dificulty;
     }
 
-    public void setDificulty(String dificulty) {
-        this.dificulty = dificulty;
+    public void setDificuldade(String dificuldade) {
+        this.dificulty = dificuldade;
     }
 
-    public char getType() {
+    public char getTipo() {
         return type;
     }
 
-    public void setType(char type) {
-        this.type = type;
+    public void setTipo(char tipo) {
+        this.type = tipo;
     }
     
 }

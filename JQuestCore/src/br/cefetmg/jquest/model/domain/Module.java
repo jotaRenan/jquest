@@ -14,16 +14,14 @@ import java.util.List;
 public class Module {
     private String name;
     private String description;
-    private Long domainId;
     private Long id;
     private List<Question> questions;
 
     public Module() {}
 
-    public Module(String name, String description, Long domainId, Long id, List<Question> questions) {
+    public Module(String name, String description, Long id, List<Question> questions) {
         this.name = name;
         this.description = description;
-        this.domainId = domainId;
         this.id = id;
         this.questions = questions;
     }
@@ -42,14 +40,6 @@ public class Module {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getDomainId() {
-        return domainId;
-    }
-
-    public void setDomainId(Long domainId) {
-        this.domainId = domainId;
     }
     
     public Long getId() {

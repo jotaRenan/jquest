@@ -14,7 +14,7 @@ import java.util.List;
  * @author Jota Renan
  */
 public interface ModuleDAO {
-    public void insert(Module module) throws PersistenceException;
+    public Long insert(Module module) throws PersistenceException;
     public void update(Module module) throws PersistenceException;
     public Module remove(Long moduleId) throws PersistenceException;
     public Module getModuleById(Long moduleId) throws PersistenceException;

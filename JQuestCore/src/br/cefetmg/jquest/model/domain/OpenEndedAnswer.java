@@ -11,11 +11,11 @@ package br.cefetmg.jquest.model.domain;
  */
 public class OpenEndedAnswer {
 
-    private long idQuestion;
+    private Long idQuestion;
 
-    private long idUser;
+    private Long idUser;
 
-    private long seqAnswerUser;
+    private Long seqAnswerUser;
 
     private String txtAnswer;
 
@@ -38,7 +38,7 @@ public class OpenEndedAnswer {
      * @param TxtAwnser Refers to the awnser text of the user.
      * @param ValueGrade Refers to the grade of the user awnser
      */
-    public OpenEndedAnswer(long IdQuestion, long IdAwnser, long SeqAwnserUser,
+    public OpenEndedAnswer(Long IdQuestion, Long IdAwnser, Long SeqAwnserUser,
             String TxtAwnser, double ValueGrade) {
         this.idQuestion = IdQuestion;
         this.idUser = IdAwnser;
@@ -52,7 +52,7 @@ public class OpenEndedAnswer {
      *
      * @return the value of idUser
      */
-    public long getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
@@ -61,7 +61,7 @@ public class OpenEndedAnswer {
      *
      * @param idUser new value of idUser
      */
-    public void setIdUser(long idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
@@ -106,7 +106,7 @@ public class OpenEndedAnswer {
      *
      * @return the value of seqAnswerUser
      */
-    public long getSeqAnswerUser() {
+    public Long getSeqAnswerUser() {
         return seqAnswerUser;
     }
 
@@ -116,7 +116,7 @@ public class OpenEndedAnswer {
      *
      * @param IDAwnser new value of IDUser
      */
-    public void setIDAnswer(long IDAwnser) {
+    public void setIDAnswer(Long IDAwnser) {
         this.idUser = IDAwnser;
     }
 
@@ -125,7 +125,7 @@ public class OpenEndedAnswer {
      *
      * @return the value of iDQuestion
      */
-    public long getIDQuestion() {
+    public Long getIDQuestion() {
         return idQuestion;
     }
 
@@ -134,7 +134,7 @@ public class OpenEndedAnswer {
      *
      * @param IdQuestion The id of the question Answered. new value of iDQuestion
      */
-    public void setIdQuestion(long IdQuestion) {
+    public void setIdQuestion(Long IdQuestion) {
         this.idQuestion = IdQuestion;
     }
 

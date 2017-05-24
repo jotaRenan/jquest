@@ -35,37 +35,73 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
     }
 
     @Override
-    public void insert(OpenEndedAnswer openEndedAnswer)
+    synchronized public void insert(OpenEndedAnswer openEndedAnswer)
             throws PersistenceException {
+        if(openEndedAnswer == null)
+            throw new PersistenceException("The object openEndedAwnser cannot be null.");
+        if(openEndedAnswer.getIDQuestion() == null || openEndedAnswer.getIdUser() == null || openEndedAnswer.getSeqAnswerUser() == null)
+            throw new PersistenceException("None of the idQuestion or iduser or seqAnswer can be null.");
+        
+        
         UID id = new UID(openEndedAnswer.getIDQuestion(), 
                 openEndedAnswer.getIdUser(), openEndedAnswer.getSeqAnswerUser());
+        
+        if(openEndedDB.containsKey(id))
+            throw new PersistenceException("Question already inserted, or duplicated key.");
+            
         openEndedDB.put(id, openEndedAnswer);
     }
 
     @Override
-    public void update(OpenEndedAnswer openEndedAnswer) throws PersistenceException {
+    synchronized public void update(OpenEndedAnswer openEndedAnswer) throws PersistenceException {
+        if(openEndedAnswer == null)
+         throw new PersistenceException("The object openEndedAwnser cannot be null.");
+        
+        if(openEndedAnswer.getIDQuestion() == null || openEndedAnswer.getIdUser() == null || openEndedAnswer.getSeqAnswerUser() == null){
+            throw new PersistenceException("None of the idQuestion or iduser or seqAnswer can be null.");
+        }
+        
         UID id = new UID(openEndedAnswer.getIDQuestion(), 
                 openEndedAnswer.getIdUser(), openEndedAnswer.getSeqAnswerUser());
+      
+        if(!openEndedDB.containsKey(id))
+            throw new PersistenceException("There isn't a question with this key on the persistence.");
+        
         openEndedDB.replace(id, openEndedAnswer);
     }
 
     @Override
-    public OpenEndedAnswer remove(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException {
+    synchronized public OpenEndedAnswer remove(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException {
+        if(idQuestion == null || idUser == null || seqAnswerUser == null){
+            throw new PersistenceException("None of the parameters can be null.");
+        }
         UID id = new UID(idQuestion, idUser, seqAnswerUser);
+         if(!openEndedDB.containsKey(id))
+            throw new PersistenceException("There isn't a question with this key on the persistence.");
+        
         OpenEndedAnswer aux = openEndedDB.get(id);
         openEndedDB.remove(id);
         return aux;
     }
 
     @Override
-    public OpenEndedAnswer getOpenEndedAnswerById(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException {
+    synchronized public OpenEndedAnswer getOpenEndedAnswerById(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException {
+        if(idQuestion == null || idUser == null || seqAnswerUser == null){
+            throw new PersistenceException("None of the parameters can be null.");
+        }
         UID id = new UID(idQuestion, idUser, seqAnswerUser);
+         if(!openEndedDB.containsKey(id))
+            throw new PersistenceException("There isn't a question with this key on the persistence.");
+        
         return openEndedDB.get(id);
     }
 
     @Override
-    public List<OpenEndedAnswer> listAll() throws PersistenceException {
+    synchronized public List<OpenEndedAnswer> listAll() throws PersistenceException {
         List<OpenEndedAnswer> aux = new ArrayList(openEndedDB.values());
+        if(aux.isEmpty())
+            throw new PersistenceException("There isn't elements in the List.");
+        
         return aux;
     }
         
@@ -75,37 +111,37 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
  * @author Thalesgsn
  */
 class UID{
-  private long idQuestion; 
-  private long idUser; 
-  private long seqAnswerUser;
+  private Long idQuestion; 
+  private Long idUser; 
+  private Long seqAnswerUser;
 
-    public UID(long idQuestion, long idUser, long seqAnswerUser) {
+    public UID(Long idQuestion, Long idUser, Long seqAnswerUser) {
         this.idQuestion = idQuestion;
         this.idUser = idUser;
         this.seqAnswerUser = seqAnswerUser;
     }
 
-    public long getIdQuestion() {
+    public Long getIdQuestion() {
         return idQuestion;
     }
 
-    public void setIdQuestion(long idQuestion) {
+    public void setIdQuestion(Long idQuestion) {
         this.idQuestion = idQuestion;
     }
 
-    public long getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 
-    public long getSeqAnswerUser() {
+    public Long getSeqAnswerUser() {
         return seqAnswerUser;
     }
 
-    public void setSeqAnswerUser(long seqAnswerUser) {
+    public void setSeqAnswerUser(Long seqAnswerUser) {
         this.seqAnswerUser = seqAnswerUser;
     }
     

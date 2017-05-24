@@ -20,12 +20,13 @@ public interface OpenEndedAnswerManagement {
      * Apply the business rules and insert the OpenEndedAnswer object in the 
  persistence.
      * @param openEndedAnswer The object to be stored by the DAO.
+     * @return The seq of user answer. 
      * @throws br.cefetmg.jquest.model.exception.BusinessException When some 
      * business rule were broken;
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void OpenEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
+    public Long OpenEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
      
     /**
      * Apply the business rules and updates the OpenEndedAnswer object in the 
@@ -46,7 +47,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void OpenEndedAnswerRemove(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException;
+    public void OpenEndedAnswerRemove(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the OpenEndedAnswer object by id in the persistence.
@@ -57,7 +58,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer getOpenEndedAnswerById(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException;
+    public OpenEndedAnswer getOpenEndedAnswerById(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException;
    
     /**
      * List all the OpenEndedAnswer objects in the persistence.

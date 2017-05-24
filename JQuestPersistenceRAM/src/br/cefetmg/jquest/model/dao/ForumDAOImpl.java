@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ForumDAOImpl implements ForumDAO {
     private static ForumDAOImpl Instance = null;
-    private final HashMap<UniqueID, Forum> forumDB;
+    private final HashMap<ForumID, Forum> forumDB;
     
     private ForumDAOImpl() {
       this.forumDB = new HashMap<>();
@@ -42,7 +42,7 @@ public class ForumDAOImpl implements ForumDAO {
             throw new PersistenceException("None of the QuestionId or discussionSeq can be null.");
         
         
-        UniqueID id = new UniqueID(forum.getQuestionId(), 
+        ForumID id = new ForumID(forum.getQuestionId(), 
                 forum.getDiscussionSeq());
         
         if(forumDB.containsKey(id))
@@ -59,7 +59,7 @@ public class ForumDAOImpl implements ForumDAO {
             throw new PersistenceException("None of the QuestionId or discussionSeq can be null.");
         
         
-        UniqueID id = new UniqueID(forum.getQuestionId(), 
+        ForumID id = new ForumID(forum.getQuestionId(), 
                 forum.getDiscussionSeq());
         
 
@@ -75,7 +75,7 @@ public class ForumDAOImpl implements ForumDAO {
         if(questionID == null || discussionSeq == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        UniqueID id = new UniqueID(questionID, discussionSeq);
+        ForumID id = new ForumID(questionID, discussionSeq);
          if(!forumDB.containsKey(id))
             throw new PersistenceException("There isn't a forum with this key on the persistence.");
         
@@ -89,7 +89,7 @@ public class ForumDAOImpl implements ForumDAO {
         if(questionID == null || discussionSeq == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        UniqueID id = new UniqueID(questionID, discussionSeq);
+        ForumID id = new ForumID(questionID, discussionSeq);
          if(!forumDB.containsKey(id))
             throw new PersistenceException("There isn't a forum with this key on the persistence.");
         
@@ -105,15 +105,15 @@ public class ForumDAOImpl implements ForumDAO {
         return aux;
     }
 }
-class UniqueID{
+class ForumID{
     private Long questionID;
     
     private Long discussionSeq;
 
-    public UniqueID() {
+    public ForumID() {
     }
 
-    public UniqueID(Long questionID, Long discussionSeq) {
+    public ForumID(Long questionID, Long discussionSeq) {
         this.questionID = questionID;
         this.discussionSeq = discussionSeq;
     }

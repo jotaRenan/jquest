@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
     private static OpenEndedAnswerDAOImpl Instance = null;
-    private final HashMap<UID, OpenEndedAnswer> openEndedDB;
+    private final HashMap<OpenEndedAnswerID, OpenEndedAnswer> openEndedDB;
     
     private OpenEndedAnswerDAOImpl() {
       this.openEndedDB = new HashMap<>();
@@ -43,7 +43,7 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
             throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         
         
-        UID id = new UID(openEndedAnswer.getquestionID(), 
+        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getquestionID(), 
                 openEndedAnswer.getuserID(), openEndedAnswer.getSeqAnswerUser());
         
         if(openEndedDB.containsKey(id))
@@ -61,7 +61,7 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
             throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         }
         
-        UID id = new UID(openEndedAnswer.getquestionID(), 
+        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getquestionID(), 
                 openEndedAnswer.getuserID(), openEndedAnswer.getSeqAnswerUser());
       
         if(!openEndedDB.containsKey(id))
@@ -75,7 +75,7 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
         if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        UID id = new UID(questionID, userID, seqAnswerUser);
+        OpenEndedAnswerID id = new OpenEndedAnswerID(questionID, userID, seqAnswerUser);
          if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
@@ -89,7 +89,7 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
         if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        UID id = new UID(questionID, userID, seqAnswerUser);
+        OpenEndedAnswerID id = new OpenEndedAnswerID(questionID, userID, seqAnswerUser);
          if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
@@ -110,12 +110,12 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
  * A simple private class that supports the ID needed to the RAMPersistence.
  * @author Thalesgsn
  */
-class UID{
+class OpenEndedAnswerID{
   private Long questionID; 
   private Long userID; 
   private Long seqAnswerUser;
 
-    public UID(Long questionID, Long userID, Long seqAnswerUser) {
+    public OpenEndedAnswerID(Long questionID, Long userID, Long seqAnswerUser) {
         this.questionID = questionID;
         this.userID = userID;
         this.seqAnswerUser = seqAnswerUser;

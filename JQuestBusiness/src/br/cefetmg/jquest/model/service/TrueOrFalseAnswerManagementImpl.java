@@ -84,7 +84,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
 
     @Override
     public TrueOrFalseAnswer remove(Long tofAnswerId) throws PersistenceException, BusinessException {
-        if (tofAnswerId != null) {
+        if (tofAnswerId == null) {
             throw new BusinessException("No Answer ID was informed");
         }
         return tofadao.remove(tofAnswerId);
@@ -92,7 +92,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
 
     @Override
     public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws BusinessException, PersistenceException {
-        if (tofAnswerId != null) {
+        if (tofAnswerId == null) {
             throw new BusinessException("No Answer ID was informed");
         }
         return tofadao.getToFAnswerById(tofAnswerId);

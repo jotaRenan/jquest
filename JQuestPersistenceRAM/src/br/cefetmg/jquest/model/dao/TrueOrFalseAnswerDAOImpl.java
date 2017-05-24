@@ -80,7 +80,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO {
         if (!trueOrFalseAnswerDB.containsKey(tofAnswerId)) {
             throw new PersistenceException("Answer with id " + tofAnswerId + " is not persisted");
         }
-        return trueOrFalseAnswerDB.remove(tofAnswerId);
+        return trueOrFalseAnswerDB.get(tofAnswerId);
     }
 
     @Override

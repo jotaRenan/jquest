@@ -30,9 +30,6 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question == null)
             throw new BusinessException("Question cannot be null");
         
-        if (question.getId() == null)
-            throw new BusinessException("Question's Id cannot be null");
-        
         if (question.getHeadline() == null)
             throw new BusinessException("Question's statement cannot be null");
         

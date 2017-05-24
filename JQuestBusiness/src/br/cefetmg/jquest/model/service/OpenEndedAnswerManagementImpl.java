@@ -15,20 +15,20 @@ import java.util.List;
  *
  * @author Thalesgsn
  */
-public class OpenEndedManagementImpl implements OpenEndedAnswerManagement{
+public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
     
     private OpenEndedAnswerDAO DAO;
 
     /**
      * Empty contructor for a javabeans object.
      */
-    public OpenEndedManagementImpl() { }
+    public OpenEndedAnswerManagementImpl() { }
 
     /**
      * Constructor that injects the DAO persistence dependency.
      * @param DAO The Data Acess Object that carry the persistence dependency. 
      */
-    public OpenEndedManagementImpl(OpenEndedAnswerDAO DAO) {
+    public OpenEndedAnswerManagementImpl(OpenEndedAnswerDAO DAO) {
         this.DAO = DAO;
     }
     

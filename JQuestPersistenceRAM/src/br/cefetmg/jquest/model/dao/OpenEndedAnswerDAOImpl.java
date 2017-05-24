@@ -39,12 +39,12 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
             throws PersistenceException {
         if(openEndedAnswer == null)
             throw new PersistenceException("The object openEndedAwnser cannot be null.");
-        if(openEndedAnswer.getIDQuestion() == null || openEndedAnswer.getIdUser() == null || openEndedAnswer.getSeqAnswerUser() == null)
-            throw new PersistenceException("None of the idQuestion or iduser or seqAnswer can be null.");
+        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
+            throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         
         
-        UID id = new UID(openEndedAnswer.getIDQuestion(), 
-                openEndedAnswer.getIdUser(), openEndedAnswer.getSeqAnswerUser());
+        UID id = new UID(openEndedAnswer.getquestionID(), 
+                openEndedAnswer.getuserID(), openEndedAnswer.getSeqAnswerUser());
         
         if(openEndedDB.containsKey(id))
             throw new PersistenceException("Question already inserted, or duplicated key.");
@@ -57,12 +57,12 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
         if(openEndedAnswer == null)
          throw new PersistenceException("The object openEndedAwnser cannot be null.");
         
-        if(openEndedAnswer.getIDQuestion() == null || openEndedAnswer.getIdUser() == null || openEndedAnswer.getSeqAnswerUser() == null){
-            throw new PersistenceException("None of the idQuestion or iduser or seqAnswer can be null.");
+        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+            throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         }
         
-        UID id = new UID(openEndedAnswer.getIDQuestion(), 
-                openEndedAnswer.getIdUser(), openEndedAnswer.getSeqAnswerUser());
+        UID id = new UID(openEndedAnswer.getquestionID(), 
+                openEndedAnswer.getuserID(), openEndedAnswer.getSeqAnswerUser());
       
         if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
@@ -71,11 +71,11 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
     }
 
     @Override
-    synchronized public OpenEndedAnswer remove(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException {
-        if(idQuestion == null || idUser == null || seqAnswerUser == null){
+    synchronized public OpenEndedAnswer remove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+        if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        UID id = new UID(idQuestion, idUser, seqAnswerUser);
+        UID id = new UID(questionID, userID, seqAnswerUser);
          if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
@@ -85,11 +85,11 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
     }
 
     @Override
-    synchronized public OpenEndedAnswer getOpenEndedAnswerById(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException {
-        if(idQuestion == null || idUser == null || seqAnswerUser == null){
+    synchronized public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+        if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        UID id = new UID(idQuestion, idUser, seqAnswerUser);
+        UID id = new UID(questionID, userID, seqAnswerUser);
          if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
@@ -111,30 +111,30 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
  * @author Thalesgsn
  */
 class UID{
-  private Long idQuestion; 
-  private Long idUser; 
+  private Long questionID; 
+  private Long userID; 
   private Long seqAnswerUser;
 
-    public UID(Long idQuestion, Long idUser, Long seqAnswerUser) {
-        this.idQuestion = idQuestion;
-        this.idUser = idUser;
+    public UID(Long questionID, Long userID, Long seqAnswerUser) {
+        this.questionID = questionID;
+        this.userID = userID;
         this.seqAnswerUser = seqAnswerUser;
     }
 
-    public Long getIdQuestion() {
-        return idQuestion;
+    public Long getquestionID() {
+        return questionID;
     }
 
-    public void setIdQuestion(Long idQuestion) {
-        this.idQuestion = idQuestion;
+    public void setquestionID(Long questionID) {
+        this.questionID = questionID;
     }
 
-    public Long getIdUser() {
-        return idUser;
+    public Long getuserID() {
+        return userID;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setuserID(Long userID) {
+        this.userID = userID;
     }
 
     public Long getSeqAnswerUser() {

@@ -41,24 +41,24 @@ public interface OpenEndedAnswerManagement {
     
     /**
      * Removes the OpenEndedAnswer object in the persistence.
-     * @param idQuestion The id of the question Answered. The id of the question Answered.
-     * @param idUser The id of the user who Answered the question. The id of the user who Answered the question.
+     * @param questionID The id of the question Answered. The id of the question Answered.
+     * @param userID The id of the user who Answered the question. The id of the user who Answered the question.
      * @param seqAnswerUser The sequential number of the user answer to this question. The sequential number of the user answer to this question.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void OpenEndedAnswerRemove(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException;
+    public void OpenEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the OpenEndedAnswer object by id in the persistence.
-     * @param idQuestion The id of the question Answered.
-     * @param idUser The id of the user who Answered the question.
+     * @param questionID The id of the question Answered.
+     * @param userID The id of the user who Answered the question.
      * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be returned by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer getOpenEndedAnswerById(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException;
+    public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
    
     /**
      * List all the OpenEndedAnswer objects in the persistence.

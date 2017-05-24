@@ -42,7 +42,7 @@ public class ForumManagementImpl implements ForumManagement {
             throw new BusinessException("The object Forum cannot be null.");
         }
         if(forum.getQuestionId()== null || forum.getDiscussionSeq()== null){
-            throw new BusinessException("None of the QuestionID or iduser or seqAnswer can be null.");
+            throw new BusinessException("None of the QuestionID or discussionSeq or seqAnswer can be null.");
         }
         if(forum.equals(new Forum())){
             throw new BusinessException("The object Forum cannot be empty.");

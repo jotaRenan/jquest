@@ -11,9 +11,9 @@ package br.cefetmg.jquest.model.domain;
  */
 public class OpenEndedAnswer {
 
-    private Long idQuestion;
+    private Long questionID;
 
-    private Long idUser;
+    private Long userID;
 
     private Long seqAnswerUser;
 
@@ -30,39 +30,39 @@ public class OpenEndedAnswer {
     /**
      * Complete constructor.
      *
-     * @param IdQuestion The id of the question Answered. Refers to the ID of the question to be awnsered in the
+     * @param questionID The id of the question Answered. Refers to the ID of the question to be awnsered in the
      * database.
-     * @param IdAwnser Refers to the ID of this awnser in the database.
-     * @param SeqAwnserUser The sequential number of the user answer to this question. Refers to the sequence of the user awnser in this
+     * @param idAwnser Refers to the ID of this awnser in the database.
+     * @param seqAnswerUser The sequential number of the user answer to this question. Refers to the sequence of the user awnser in this
      * question.
-     * @param TxtAwnser Refers to the awnser text of the user.
-     * @param ValueGrade Refers to the grade of the user awnser
+     * @param txtAwnser Refers to the awnser text of the user.
+     * @param valueGrade Refers to the grade of the user awnser
      */
-    public OpenEndedAnswer(Long IdQuestion, Long IdAwnser, Long SeqAwnserUser,
-            String TxtAwnser, double ValueGrade) {
-        this.idQuestion = IdQuestion;
-        this.idUser = IdAwnser;
-        this.seqAnswerUser = SeqAwnserUser;
-        this.txtAnswer = TxtAwnser;
-        this.valueScore = ValueGrade;
+    public OpenEndedAnswer(Long questionID, Long idAwnser, Long seqAnswerUser,
+            String txtAwnser, double valueGrade) {
+        this.questionID = questionID;
+        this.userID = idAwnser;
+        this.seqAnswerUser = seqAnswerUser;
+        this.txtAnswer = txtAwnser;
+        this.valueScore = valueGrade;
     }
 
     /**
-     * Get the value of idUser
+     * Get the value of userID
      *
-     * @return the value of idUser
+     * @return the value of userID
      */
-    public Long getIdUser() {
-        return idUser;
+    public Long getuserID() {
+        return userID;
     }
 
     /**
-     * Set the value of idUser
+     * Set the value of userID
      *
-     * @param idUser new value of idUser
+     * @param userID new value of userID
      */
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    public void setuserID(Long userID) {
+        this.userID = userID;
     }
 
     /**
@@ -112,30 +112,30 @@ public class OpenEndedAnswer {
 
  
     /**
-     * Set the value of IDUser
+     * Set the value of userID
      *
-     * @param IDAwnser new value of IDUser
+     * @param IDAwnser new value of userID
      */
     public void setIDAnswer(Long IDAwnser) {
-        this.idUser = IDAwnser;
+        this.userID = IDAwnser;
     }
 
     /**
-     * Get the value of iDQuestion
+     * Get the value of questionID
      *
-     * @return the value of iDQuestion
+     * @return the value of questionID
      */
-    public Long getIDQuestion() {
-        return idQuestion;
+    public Long getquestionID() {
+        return questionID;
     }
 
     /**
-     * Set the value of iDQuestion
+     * Set the value of questionID
      *
-     * @param IdQuestion The id of the question Answered. new value of iDQuestion
+     * @param questionID The id of the question Answered. new value of questionID
      */
-    public void setIdQuestion(Long IdQuestion) {
-        this.idQuestion = IdQuestion;
+    public void setQuestionID(Long questionID) {
+        this.questionID = questionID;
     }
 
 }

@@ -46,8 +46,8 @@ public class OpenEndedManagementImpl implements OpenEndedAnswerManagement{
         if(openEndedAnswer == null){
             throw new BusinessException("The object OpenEndedAnswer cannot be null.");
         }
-        if(openEndedAnswer.getIDQuestion() == null || openEndedAnswer.getIdUser() == null || openEndedAnswer.getSeqAnswerUser() == null){
-            throw new BusinessException("None of the idQuestion or iduser or seqAnswer can be null.");
+        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
         if(openEndedAnswer.equals(new OpenEndedAnswer())){
             throw new BusinessException("The object OpenEndedAnswer cannot be empty.");
@@ -65,8 +65,8 @@ public class OpenEndedManagementImpl implements OpenEndedAnswerManagement{
         if(openEndedAnswer == null){
             throw new BusinessException("The object cannot be null.");
         }
-        if(openEndedAnswer.getIDQuestion() == null || openEndedAnswer.getIdUser() == null || openEndedAnswer.getSeqAnswerUser() == null){
-            throw new BusinessException("None of the idQuestion or iduser or seqAnswer can be null.");
+        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
         if(openEndedAnswer.equals(new OpenEndedAnswer())){
             throw new BusinessException("The object cannot be empty.");
@@ -79,19 +79,19 @@ public class OpenEndedManagementImpl implements OpenEndedAnswerManagement{
     }
 
     @Override
-    public void OpenEndedAnswerRemove(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException {
-        if(idQuestion == null || idUser == null || seqAnswerUser == null){
+    public void OpenEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+        if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         } 
-        DAO.remove(idQuestion, idUser, seqAnswerUser);
+        DAO.remove(questionID, userID, seqAnswerUser);
     }
 
     @Override
-    public OpenEndedAnswer getOpenEndedAnswerById(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException {
-        if(idQuestion == null || idUser == null || seqAnswerUser == null){
+    public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+        if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        return DAO.getOpenEndedAnswerById(idQuestion, idUser, seqAnswerUser);
+        return DAO.getOpenEndedAnswerById(questionID, userID, seqAnswerUser);
     }
 
     @Override

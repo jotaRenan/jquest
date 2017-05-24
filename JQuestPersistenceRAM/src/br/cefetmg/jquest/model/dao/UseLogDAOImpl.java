@@ -37,16 +37,16 @@ public class UseLogDAOImpl implements UseLogDAO{
         if (useLog == null) {
              throw new PersistenceException("UseLog cannot be null");           
         }
-        Long seqUseLog = useLog.getSeqUso();
+        Long useLogSeq = useLog.getSeqUso();
         
-        if (seqUseLog!= null && useLogDB.containsKey(seqUseLog)) {
+        if (useLogSeq!= null && useLogDB.containsKey(useLogSeq)) {
             throw new PersistenceException("Duplicated key");
         }
-        seqUseLog = ++useLogCount;
-        useLog.setSeqUso(seqUseLog);
-        useLogDB.put(seqUseLog, useLog);
+        useLogSeq = ++useLogCount;
+        useLog.setSeqUso(useLogSeq);
+        useLogDB.put(useLogSeq, useLog);
         
-        return seqUseLog;
+        return useLogSeq;
     }
 
     @Override
@@ -54,40 +54,40 @@ public class UseLogDAOImpl implements UseLogDAO{
         if (useLog == null) {
             throw new PersistenceException("UseLog cannot be null");
         }
-        Long seqUseLog = useLog.getSeqUso();
-        if (seqUseLog == null) {
-            throw new PersistenceException("Sequence of UseLog cannot be null");
-        }
-        if (useLogDB.containsKey(seqUseLog)) {
-            throw new PersistenceException("UseLog with sequence " + useLog.getSeqUso()+ " is not persisted");
-        }
-        useLogDB.replace(seqUseLog, useLog);
-    }
-
-    @Override
-    synchronized public UseLog remove(Long seqUseLog) throws PersistenceException{
-        if (seqUseLog == null) {
-            throw new PersistenceException("Sequence of UseLog cannot be null");
-        }
-        if (!useLogDB.containsKey(seqUseLog)) {
-            throw new PersistenceException("UseLog with sequence " + seqUseLog + " is not persisted");
-        }
-        return useLogDB.remove(seqUseLog);
-    }
-
-    @Override
-    synchronized public UseLog getUseLogBySeq(Long seqUseLog) throws PersistenceException{
-        if (seqUseLog == null) {
+        Long useLogSeq = useLog.getSeqUso();
+        if (useLogSeq == null) {
             throw new PersistenceException("UseLog sequence cannot be null");
         }
-        if (!useLogDB.containsKey(seqUseLog)) {
-            throw new PersistenceException("UseLog with sequence " + seqUseLog + " is not persisted");
+        if (useLogDB.containsKey(useLogSeq)) {
+            throw new PersistenceException("UseLog with sequence " + useLog.getSeqUso()+ " is not persisted");
         }
-        return useLogDB.get(seqUseLog);
+        useLogDB.replace(useLogSeq, useLog);
     }
 
     @Override
-    public List<UseLog> listAll() {
+    synchronized public UseLog remove(Long useLogSeq) throws PersistenceException{
+        if (useLogSeq == null) {
+            throw new PersistenceException("UseLog sequence cannot be null");
+        }
+        if (!useLogDB.containsKey(useLogSeq)) {
+            throw new PersistenceException("UseLog with sequence " + useLogSeq + " is not persisted");
+        }
+        return useLogDB.remove(useLogSeq);
+    }
+
+    @Override
+    synchronized public UseLog getUseLogBySeq(Long useLogSeq) throws PersistenceException{
+        if (useLogSeq == null) {
+            throw new PersistenceException("UseLog sequence cannot be null");
+        }
+        if (!useLogDB.containsKey(useLogSeq)) {
+            throw new PersistenceException("UseLog with sequence " + useLogSeq + " is not persisted");
+        }
+        return useLogDB.get(useLogSeq);
+    }
+
+    @Override
+    synchronized public List<UseLog> listAll() {
         List<UseLog> useLogList = new ArrayList<>();
         Iterator<UseLog> it = useLogDB.values().iterator();
         while (it.hasNext()) {

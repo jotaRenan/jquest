@@ -16,7 +16,7 @@ import java.util.List;
 public interface UseLogDAO {
     public Long insert(UseLog useLog) throws PersistenceException;
     public void update(UseLog useLog) throws PersistenceException;
-    public UseLog remove(Long useLogId) throws PersistenceException;
-    public UseLog getUseLogBySeq(Long seqUseLog) throws PersistenceException;
+    public UseLog remove(Long useLogSeq) throws PersistenceException;
+    public UseLog getUseLogBySeq(Long useLogSeq) throws PersistenceException;
     public List<UseLog> listAll() throws PersistenceException; 
 }

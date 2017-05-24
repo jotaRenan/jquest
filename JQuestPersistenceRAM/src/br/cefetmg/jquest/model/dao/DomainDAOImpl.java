@@ -33,7 +33,7 @@ public class DomainDAOImpl implements DomainDAO {
     }
 
     @Override
-    public void insert(Domain domain) throws PersistenceException {
+    public Long insert(Domain domain) throws PersistenceException {
         if (domain == null) {
             throw new PersistenceException("Domain cannot be null");
         }
@@ -45,6 +45,7 @@ public class DomainDAOImpl implements DomainDAO {
         domainId = ++domainCount;
         domain.setId(domainId);
         domainDB.put(domainId, domain);
+        return domainId;
     }
 
     @Override

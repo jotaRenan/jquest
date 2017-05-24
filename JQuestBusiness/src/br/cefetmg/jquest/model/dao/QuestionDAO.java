@@ -14,7 +14,7 @@ import java.util.List;
  * @author Jota Renan
  */
 public interface QuestionDAO {
-    public void insert(Question question) throws PersistenceException;
+    public Long insert(Question question) throws PersistenceException;
     public void update(Question question) throws PersistenceException;
     public Question remove(Long questionId) throws PersistenceException;
     public Question getQuestionById(Long questionId) throws PersistenceException;

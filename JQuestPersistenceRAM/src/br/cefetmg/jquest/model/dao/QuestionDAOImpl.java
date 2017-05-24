@@ -33,7 +33,7 @@ public class QuestionDAOImpl implements QuestionDAO {
     }
     
     @Override
-    synchronized public void insert(Question question) throws PersistenceException{
+    synchronized public Long insert(Question question) throws PersistenceException{
         if (question == null) {
              throw new PersistenceException("Question cannot be null");           
         }
@@ -45,6 +45,7 @@ public class QuestionDAOImpl implements QuestionDAO {
         questionId = ++questionCount;
         question.setId(questionId);
         questionDB.put(questionId, question);
+        return questionId;
     }
 
     @Override

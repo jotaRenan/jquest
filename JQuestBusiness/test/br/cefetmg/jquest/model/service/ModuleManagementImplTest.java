@@ -40,6 +40,7 @@ public class ModuleManagementImplTest {
         this.module = new Module();
         this.module.setName("Teste");
         this.module.setDescription("Teste");
+        this.module.setDomainId(1L);
     }
     
     @Test

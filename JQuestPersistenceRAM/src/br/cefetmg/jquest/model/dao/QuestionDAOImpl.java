@@ -22,6 +22,7 @@ public class QuestionDAOImpl implements QuestionDAO {
     private static HashMap<Long, Question> questionDB = new HashMap<Long, Question>();
     private static long questionCount = 0;
 
+
     private QuestionDAOImpl() {
     }
     
@@ -97,14 +98,40 @@ public class QuestionDAOImpl implements QuestionDAO {
 
     @Override
     public List<Question> getQuestionsByModuleId(Long moduleId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (moduleId == null) {
+            throw new PersistenceException("module ID cannot be null");
+        }
+        
+        List<Question> ModuleQuestionList = new ArrayList<>();
+        Iterator<Question> it1 = questionDB.values().iterator();
+   
+        while (it1.hasNext()) {
+            if(it1.next().getModuleId().equals(moduleId)) {
+                ModuleQuestionList.add(it1.next()); 
+            }
+        }
+        
+        return ModuleQuestionList;
     }
 
     @Override
     public List<Question> getQuestionsByDomainId(Long domainId) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if (domainId == null) {
+            throw new PersistenceException("domain ID cannot be null");
+        }
 
+        List<Question> DomainQuestionList = new ArrayList<>();
+        Iterator<Question> it1 = questionDB.values().iterator();
+
+        while (it1.hasNext()) {
+            if (it1.next().getDomainId().equals(domainId)) {
+                DomainQuestionList.add(it1.next());
+            }
+        }
+
+        return DomainQuestionList;
+    }
+    
 
     
 }

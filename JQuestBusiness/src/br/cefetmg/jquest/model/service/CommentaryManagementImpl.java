@@ -28,7 +28,7 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     @Override
     public Long commentaryInsert(Commentary commentary) throws BusinessException, PersistenceException {
         if (commentary == null)
-            throw new BusinessException("Module cannot be null");
+            throw new BusinessException("Commentary cannot be null");
         
         if (commentary.getCommentarySeq()== null)
             throw new BusinessException("Commentary's sequence cannot be null");
@@ -52,7 +52,7 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     @Override
     public void commentaryUpdate(Commentary commentary) throws BusinessException, PersistenceException {
         if (commentary == null)
-            throw new BusinessException("Module cannot be null");
+            throw new BusinessException("Commentary cannot be null");
         
         if (commentary.getCommentarySeq()== null)
             throw new BusinessException("Commentary's sequence cannot be null");
@@ -74,7 +74,7 @@ public class CommentaryManagementImpl implements CommentaryManagement{
 
     @Override
     public void commentaryRemove(Long commentarySeq) throws PersistenceException {
-         if (commentarySeq == null) {
+        if (commentarySeq == null) {
             throw new PersistenceException("Commentary's sequence cannot be null");
         }
         commentaryDAO.remove(commentarySeq);

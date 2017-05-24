@@ -18,10 +18,10 @@ public class UseLog {
 
     public UseLog() {}
 
-    public UseLog(Long idUser, Long seqUso, Date dataUso) {
+    public UseLog(Long idUser, Long useSeq, Date useDate) {
         this.idUser = idUser;
-        this.useSeq = seqUso;
-        this.useDate = dataUso;
+        this.useSeq = useSeq;
+        this.useDate = useDate;
     }
 
     public Long getIdUser() {
@@ -32,20 +32,20 @@ public class UseLog {
         this.idUser = idUser;
     }
 
-    public Long getSeqUso() {
+    public Long getUseSeq() {
         return useSeq;
     }
 
-    public void setSeqUso(Long seqUso) {
-        this.useSeq = seqUso;
+    public void setUseSeq(Long useSeq) {
+        this.useSeq = useSeq;
     }
 
-    public Date getDataUso() {
+    public Date getUseDate() {
         return useDate;
     }
 
-    public void setDataUso(Date dataUso) {
-        this.useDate = dataUso;
+    public void setUseDate(Date useDate) {
+        this.useDate = useDate;
     }
     
 }

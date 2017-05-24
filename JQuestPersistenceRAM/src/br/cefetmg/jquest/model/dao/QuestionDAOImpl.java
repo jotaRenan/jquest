@@ -58,7 +58,7 @@ public class QuestionDAOImpl implements QuestionDAO {
         if (questionId == null) {
             throw new PersistenceException("Entity Id cannot be null");
         }
-        if (questionDB.containsKey(questionId)) {
+        if (!questionDB.containsKey(questionId)) {
             throw new PersistenceException("Question with id " + question.getId() + " is not persisted");
         }
         questionDB.replace(questionId, question);

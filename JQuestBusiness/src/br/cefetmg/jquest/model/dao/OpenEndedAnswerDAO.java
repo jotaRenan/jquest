@@ -39,7 +39,7 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer remove(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException;
+    public OpenEndedAnswer remove(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the OpenEndedAnswer object by id in the persistence.
@@ -50,7 +50,7 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer getOpenEndedAnswerById(long idQuestion, long idUser, long seqAnswerUser) throws PersistenceException;
+    public OpenEndedAnswer getOpenEndedAnswerById(Long idQuestion, Long idUser, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * List all the OpenEndedAnswer objects in the persistence.

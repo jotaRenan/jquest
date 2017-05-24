@@ -31,7 +31,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
             throw new BusinessException("No TrueOrFalseAnswer was informed");
         }
         if (tofAnswer.getUserAnswer() == null) {
-            errMsgList.add("No answer to the question was informed");
+//            errMsgList.add("No answer to the question was informed");
         }
         if ( tofAnswer.getUserId() == null) {
             errMsgList.add("No user id was informed");
@@ -46,8 +46,8 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
             errMsgList.add("No user Sequence was informed");
         }
         if (!errMsgList.isEmpty()) {
-            final String errMsg = "";
-            errMsgList.stream().forEach( msg -> errMsg.concat(msg + "\n"));
+            String errMsg = "";
+            errMsg = errMsgList.stream().reduce( "", (errMsgStack, msg) -> errMsgStack = errMsgStack.concat(msg + "\n"));
             throw new BusinessException(errMsg);
         }
         return tofadao.insert(tofAnswer);

@@ -46,7 +46,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             this.tofa = null;
             tofaManagement.insert(tofa);
         } catch (BusinessException | PersistenceException ex) {
-            String msgErr = ex.getMessage();
+            ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No TrueOrFalseAnswer was informed";
             assertTrue(msgErr.contains(msgEsperada));
         } catch (NullPointerException ex) {
@@ -60,7 +60,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             this.tofa = null;
             tofaManagement.update(tofa);
         } catch (BusinessException | PersistenceException ex) {
-            String msgErr = ex.getMessage();
+            ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No TrueOrFalseAnswer was informed";
             assertTrue(msgErr.contains(msgEsperada));
             return;
@@ -74,7 +74,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             this.tofa.setOptionSeq(null);
             tofaManagement.remove(tofa.getOptionSeq());
         } catch (BusinessException | PersistenceException ex) {
-            String msgErr = ex.getMessage();
+            ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No Answer ID was informed";
             assertTrue(msgErr.contains(msgEsperada));
             return;
@@ -91,6 +91,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             String msgErr = ex.getMessage();
             String msgEsperada = "No Answer ID was informed";
             assertTrue("GetById of null TrueOrFalseAnswer ID", msgErr.contains(msgEsperada));
+            return;
         }
         fail("GetById of null TrueOrFalseAnswer ID didnt throw an exception");
     }
@@ -104,6 +105,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No answer to the question was informed";
             assertTrue("Insertion of TOFA with null User Answer", msgErr.contains(msgEsperada));
+            return;
         }
         fail("Insertion of TOFA with null User Answer didnt throw an exception");
     }
@@ -117,6 +119,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No user id was informed";
             assertTrue("Insertion of TOFA with null User ID", msgErr.contains(msgEsperada));
+            return;
         }
         fail("Insertion of TOFA with null User ID didnt throw an exception");
     }
@@ -130,6 +133,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No question ID was associated to the answer";
             assertTrue("Insertion of TOFA with null question ID", msgErr.contains(msgEsperada));
+            return;
         }
         fail("Insertion of TOFA with null question ID didnt throw an exception");
     }
@@ -143,6 +147,7 @@ public class TrueOrFalseAnswerManagementImplTest {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No option ID was informed";
             assertTrue("Insertion of TOFA with null option ID", msgErr.contains(msgEsperada));
+            return;
         }
         fail("Insertion of TOFA with null option ID didnt throw an exception");
     }
@@ -156,7 +161,17 @@ public class TrueOrFalseAnswerManagementImplTest {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No user Sequence was informed";
             assertTrue("Insertion of TOFA with userSeq ID", msgErr.contains(msgEsperada));
+            return;
         }
         fail("Insertion of TOFA with userSeq ID didnt throw an exception");
+    }
+    
+    @Test
+    public void testCorrectToFAInsert() {
+        try {
+            tofaManagement.insert(tofa);
+        } catch(Exception ex) {
+            fail("Insertion of a correct ToFA threw an exception");
+        }
     }
 }

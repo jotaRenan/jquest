@@ -31,7 +31,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
             throw new BusinessException("No TrueOrFalseAnswer was informed");
         }
         if (tofAnswer.getUserAnswer() == null) {
-//            errMsgList.add("No answer to the question was informed");
+            errMsgList.add("No answer to the question was informed");
         }
         if ( tofAnswer.getUserId() == null) {
             errMsgList.add("No user id was informed");

@@ -8,7 +8,6 @@ import br.cefetmg.jquest.model.domain.TrueOrFalseAnswer;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -70,6 +69,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO {
             throw new PersistenceException("Answer with id " + tofAnswerId + " is not persisted");
         }
         return trueOrFalseAnswerDB.remove(tofAnswerId);
+
     }
 
     @Override
@@ -85,12 +85,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO {
 
     @Override
     public List<TrueOrFalseAnswer> listAll() throws PersistenceException {
-        List<TrueOrFalseAnswer> tofAnswerList = new ArrayList<>();
-        Iterator<TrueOrFalseAnswer> it = trueOrFalseAnswerDB.values().iterator();
-        while (it.hasNext()) {
-            tofAnswerList.add(it.next());
-        }
-        return tofAnswerList;
+        return new ArrayList<>(trueOrFalseAnswerDB.values());
     }
     
 }

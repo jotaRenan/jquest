@@ -18,5 +18,6 @@ public interface CommentaryDAO {
     public void update(Commentary commentary) throws PersistenceException;
     public Commentary remove(Long commentarySeq) throws PersistenceException;
     public Commentary getCommentaryBySeq(Long commentarySeq) throws PersistenceException;
+    public List<Commentary> getCommentarysByForumId(Long forumId) throws PersistenceException;
     public List<Commentary> listAll() throws PersistenceException; 
 }

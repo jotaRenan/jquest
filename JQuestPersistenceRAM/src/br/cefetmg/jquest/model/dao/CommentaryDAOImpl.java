@@ -83,6 +83,24 @@ public class CommentaryDAOImpl implements CommentaryDAO {
         }
         return commentaryDB.get(commentarySeq);
     }
+    
+    @Override
+    public List<Commentary> getCommentarysByForumId(Long forumId) throws PersistenceException {
+        if (forumId == null) {
+            throw new PersistenceException("Forum ID cannot be null");
+        }
+        
+        List<Commentary> ForumCommentaryList = new ArrayList<>();
+        Iterator<Commentary> it1 = commentaryDB.values().iterator();
+   
+        while (it1.hasNext()) {
+            if(it1.next().getDiscussionId().equals(forumId)) {
+                ForumCommentaryList.add(it1.next()); 
+            }
+        }
+        
+        return ForumCommentaryList;
+    }
 
     @Override
     public List<Commentary> listAll() throws PersistenceException {

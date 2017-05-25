@@ -74,11 +74,11 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     }
 
     @Override
-    public void commentaryRemove(Long commentarySeq) throws PersistenceException {
+    public Commentary commentaryRemove(Long commentarySeq) throws PersistenceException {
         if (commentarySeq == null) {
             throw new PersistenceException("Commentary's sequence cannot be null");
         }
-        commentaryDAO.remove(commentarySeq);
+        return commentaryDAO.remove(commentarySeq);
     }
 
     @Override

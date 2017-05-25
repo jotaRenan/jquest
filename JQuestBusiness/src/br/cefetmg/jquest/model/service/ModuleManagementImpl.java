@@ -59,11 +59,11 @@ public class ModuleManagementImpl implements ModuleManagement {
     }
 
     @Override
-    public void moduleRemove(Long moduleId) throws PersistenceException {
+    public Module moduleRemove(Long moduleId) throws PersistenceException {
         if (moduleId == null)
             throw new PersistenceException("Module's id cannot be null");
         
-        moduleDAO.remove(moduleId);
+        return moduleDAO.remove(moduleId);
     }
 
     @Override

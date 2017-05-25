@@ -56,11 +56,11 @@ public class DomainManagementImpl implements DomainManagement {
     }
 
     @Override
-    public void domainRemove(Long domainId) throws PersistenceException {
+    public Domain domainRemove(Long domainId) throws PersistenceException {
         if (domainId == null)
             throw new PersistenceException("Domain's id cannot be null");
         
-        domainDAO.remove(domainId);
+        return domainDAO.remove(domainId);
     }
 
     @Override

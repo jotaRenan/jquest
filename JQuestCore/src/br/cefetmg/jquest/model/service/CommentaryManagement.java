@@ -17,7 +17,7 @@ import java.util.List;
 public interface CommentaryManagement {
     public Long commentaryInsert(Commentary commentary) throws BusinessException, PersistenceException;
     public void commentaryUpdate(Commentary commentary) throws BusinessException, PersistenceException;
-    public void commentaryRemove(Long commentaryId) throws PersistenceException;
+    public Commentary commentaryRemove(Long commentaryId) throws PersistenceException;
     public Commentary getcommentaryBySeq(Long commentarySeq) throws PersistenceException;
     public List<Commentary> getCommentarysByForumId(Long forumId) throws PersistenceException;
     public List<Commentary> getAll() throws PersistenceException;  

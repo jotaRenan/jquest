@@ -74,11 +74,11 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public void forumRemove(Long questionId, Long discussionSeq) throws PersistenceException {
+    public Forum forumRemove(Long questionId, Long discussionSeq) throws PersistenceException {
         if(questionId == null || discussionSeq == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        DAO.remove(questionId, discussionSeq);
+        return DAO.remove(questionId, discussionSeq);
     }
 
     @Override

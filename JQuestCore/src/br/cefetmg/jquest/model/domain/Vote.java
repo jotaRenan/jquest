@@ -14,15 +14,17 @@ public class Vote {
     private Long discussionSeq;
     private Long commentarySeq;
     private Long userId;
+    private Long voteID;
     private boolean isLiked;
 
     public Vote() {}
 
-    public Vote(Long questionId, Long discussionId, Long commentaryId, Long userId, boolean isLiked) {
+    public Vote(Long questionId, Long discussionSeq, Long commentarySeq, Long userId, Long voteID, boolean isLiked) {
         this.questionId = questionId;
-        this.discussionSeq = discussionId;
-        this.commentarySeq = commentaryId;
+        this.discussionSeq = discussionSeq;
+        this.commentarySeq = commentarySeq;
         this.userId = userId;
+        this.voteID = voteID;
         this.isLiked = isLiked;
     }
 
@@ -34,20 +36,20 @@ public class Vote {
         this.questionId = questionId;
     }
 
-    public Long getDiscussionId() {
+    public Long getDiscussionSeq() {
         return discussionSeq;
     }
 
-    public void setDiscussionId(Long discussionId) {
-        this.discussionSeq = discussionId;
+    public void setDiscussionSeq(Long discussionSeq) {
+        this.discussionSeq = discussionSeq;
     }
 
-    public Long getCommentaryId() {
+    public Long getCommentarySeq() {
         return commentarySeq;
     }
 
-    public void setCommentaryId(Long commentaryId) {
-        this.commentarySeq = commentaryId;
+    public void setCommentarySeq(Long commentarySeq) {
+        this.commentarySeq = commentarySeq;
     }
 
     public Long getUserId() {
@@ -58,6 +60,14 @@ public class Vote {
         this.userId = userId;
     }
 
+    public Long getVoteID() {
+        return voteID;
+    }
+
+    public void setVoteID(Long voteID) {
+        this.voteID = voteID;
+    }
+
     public boolean isIsLiked() {
         return isLiked;
     }
@@ -65,5 +75,7 @@ public class Vote {
     public void setIsLiked(boolean isLiked) {
         this.isLiked = isLiked;
     }
+
+   
     
 }

@@ -9,12 +9,12 @@ package br.cefetmg.jquest.model.service;
  */
 
 import br.cefetmg.jquest.model.dao.MultipleChoiceAnswerChoiceDAO;
-import br.cefetmg.jquest.model.dao.OpenEndedAnswerDAO;
 import br.cefetmg.jquest.model.domain.MultipleChoiceAnswerChoice;
 import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
+import br.cefetmg.jquest.model.dao.DissertiveQuestionAnswerDAO;
 
 public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAnswerChoiceManagement{
     

@@ -5,30 +5,30 @@
  */
 package br.cefetmg.jquest.model.service;
 
-import br.cefetmg.jquest.model.dao.OpenEndedAnswerDAO;
-import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
+import br.cefetmg.jquest.model.domain.DissertiveQuestionAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
+import br.cefetmg.jquest.model.dao.DissertiveQuestionAnswerDAO;
 
 /**
  *
  * @author Thalesgsn
  */
-public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
+public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestionAnswerManagement{
     
-    private OpenEndedAnswerDAO DAO;
+    private DissertiveQuestionAnswerDAO DAO;
 
     /**
      * Empty contructor for a javabeans object.
      */
-    public OpenEndedAnswerManagementImpl() { }
+    public DissertiveQuestionAnswerManagementImpl() { }
 
     /**
      * Constructor that injects the DAO persistence dependency.
      * @param DAO The Data Acess Object that carry the persistence dependency. 
      */
-    public OpenEndedAnswerManagementImpl(OpenEndedAnswerDAO DAO) {
+    public DissertiveQuestionAnswerManagementImpl(DissertiveQuestionAnswerDAO DAO) {
         this.DAO = DAO;
     }
     
@@ -37,19 +37,19 @@ public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
      *
      * @param DAO new value of DAO
      */
-    public void setDAO(OpenEndedAnswerDAO DAO) {
+    public void setDAO(DissertiveQuestionAnswerDAO DAO) {
         this.DAO = DAO;
     }
 
     @Override
-    public Long openEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException {
+    public Long openEndedAnswerInsert(DissertiveQuestionAnswer openEndedAnswer) throws BusinessException, PersistenceException {
         if(openEndedAnswer == null){
             throw new BusinessException("The object OpenEndedAnswer cannot be null.");
         }
         if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if(openEndedAnswer.equals(new OpenEndedAnswer())){
+        if(openEndedAnswer.equals(new DissertiveQuestionAnswer())){
             throw new BusinessException("The object OpenEndedAnswer cannot be empty.");
         }
         if(openEndedAnswer.getTxtAnswer() == null){
@@ -61,14 +61,14 @@ public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
     }
 
     @Override
-    public void openEndedAnswerUpdate(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException {
+    public void openEndedAnswerUpdate(DissertiveQuestionAnswer openEndedAnswer) throws BusinessException, PersistenceException {
         if(openEndedAnswer == null)
             throw new BusinessException("The object cannot be null.");
         
         if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         
-        if(openEndedAnswer.equals(new OpenEndedAnswer())){
+        if(openEndedAnswer.equals(new DissertiveQuestionAnswer())){
             throw new BusinessException("The object cannot be empty.");
         }
         if(openEndedAnswer.getTxtAnswer() == null){
@@ -87,7 +87,7 @@ public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
     }
 
     @Override
-    public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+    public DissertiveQuestionAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
         if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
@@ -95,8 +95,8 @@ public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
     }
 
     @Override
-    public List<OpenEndedAnswer> getAll() throws PersistenceException {
-        List<OpenEndedAnswer> aux = DAO.listAll();
+    public List<DissertiveQuestionAnswer> getAll() throws PersistenceException {
+        List<DissertiveQuestionAnswer> aux = DAO.listAll();
         if(aux.isEmpty())
             throw new PersistenceException("There isn't elements in the List.");
         return aux;

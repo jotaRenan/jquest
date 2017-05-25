@@ -5,14 +5,14 @@
  */
 package br.cefetmg.jquest.model.dao;
 
-import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
+import br.cefetmg.jquest.model.domain.DissertiveQuestionAnswer;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 
 /**
  * @author Thalesgsn
  */
-public interface OpenEndedAnswerDAO {
+public interface DissertiveQuestionAnswerDAO {
     
     /**
      * Insert the OpenEndedAnswer object in the persistence.
@@ -20,7 +20,7 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void insert(OpenEndedAnswer openEndedAnswer) throws PersistenceException;
+    public void insert(DissertiveQuestionAnswer openEndedAnswer) throws PersistenceException;
     
     /**
      * Updates the OpenEndedAnswer object in the persistence.
@@ -28,7 +28,7 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void update(OpenEndedAnswer openEndedAnswer) throws PersistenceException;
+    public void update(DissertiveQuestionAnswer openEndedAnswer) throws PersistenceException;
     
     /**
      * Removes the OpenEndedAnswer object in the persistence.
@@ -39,7 +39,7 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer remove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer remove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the OpenEndedAnswer object by id in the persistence.
@@ -50,7 +50,7 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * List all the OpenEndedAnswer objects in the persistence.
@@ -58,5 +58,5 @@ public interface OpenEndedAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public List<OpenEndedAnswer> listAll() throws PersistenceException; 
+    public List<DissertiveQuestionAnswer> listAll() throws PersistenceException; 
 }

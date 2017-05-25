@@ -9,7 +9,7 @@ package br.cefetmg.jquest.model.domain;
  *
  * @author Thalesgsn
  */
-public class OpenEndedAnswer {
+public class DissertiveQuestionAnswer {
 
     private Long questionID;
 
@@ -21,10 +21,10 @@ public class OpenEndedAnswer {
 
     private double valueScore;
 
-    public OpenEndedAnswer() {
+    public DissertiveQuestionAnswer() {
     }
 
-    public OpenEndedAnswer(Long questionID, Long userID, Long seqAnswerUser, String txtAnswer, double valueScore) {
+    public DissertiveQuestionAnswer(Long questionID, Long userID, Long seqAnswerUser, String txtAnswer, double valueScore) {
         this.questionID = questionID;
         this.userID = userID;
         this.seqAnswerUser = seqAnswerUser;

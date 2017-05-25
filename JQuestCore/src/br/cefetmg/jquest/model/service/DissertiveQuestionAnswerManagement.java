@@ -5,7 +5,7 @@
  */
 package br.cefetmg.jquest.model.service;
 
-import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
+import br.cefetmg.jquest.model.domain.DissertiveQuestionAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Thalesgsn
  */
-public interface OpenEndedAnswerManagement {
+public interface DissertiveQuestionAnswerManagement {
     
     /**
      * Apply the business rules and insert the OpenEndedAnswer object in the 
@@ -26,7 +26,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public Long openEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
+    public Long openEndedAnswerInsert(DissertiveQuestionAnswer openEndedAnswer) throws BusinessException, PersistenceException;
      
     /**
      * Apply the business rules and updates the OpenEndedAnswer object in the 
@@ -37,7 +37,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void openEndedAnswerUpdate(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
+    public void openEndedAnswerUpdate(DissertiveQuestionAnswer openEndedAnswer) throws BusinessException, PersistenceException;
     
     /**
      * Removes the OpenEndedAnswer object in the persistence.
@@ -58,7 +58,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
    
     /**
      * List all the OpenEndedAnswer objects in the persistence.
@@ -66,5 +66,5 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public List<OpenEndedAnswer> getAll() throws PersistenceException;    
+    public List<DissertiveQuestionAnswer> getAll() throws PersistenceException;    
 }

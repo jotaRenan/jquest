@@ -40,7 +40,7 @@ public class UseLogDAOImpl implements UseLogDAO{
         Long useLogSeq = useLog.getUseSeq();
         
         if (useLogSeq!= null && useLogDB.containsKey(useLogSeq)) {
-            throw new PersistenceException("Duplicated key");
+            throw new PersistenceException("Duplicate key");
         }
         useLogSeq = ++useLogCount;
         useLog.setUseSeq(useLogSeq);
@@ -59,7 +59,7 @@ public class UseLogDAOImpl implements UseLogDAO{
             throw new PersistenceException("UseLog sequence cannot be null");
         }
         if (useLogDB.containsKey(useLogSeq)) {
-            throw new PersistenceException("UseLog with sequence " + useLog.getUseSeq()+ " is not persisted");
+            throw new PersistenceException("UseLog wTith sequence " + useLog.getUseSeq()+ " is not persisted");
         }
         useLogDB.replace(useLogSeq, useLog);
     }

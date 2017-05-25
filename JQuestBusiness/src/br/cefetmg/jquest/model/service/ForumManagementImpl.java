@@ -44,10 +44,7 @@ public class ForumManagementImpl implements ForumManagement {
         if(forum.getQuestionId()== null || forum.getDiscussionSeq()== null){
             throw new BusinessException("None of the QuestionID or discussionSeq or seqAnswer can be null.");
         }
-        if(forum.equals(new Forum())){
-            throw new BusinessException("The object Forum cannot be empty.");
-        }
-        if(forum.getName().isEmpty() || forum.getName() == null){
+        if(forum.getName() == null || forum.getName().isEmpty()) {
             throw new BusinessException("The forum name text cannot be empty, neither null.");
         }
         
@@ -63,10 +60,7 @@ public class ForumManagementImpl implements ForumManagement {
         if(forum.getQuestionId()== null || forum.getDiscussionSeq()== null){
             throw new BusinessException("None of the QuestionID or discussionSeq can be null.");
         }
-        if(forum.equals(new Forum())){
-            throw new BusinessException("The object Forum cannot be empty.");
-        }
-        if(forum.getName().isEmpty() || forum.getName() == null){
+        if(forum.getName() == null || forum.getName().isEmpty()){
             throw new BusinessException("The forum name text cannot be empty, neither null.");
         }
         
@@ -93,8 +87,6 @@ public class ForumManagementImpl implements ForumManagement {
     @Override
     public List<Forum> getAll() throws PersistenceException {
         List<Forum> aux = DAO.listAll();
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
         return aux;
     }
 }

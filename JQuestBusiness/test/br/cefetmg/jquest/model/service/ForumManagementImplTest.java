@@ -5,18 +5,16 @@
  */
 package br.cefetmg.jquest.model.service;
 
-import br.cefetmg.jquest.model.dao.ForumDAO;
 import br.cefetmg.jquest.model.dao.ForumDAOImpl;
 import br.cefetmg.jquest.model.domain.Forum;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
-import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -45,10 +43,6 @@ public class ForumManagementImplTest {
     public void setUp() {
         forum = new Forum(0L, 0L, 0L, "Test", "Discussion about tests");
     }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of forumInsert method, of class ForumManagementImpl.
@@ -58,16 +52,70 @@ public class ForumManagementImplTest {
         forum = null;
         forumManager.forumInsert(forum);
     }
+    
+    /**
+     * Test of forumInsert method, of class ForumManagementImpl.
+     */
+    @Test(expected = BusinessException.class)
+    public void testForumInsertNullQuestionId() throws Exception {
+        forum.setQuestionId(null);
+        forumManager.forumInsert(forum);
+    }
+    
+    /**
+     * Test of forumInsert method, of class ForumManagementImpl.
+     */
+    @Test(expected = BusinessException.class)
+    public void testForumInsertNullName() throws Exception {
+        forum.setName(null);
+        forumManager.forumInsert(forum);
+    }
+    
+    /**
+     * Test of forumInsert method, of class ForumManagementImpl.
+     */
+    @Test(expected = BusinessException.class)
+    public void testForumInsertEmptyName() throws Exception {
+        forum.setName("");
+        forumManager.forumInsert(forum);
+    }
 
     /**
      * Test of forumUpdate method, of class ForumManagementImpl.
      */
     @Test(expected = BusinessException.class)
-    public void testForumUpdate() throws Exception {
+    public void testForumUpdateNull() throws Exception {
         forum = null;
         forumManager.forumUpdate(forum);
     }
 
+        /**
+     * Test of forumUpdate method, of class ForumManagementImpl.
+     */
+    @Test(expected = BusinessException.class)
+    public void testForumUpdateNullQuestionId() throws Exception {
+        forum.setQuestionId(null);
+        forumManager.forumUpdate(forum);
+    }
+    
+    /**
+     * Test of forumUpdate method, of class ForumManagementImpl.
+     */
+    @Test(expected = BusinessException.class)
+    public void testForumUpdateNullName() throws Exception {
+        forum.setName(null);
+        forumManager.forumUpdate(forum);
+    }
+    
+    /**
+     * Test of forumUpdate method, of class ForumManagementImpl.
+     */
+    @Test(expected = BusinessException.class)
+    public void testForumUpdateEmptyName() throws Exception {
+        forum.setName("");
+        forumManager.forumUpdate(forum);
+    }
+    
     /**
      * Test of forumRemove method, of class ForumManagementImpl.
      */
@@ -104,9 +152,9 @@ public class ForumManagementImplTest {
     /**
      * Test of getAll method, of class ForumManagementImpl.
      */
-    @Test
+    @Test(expected = PersistenceException.class)
     public void testGetAll() throws Exception {
-        
+        //TODO
     }
     
 }

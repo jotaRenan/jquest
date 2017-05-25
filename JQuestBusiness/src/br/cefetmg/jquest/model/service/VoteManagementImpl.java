@@ -36,7 +36,7 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public Long insert(Vote vote) throws BusinessException, PersistenceException {
+    public Long voteInsert(Vote vote) throws BusinessException, PersistenceException {
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
         if(vote.getQuestionId() == null || vote.getDiscussionId()== null || vote.getCommentaryId() == null || vote.getUserId() == null)
@@ -49,7 +49,7 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public void update(Vote vote) throws BusinessException, PersistenceException {
+    public void voteUpdate(Vote vote) throws BusinessException, PersistenceException {
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
         if(vote.getQuestionId() == null || vote.getDiscussionId()== null || vote.getCommentaryId() == null || vote.getUserId() == null)
@@ -61,7 +61,7 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public void remove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
+    public void voteRemove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
         if(questionID == null || discussionID == null || commentaryID == null || userID == null)
             throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
         DAO.remove(questionID, discussionID, commentaryID, userID);

@@ -16,9 +16,9 @@ import java.util.List;
  */
 public interface VoteManagement {
     //@TODO: Javadocs
-    public Long insert(Vote vote) throws BusinessException, PersistenceException;
-    public void update(Vote vote) throws BusinessException, PersistenceException;
-    public void remove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException;
+    public Long voteInsert(Vote vote) throws BusinessException, PersistenceException;
+    public void voteUpdate(Vote vote) throws BusinessException, PersistenceException;
+    public void voteRemove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException;
     public Vote getVoteById(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException;
     public List<Vote> getAll() throws PersistenceException;
 }

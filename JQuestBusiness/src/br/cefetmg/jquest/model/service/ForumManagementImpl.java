@@ -37,7 +37,7 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public Long insert(Forum forum) throws BusinessException, PersistenceException {
+    public Long forumInsert(Forum forum) throws BusinessException, PersistenceException {
         if(forum == null){
             throw new BusinessException("The object Forum cannot be null.");
         }
@@ -56,7 +56,7 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public void update(Forum forum) throws BusinessException, PersistenceException {
+    public void forumUpdate(Forum forum) throws BusinessException, PersistenceException {
          if(forum == null){
             throw new BusinessException("The object Forum cannot be null.");
         }
@@ -74,7 +74,7 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public void remove(Long questionId, Long discussionSeq) throws PersistenceException {
+    public void forumRemove(Long questionId, Long discussionSeq) throws PersistenceException {
         if(questionId == null || discussionSeq == null){
             throw new PersistenceException("None of the parameters can be null.");
         }

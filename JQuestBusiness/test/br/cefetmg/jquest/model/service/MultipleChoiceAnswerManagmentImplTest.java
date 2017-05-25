@@ -23,28 +23,28 @@ import org.junit.Test;
  * @author Breno Mariz
  */
 public class MultipleChoiceAnswerManagmentImplTest {
-    private static MultipleChoiceAnswerDAO multChAnswerChDAO;
-    private static MultipleChoiceAnswerManagmentImpl multChAnswerChManag;
-    private MultipleChoiceAnswer multChAnswerCh;
+    private static MultipleChoiceAnswerDAO multChAnswerDAO;
+    private static MultipleChoiceAnswerManagmentImpl multChAnswerManag;
+    private MultipleChoiceAnswer multChAnswer;
     
     public MultipleChoiceAnswerManagmentImplTest() {}
     
     @BeforeClass
     public static void setUpClass() {
-        multChAnswerChDAO = MultipleChoiceAnswerDAOImpl.getInstance();
-        multChAnswerChManag = new MultipleChoiceAnswerManagmentImpl(multChAnswerChDAO);
+        multChAnswerDAO = MultipleChoiceAnswerDAOImpl.getInstance();
+        multChAnswerManag = new MultipleChoiceAnswerManagmentImpl(multChAnswerDAO);
     }
     
     @Before
     public void SetUp() {
-        this.multChAnswerCh = new MultipleChoiceAnswer(0L, 0L, 0L, 0L,0L);      
+        this.multChAnswer = new MultipleChoiceAnswer(0L, 0L, 0L, 0L,0L);      
     }
     
     @Test
-    public void testMultChAnswerChNullInsertion() throws PersistenceException, BusinessException{
+    public void testMultChAnswerNullInsertion() throws PersistenceException, BusinessException{
         try{
-            this.multChAnswerCh = null;
-            multChAnswerChManag.insert(multChAnswerCh);
+            this.multChAnswer = null;
+            multChAnswerManag.insert(multChAnswer);
         } catch (BusinessException | PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No MultipleChoiceAnswer was informed";
@@ -55,10 +55,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
     
     @Test
-    public void testMultChAnswerChNullUpdate() throws PersistenceException, BusinessException {
+    public void testMultChAnswerNullUpdate() throws PersistenceException, BusinessException {
         try {
-            this.multChAnswerCh = null;
-            multChAnswerChManag.update(multChAnswerCh);
+            this.multChAnswer = null;
+            multChAnswerManag.update(multChAnswer);
         } catch (BusinessException | PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No MultipleChoiceAnswer was informed";
@@ -69,10 +69,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
     
     @Test
-    public void testMultChAnswerChNullOptionSeqRemoval() throws PersistenceException, BusinessException {
+    public void testMultChAnswerNullOptionSeqRemoval() throws PersistenceException, BusinessException {
         try {
-            this.multChAnswerCh.setOptionSeq(null);
-            multChAnswerChManag.remove(multChAnswerCh.getOptionSeq());
+            this.multChAnswer.setOptionSeq(null);
+            multChAnswerManag.remove(multChAnswer.getOptionSeq());
         } catch (PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No MultipleChoice ID was informed";
@@ -83,10 +83,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
      
     @Test
-    public void testMultChAnswerChGetByNullId() {
+    public void testMultChAnswerGetByNullId() {
         try {
             Long optionSeq = null;
-            multChAnswerChManag.getToFAnswerById(optionSeq);
+            multChAnswerManag.getToFAnswerById(optionSeq);
         } catch (PersistenceException ex) {
             String msgErr = ex.getMessage();
             String msgEsperada = "No MultipleChoiceAnswer ID was informed";
@@ -97,10 +97,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
     
     @Test
-    public void testMultChAnswerChInsertNullUserAnswer() throws PersistenceException {
+    public void testMultChAnswerInsertNullUserAnswer() throws PersistenceException {
         try {
-            this.multChAnswerCh.setUserAnswerSeq(null);
-            multChAnswerChManag.insert(multChAnswerCh);
+            this.multChAnswer.setUserAnswerSeq(null);
+            multChAnswerManag.insert(multChAnswer);
         } catch (BusinessException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No answer to the question was informed";
@@ -111,10 +111,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
 
     @Test
-    public void testMultChAnswerChInsertNullUserId() throws PersistenceException {
+    public void testMultChAnswerInsertNullUserId() throws PersistenceException {
         try {
-            this.multChAnswerCh.setUserId(null);
-            multChAnswerChManag.insert(multChAnswerCh);
+            this.multChAnswer.setUserId(null);
+            multChAnswerManag.insert(multChAnswer);
         } catch (BusinessException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No user id was informed";
@@ -125,10 +125,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
 
     @Test
-    public void testMultChAnswerChInsertNullQuestionId() throws PersistenceException {
+    public void testMultChAnswerInsertNullQuestionId() throws PersistenceException {
         try {
-            this.multChAnswerCh.setQuestionId(null);
-            multChAnswerChManag.insert(multChAnswerCh);
+            this.multChAnswer.setQuestionId(null);
+            multChAnswerManag.insert(multChAnswer);
         } catch (BusinessException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No question ID was associated to the answer";
@@ -139,10 +139,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
 
     @Test
-    public void testMultChAnswerChInsertNullOptionSeq() throws PersistenceException {
+    public void testMultChAnswerInsertNullOptionSeq() throws PersistenceException {
         try {
-            this.multChAnswerCh.setOptionSeq(null);
-            multChAnswerChManag.insert(multChAnswerCh);
+            this.multChAnswer.setOptionSeq(null);
+            multChAnswerManag.insert(multChAnswer);
         } catch (BusinessException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No option ID was informed";
@@ -153,10 +153,10 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
 
     @Test
-    public void testMultChAnswerChInsertNullUseSeq() throws PersistenceException {
+    public void testMultChAnswerInsertNullUseSeq() throws PersistenceException {
         try {
-            this.multChAnswerCh.setUseSeq(null);
-            multChAnswerChManag.insert(multChAnswerCh);
+            this.multChAnswer.setUseSeq(null);
+            multChAnswerManag.insert(multChAnswer);
         } catch (BusinessException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No user Sequence was informed";
@@ -167,9 +167,9 @@ public class MultipleChoiceAnswerManagmentImplTest {
     }
 
     @Test
-    public void testMultChAnswerChInsert() {
+    public void testMultChAnswerInsert() {
         try {
-            multChAnswerChManag.insert(multChAnswerCh);
+            multChAnswerManag.insert(multChAnswer);
         } catch (Exception ex) {
             fail("Insertion of a correct MultipleChoiceAnswer threw an exception");
         }

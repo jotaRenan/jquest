@@ -14,9 +14,9 @@ import java.util.List;
  * @author João Pedro Renan
  */
 public interface MultipleChoiceAnswerDAO {
-    public Long insert(MultipleChoiceAnswer multChoiceAnswerChoice) throws PersistenceException;
-    public void update(MultipleChoiceAnswer multChoiceAnswerChoice) throws PersistenceException;
-    public MultipleChoiceAnswer remove(Long multChoiceAnswerChoiceId) throws PersistenceException;
-    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerChoiceId) throws PersistenceException;
+    public Long insert(MultipleChoiceAnswer multChoiceAnswer) throws PersistenceException;
+    public void update(MultipleChoiceAnswer multChoiceAnswer) throws PersistenceException;
+    public MultipleChoiceAnswer remove(Long multChoiceAnswerId) throws PersistenceException;
+    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerId) throws PersistenceException;
     public List<MultipleChoiceAnswer> listAll() throws PersistenceException;
 }

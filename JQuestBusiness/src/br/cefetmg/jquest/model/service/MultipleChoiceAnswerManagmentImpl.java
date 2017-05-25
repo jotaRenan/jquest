@@ -31,50 +31,50 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
     
 
     @Override
-    public Long insert(MultipleChoiceAnswer multChoiceAnswerChoice) throws BusinessException, PersistenceException {
-        if (multChoiceAnswerChoice == null) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be null.");
+    public Long insert(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException {
+        if (multipleChoiceAnswer == null) {
+            throw new BusinessException("The object multipleChoiceAnswer cannot be null.");
         }
-        if (multChoiceAnswerChoice.getQuestionId() == null || multChoiceAnswerChoice.getUserId() == null || multChoiceAnswerChoice.getUserAnswerSeq() == null) {
+        if (multipleChoiceAnswer.getQuestionId() == null || multipleChoiceAnswer.getUserId() == null || multipleChoiceAnswer.getUserAnswerSeq() == null) {
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswer())) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be empty.");
+        if (multipleChoiceAnswer.equals(new MultipleChoiceAnswer())) {
+            throw new BusinessException("The object multipleChoiceAnswer cannot be empty.");
         }
 
-        DAO.insert(multChoiceAnswerChoice);
-        return multChoiceAnswerChoice.getUserAnswerSeq();
+        DAO.insert(multipleChoiceAnswer);
+        return multipleChoiceAnswer.getUserAnswerSeq();
     }
 
     @Override
-    public void update(MultipleChoiceAnswer multChoiceAnswerChoice) throws BusinessException, PersistenceException {
-        if (multChoiceAnswerChoice == null) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be null.");
+    public void update(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException {
+        if (multipleChoiceAnswer == null) {
+            throw new BusinessException("The object multipleChoiceAnswer cannot be null.");
         }
-        if (multChoiceAnswerChoice.getQuestionId() == null || multChoiceAnswerChoice.getUserId() == null || multChoiceAnswerChoice.getUserAnswerSeq() == null) {
+        if (multipleChoiceAnswer.getQuestionId() == null || multipleChoiceAnswer.getUserId() == null || multipleChoiceAnswer.getUserAnswerSeq() == null) {
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswer())) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be empty.");
+        if (multipleChoiceAnswer.equals(new MultipleChoiceAnswer())) {
+            throw new BusinessException("The object multipleChoiceAnswer cannot be empty.");
         }
-        DAO.update(multChoiceAnswerChoice);
+        DAO.update(multipleChoiceAnswer);
     }
 
     @Override
-    public MultipleChoiceAnswer remove(Long multChoiceAnswerChoiceId) throws PersistenceException {
-        if (multChoiceAnswerChoiceId == null) {
+    public MultipleChoiceAnswer remove(Long multipleChoiceAnswerId) throws PersistenceException {
+        if (multipleChoiceAnswerId == null) {
             throw new PersistenceException("None of the parameters can be null.");
         }
-        return DAO.remove(multChoiceAnswerChoiceId);    
+        return DAO.remove(multipleChoiceAnswerId);    
     }
 
     @Override
-    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerChoiceId) throws PersistenceException {
-        if(multChoiceAnswerChoiceId == null) {
-            throw new PersistenceException("multChoiceAnswerChoiceId can't be null.");
+    public MultipleChoiceAnswer getToFAnswerById(Long multipleChoiceAnswerId) throws PersistenceException {
+        if(multipleChoiceAnswerId == null) {
+            throw new PersistenceException("multipleChoiceAnswerId can't be null.");
         } 
         
-        return DAO.getToFAnswerById(multChoiceAnswerChoiceId);
+        return DAO.getToFAnswerById(multipleChoiceAnswerId);
     }
 
     @Override

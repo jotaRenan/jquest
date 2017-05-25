@@ -32,56 +32,56 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO {
     }
     
     @Override
-    public Long insert(MultipleChoiceAnswer multChoiceAnswerChoice) throws PersistenceException {
-        if (multChoiceAnswerChoice == null) {
+    public Long insert(MultipleChoiceAnswer multipleChoiceAnswer) throws PersistenceException {
+        if (multipleChoiceAnswer == null) {
             throw new PersistenceException("Answer cannot be null");
         }
-        Long answerId = multChoiceAnswerChoice.getUseSeq();
+        Long answerId = multipleChoiceAnswer.getUseSeq();
         
         if (answerId != null && MultipleChoiceAnswerDB.containsKey(answerId)) {
             throw new PersistenceException("Duplicate key");
         }
         answerId = ++trueOrFalseAnswerCount;
-        multChoiceAnswerChoice.setUseSeq(answerId);
-        MultipleChoiceAnswerDB.put(answerId, multChoiceAnswerChoice);
+        multipleChoiceAnswer.setUseSeq(answerId);
+        MultipleChoiceAnswerDB.put(answerId, multipleChoiceAnswer);
         return answerId;
     }
 
     @Override
-    public void update(MultipleChoiceAnswer multChoiceAnswerChoice) throws PersistenceException {
-        if (multChoiceAnswerChoice == null) {
+    public void update(MultipleChoiceAnswer multipleChoiceAnswer) throws PersistenceException {
+        if (multipleChoiceAnswer == null) {
             throw new PersistenceException("Answer cannot be null");
         }
-        Long answerId = multChoiceAnswerChoice.getUseSeq();
+        Long answerId = multipleChoiceAnswer.getUseSeq();
         if (answerId == null) {
             throw new PersistenceException("Entity Id cannot be null");
         }
         if (!MultipleChoiceAnswerDB.containsKey(answerId)) {
-            throw new PersistenceException("Answer with id " + multChoiceAnswerChoice.getUseSeq() + " is not persisted");
+            throw new PersistenceException("Answer with id " + multipleChoiceAnswer.getUseSeq() + " is not persisted");
         }
-        MultipleChoiceAnswerDB.replace(answerId, multChoiceAnswerChoice);
+        MultipleChoiceAnswerDB.replace(answerId, multipleChoiceAnswer);
     }
 
     @Override
-    public MultipleChoiceAnswer remove(Long multChoiceAnswerChoiceId) throws PersistenceException {
-        if (multChoiceAnswerChoiceId == null) {
+    public MultipleChoiceAnswer remove(Long multipleChoiceAnswerId) throws PersistenceException {
+        if (multipleChoiceAnswerId == null) {
             throw new PersistenceException("Answer ID cant be null");
         }
-        if (!MultipleChoiceAnswerDB.containsKey(multChoiceAnswerChoiceId)){
-            throw new PersistenceException("Answer with id " + multChoiceAnswerChoiceId + " is not persisted");
+        if (!MultipleChoiceAnswerDB.containsKey(multipleChoiceAnswerId)){
+            throw new PersistenceException("Answer with id " + multipleChoiceAnswerId + " is not persisted");
         }
-        return MultipleChoiceAnswerDB.remove(multChoiceAnswerChoiceId);
+        return MultipleChoiceAnswerDB.remove(multipleChoiceAnswerId);
     }
 
     @Override
-    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerChoiceId) throws PersistenceException {
-        if (multChoiceAnswerChoiceId == null) {
+    public MultipleChoiceAnswer getToFAnswerById(Long multipleChoiceAnswerId) throws PersistenceException {
+        if (multipleChoiceAnswerId == null) {
             throw new PersistenceException("Answer ID cant be null");
         }
-        if (!MultipleChoiceAnswerDB.containsKey(multChoiceAnswerChoiceId)) {
-            throw new PersistenceException("Answer with id " + multChoiceAnswerChoiceId + " is not persisted");
+        if (!MultipleChoiceAnswerDB.containsKey(multipleChoiceAnswerId)) {
+            throw new PersistenceException("Answer with id " + multipleChoiceAnswerId + " is not persisted");
         }
-        return MultipleChoiceAnswerDB.get(multChoiceAnswerChoiceId);
+        return MultipleChoiceAnswerDB.get(multipleChoiceAnswerId);
     }
 
     @Override

@@ -15,9 +15,9 @@ import java.util.List;
  * @author João Pedro Renan
  */
 public interface MultipleChoiceAnswerManagement {
-    public Long insert(MultipleChoiceAnswer multChoiceAnswerChoice) throws BusinessException, PersistenceException;
-    public void update(MultipleChoiceAnswer multChoiceAnswerChoice) throws BusinessException, PersistenceException;
-    public MultipleChoiceAnswer remove(Long multChoiceAnswerChoiceId) throws PersistenceException;
-    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerChoiceId) throws PersistenceException;
+    public Long insert(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException;
+    public void update(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException;
+    public MultipleChoiceAnswer remove(Long multipleChoiceAnswerId) throws PersistenceException;
+    public MultipleChoiceAnswer getToFAnswerById(Long multipleChoiceAnswerId) throws PersistenceException;
     public List<MultipleChoiceAnswer> listAll() throws PersistenceException;
 }

@@ -9,16 +9,16 @@ package br.cefetmg.jquest.model.domain;
  *
  * @author João Pedro Renan
  */
-public class ClosedEndedAlternative {
+public class QuestionAlternative {
     private Long questionId;
     private Long optionSeq;
     private String assertionText;
     private boolean isCorrect;
 
-    public ClosedEndedAlternative() {
+    public QuestionAlternative() {
     }
 
-    public ClosedEndedAlternative(Long questionId, Long optionSeq, String assertionText, boolean isCorrect) {
+    public QuestionAlternative(Long questionId, Long optionSeq, String assertionText, boolean isCorrect) {
         this.questionId = questionId;
         this.optionSeq = optionSeq;
         this.assertionText = assertionText;

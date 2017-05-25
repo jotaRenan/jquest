@@ -5,26 +5,26 @@
  */
 package br.cefetmg.jquest.model.service;
 
-import br.cefetmg.jquest.model.dao.ClosedEndedAlternativeDAO;
-import br.cefetmg.jquest.model.domain.ClosedEndedAlternative;
+import br.cefetmg.jquest.model.domain.QuestionAlternative;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
+import br.cefetmg.jquest.model.dao.QuestionAlternativeDAO;
 
 /**
  *
  * @author Paula Ribeiro
  */
-public class ClosedEndedAlternativeManagementImpl implements ClosedEndedAlternativeManagement {
+public class QuestionAlternativeManagementImpl implements QuestionAlternativeManagement {
     
-    private final ClosedEndedAlternativeDAO closedEndedAltDAO;
+    private final QuestionAlternativeDAO closedEndedAltDAO;
 
-    public ClosedEndedAlternativeManagementImpl(ClosedEndedAlternativeDAO closedEndedAltDAO) {
+    public QuestionAlternativeManagementImpl(QuestionAlternativeDAO closedEndedAltDAO) {
         this.closedEndedAltDAO = closedEndedAltDAO;
     }
     
     @Override
-    public Long insert(ClosedEndedAlternative closedEndedAlt) throws BusinessException, PersistenceException {
+    public Long insert(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException {
         if (closedEndedAlt == null)
             throw new BusinessException("Alternative cannot be null");
         
@@ -39,7 +39,7 @@ public class ClosedEndedAlternativeManagementImpl implements ClosedEndedAlternat
     }
 
     @Override
-    public void update(ClosedEndedAlternative closedEndedAlt) throws BusinessException, PersistenceException {
+    public void update(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException {
         if (closedEndedAlt == null)
             throw new BusinessException("Alternative cannot be null");
         
@@ -56,7 +56,7 @@ public class ClosedEndedAlternativeManagementImpl implements ClosedEndedAlternat
     }
 
     @Override
-    public ClosedEndedAlternative remove(Long closedEndedAltId) throws PersistenceException {
+    public QuestionAlternative remove(Long closedEndedAltId) throws PersistenceException {
         if (closedEndedAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
         
@@ -64,16 +64,16 @@ public class ClosedEndedAlternativeManagementImpl implements ClosedEndedAlternat
     }
 
     @Override
-    public ClosedEndedAlternative getClosedEndedAlternativeById(Long closedEndedAltId) throws PersistenceException {
+    public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException {
         if (closedEndedAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
         
-        return closedEndedAltDAO.getClosedEndedAlternativeById(closedEndedAltId); //if the id isn't valid it throws an exception
+        return closedEndedAltDAO.getQuestionAlternativeById(closedEndedAltId); //if the id isn't valid it throws an exception
     }
 
     @Override
-    public List<ClosedEndedAlternative> listAll() throws PersistenceException {
-        List<ClosedEndedAlternative> list = closedEndedAltDAO.listAll();        
+    public List<QuestionAlternative> listAll() throws PersistenceException {
+        List<QuestionAlternative> list = closedEndedAltDAO.listAll();        
         return list;
     }
     

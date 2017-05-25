@@ -240,25 +240,4 @@ public class ModuleManagementImplTest {
             fail("Failed to get all modules correctly");
         }
     }
-    /*
-    @Test
-    public void testGetAllDomains() {
-        Module module2 = module;
-        List<Long> list;
-        try {
-            moduleManagement.moduleInsert(module);
-            moduleManagement.moduleInsert(module2);
-        } catch (BusinessException | PersistenceException ex) {
-            Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            list = moduleManagement.getAllDomains();
-        } catch (PersistenceException ex) {
-            fail("Failed to get all domains");
-            return;
-        }
-        if(list.isEmpty()) {
-            fail("Failed to get all domains correctly");
-        }
-    }*/
 }

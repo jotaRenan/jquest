@@ -10,6 +10,8 @@ import br.cefetmg.jquest.model.domain.Forum;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.AfterClass;
 import static org.junit.Assert.fail;
 import org.junit.Before;
@@ -79,6 +81,18 @@ public class ForumManagementImplTest {
         forum.setName("");
         forumManager.forumInsert(forum);
     }
+    
+    /**
+     * Test of forumInsert method, of class ForumManagementImpl.
+     */
+    @Test
+    public void testForumInsert() {
+        try {
+            forumManager.forumInsert(forum);
+        } catch (BusinessException | PersistenceException ex) {
+            fail("Couldn't insert forum correctly");
+        }
+    }
 
     /**
      * Test of forumUpdate method, of class ForumManagementImpl.
@@ -89,7 +103,7 @@ public class ForumManagementImplTest {
         forumManager.forumUpdate(forum);
     }
 
-        /**
+    /**
      * Test of forumUpdate method, of class ForumManagementImpl.
      */
     @Test(expected = BusinessException.class)
@@ -117,6 +131,25 @@ public class ForumManagementImplTest {
     }
     
     /**
+     * Test of forumUpdate method, of class ForumManagementImpl.
+     */
+    @Test
+    public void testForumUpdate() throws PersistenceException, BusinessException {
+        forum.setName("Update test");
+        forumManager.forumInsert(forum);
+        try {
+            forumManager.forumUpdate(forum);
+        } catch (BusinessException | PersistenceException ex) {
+            fail("Couldn't insert forum correctly 1");
+            return;
+        }
+        if (!forum.getName().equals("Update test")) {
+            fail("Couldn't insert forum correctly");
+        }
+        forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+    }
+    
+    /**
      * Test of forumRemove method, of class ForumManagementImpl.
      */
     @Test(expected = PersistenceException.class)
@@ -129,6 +162,22 @@ public class ForumManagementImplTest {
     public void testForumRemoveNullQuestionId() throws Exception {
         forum.setDiscussionSeq(null);
         forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+    }
+    
+    /**
+     * Test of forumRemove method, of class ForumManagementImpl.
+     */
+    public void testForumRemove() {
+        try {
+            forumManager.forumInsert(forum);
+        } catch (BusinessException | PersistenceException ex) {
+            Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+        } catch (PersistenceException ex) {
+            fail("Failed to remove module");
+        }
     }
     
     /**
@@ -148,13 +197,30 @@ public class ForumManagementImplTest {
         forum.setDiscussionSeq(null);
         forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
     }
+    
+    /**
+     * Test of getForumById method, of class ForumManagementImpl.
+     */
+    @Test
+    public void testGetForumById() {
+        try {
+            forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
+        } catch (PersistenceException ex) {
+            fail("Failed to get forum by id");
+        }
+    }
 
     /**
      * Test of getAll method, of class ForumManagementImpl.
      */
-    @Test(expected = PersistenceException.class)
+    @Test
     public void testGetAll() throws Exception {
-        //TODO
+        forumManager.forumInsert(forum);
+        List<Forum> list = forumManager.getAll();
+        if (list.isEmpty()) {
+            fail("Failed to get all forums correctly");
+        }
+        
     }
     
 }

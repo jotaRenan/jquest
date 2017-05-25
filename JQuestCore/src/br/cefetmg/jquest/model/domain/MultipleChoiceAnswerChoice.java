@@ -15,12 +15,12 @@ public class MultipleChoiceAnswerChoice {
     private Long useSeq;
     private Long questionId;
     private Long userAnswerSeq;
-    private short optionSeq;
+    private Long optionSeq;
 
     public MultipleChoiceAnswerChoice() {
     }
 
-    public MultipleChoiceAnswerChoice(Long userId, Long useSeq, Long questionId, Long userAnswerSeq, short optionSeq) {
+    public MultipleChoiceAnswerChoice(Long userId, Long useSeq, Long questionId, Long userAnswerSeq, Long optionSeq) {
         this.userId = userId;
         this.useSeq = useSeq;
         this.questionId = questionId;
@@ -60,13 +60,12 @@ public class MultipleChoiceAnswerChoice {
         this.userAnswerSeq = userAnswerSeq;
     }
 
-    public short getOptionSeq() {
+    public Long getOptionSeq() {
         return optionSeq;
     }
 
-    public void setOptionSeq(short optionSeq) {
+    public void setOptionSeq(Long optionSeq) {
         this.optionSeq = optionSeq;
     }
-    
     
 }

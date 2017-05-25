@@ -42,44 +42,44 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public Long openEndedAnswerInsert(DissertiveQuestionAnswer openEndedAnswer) throws BusinessException, PersistenceException {
-        if(openEndedAnswer == null){
-            throw new BusinessException("The object OpenEndedAnswer cannot be null.");
+    public Long DissertiveQuestionAnswerInsert(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws BusinessException, PersistenceException {
+        if(dissertiveQuestionAnswer == null){
+            throw new BusinessException("The object DissertiveQuestionAnswer cannot be null.");
         }
-        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+        if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null){
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if(openEndedAnswer.equals(new DissertiveQuestionAnswer())){
-            throw new BusinessException("The object OpenEndedAnswer cannot be empty.");
+        if(dissertiveQuestionAnswer.equals(new DissertiveQuestionAnswer())){
+            throw new BusinessException("The object DissertiveQuestionAnswer cannot be empty.");
         }
-        if(openEndedAnswer.getTxtAnswer() == null){
+        if(dissertiveQuestionAnswer.getTxtAnswer() == null){
             throw new BusinessException("The Answer text cannot be null.");
         }
         
-        DAO.insert(openEndedAnswer);
-        return openEndedAnswer.getSeqAnswerUser();
+        DAO.insert(dissertiveQuestionAnswer);
+        return dissertiveQuestionAnswer.getSeqAnswerUser();
     }
 
     @Override
-    public void openEndedAnswerUpdate(DissertiveQuestionAnswer openEndedAnswer) throws BusinessException, PersistenceException {
-        if(openEndedAnswer == null)
+    public void DissertiveQuestionAnswerUpdate(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws BusinessException, PersistenceException {
+        if(dissertiveQuestionAnswer == null)
             throw new BusinessException("The object cannot be null.");
         
-        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
+        if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null)
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         
-        if(openEndedAnswer.equals(new DissertiveQuestionAnswer())){
+        if(dissertiveQuestionAnswer.equals(new DissertiveQuestionAnswer())){
             throw new BusinessException("The object cannot be empty.");
         }
-        if(openEndedAnswer.getTxtAnswer() == null){
+        if(dissertiveQuestionAnswer.getTxtAnswer() == null){
             throw new BusinessException("The Answer text cannot be null.");
         }
         
-        DAO.update(openEndedAnswer);
+        DAO.update(dissertiveQuestionAnswer);
     }
 
     @Override
-    public void openEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+    public void DissertiveQuestionAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
         if(questionID == null || userID == null || seqAnswerUser == null)
             throw new PersistenceException("None of the parameters can be null.");
          
@@ -87,11 +87,11 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public DissertiveQuestionAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
         if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        return DAO.getOpenEndedAnswerById(questionID, userID, seqAnswerUser);
+        return DAO.getDissertiveQuestionAnswerById(questionID, userID, seqAnswerUser);
     }
 
     @Override

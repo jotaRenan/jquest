@@ -44,7 +44,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     public void testOpenEndedAnswerInsertNull() {
         dissertiveQuestionAnswer = null;
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
             fail("Null openEndedAnswer registered");
         } catch (BusinessException | PersistenceException ex) {
             return;
@@ -55,7 +55,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     public void testOpenEndedAnswerInsertNullTxtAnswer() {
         dissertiveQuestionAnswer.setTxtAnswer(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
             fail("OpenEndedAnswer with null name registered");
         } catch (BusinessException | PersistenceException ex) {
             dissertiveQuestionAnswer.setTxtAnswer("Test");
@@ -67,7 +67,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     public void testOpenEndedAnswerInsertNullUserID() {
         dissertiveQuestionAnswer.setUserID(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
             fail("Tried to insert a openEndedAnswer with a null UserID.");
         } catch (BusinessException | PersistenceException ex) {}
             dissertiveQuestionAnswer.setUserID(0L);
@@ -76,7 +76,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     public void testOpenEndedAnswerInsertNullQuestionID() {
         dissertiveQuestionAnswer.setQuestionID(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
             fail("Tried to insert a openEndedAnswer with a null QuestionID.");
         } catch (BusinessException | PersistenceException ex) {}
             dissertiveQuestionAnswer.setQuestionID(0L);
@@ -87,7 +87,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
 
         dissertiveQuestionAnswer.setSeqAnswerUser(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
             fail("Tried to insert a openEndedAnswer with a null QuestionID.");
         } catch (BusinessException | PersistenceException ex) {}
             dissertiveQuestionAnswer.setSeqAnswerUser(0L);
@@ -98,8 +98,8 @@ public class DissertiveQuestionAnswerManagementImplTest {
         Long userAnsserSeq = -3L;
         
         try {
-            userAnsserSeq = dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
-            userAnsserSeq = dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            userAnsserSeq = dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
+            userAnsserSeq = dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             
             fail(ex.getMessage());
@@ -113,7 +113,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
         
         //removes registered openEndedAnswer
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerRemove(1L, 2L, 3L);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerRemove(1L, 2L, 3L);
         } catch (PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }   
@@ -122,13 +122,13 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerUpdateNull() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         dissertiveQuestionAnswer = null;
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
          fail("OpenEndedAnswer updated to null");
         } catch (BusinessException | PersistenceException ex) { }
     }
@@ -136,13 +136,13 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerUpdateNullTxtAwnser() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         dissertiveQuestionAnswer.setTxtAnswer(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
             fail("OpenEndedAnswer updated with null name");
         } catch (BusinessException | PersistenceException ex) { }
     }
@@ -150,13 +150,13 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerUpdateNullUserID() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         dissertiveQuestionAnswer.setUserID(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
             fail("Tried to update a openEndedAnswer with a null UserID.");
         } catch (BusinessException | PersistenceException ex) {
             dissertiveQuestionAnswer.setUserID(0L);
@@ -166,13 +166,13 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerUpdateNullQuestionID() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         dissertiveQuestionAnswer.setQuestionID(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
             fail("Tried to update a openEndedAnswer with a null QuestionID.");
         } catch (BusinessException | PersistenceException ex) {
             dissertiveQuestionAnswer.setQuestionID(0L);
@@ -182,13 +182,13 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerUpdateNullSeqAnswerUser() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         dissertiveQuestionAnswer.setSeqAnswerUser(null);
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
             fail("Tried to update a openEndedAnswer with a null SeqAnswerUser.");
         } catch (BusinessException | PersistenceException ex) {
             dissertiveQuestionAnswer.setSeqAnswerUser(0L);
@@ -198,20 +198,20 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerUpdateCorrect() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         dissertiveQuestionAnswer.setTxtAnswer("Update test");
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerUpdate(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerUpdate(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             fail(ex.getMessage());
             //fail("Failed to update openEndedAnswer");
             return;
         }
         try {
-            if (!dissertiveQuestionAnswerManagement.getOpenEndedAnswerById(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser()).getTxtAnswer().equals("Update test")) {
+            if (!dissertiveQuestionAnswerManagement.getDissertiveQuestionAnswerById(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser()).getTxtAnswer().equals("Update test")) {
                 fail("Failed to update openEndedAnswer");
             }
         } catch (PersistenceException ex) {
@@ -222,12 +222,12 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testOpenEndedAnswerRemove() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerRemove(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser());
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerRemove(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser());
         } catch (PersistenceException ex) {
             
         fail(ex.getMessage());
@@ -238,13 +238,13 @@ public class DissertiveQuestionAnswerManagementImplTest {
     @Test
     public void testGetModuleById() {
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         DissertiveQuestionAnswer openEndedAnswerTest;
         try {
-            openEndedAnswerTest = dissertiveQuestionAnswerManagement.getOpenEndedAnswerById(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser());
+            openEndedAnswerTest = dissertiveQuestionAnswerManagement.getDissertiveQuestionAnswerById(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser());
         } catch (PersistenceException ex) {
             fail(ex.getMessage());
             //fail("Failed to get openEndedAnswer by id");
@@ -260,8 +260,8 @@ public class DissertiveQuestionAnswerManagementImplTest {
         DissertiveQuestionAnswer openEndedAnswer2 = new DissertiveQuestionAnswer(3L, 2L, 1L, "Test Again", 0.2);
         List<DissertiveQuestionAnswer> list;
         try {
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(dissertiveQuestionAnswer);
-            dissertiveQuestionAnswerManagement.openEndedAnswerInsert(openEndedAnswer2);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(openEndedAnswer2);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }

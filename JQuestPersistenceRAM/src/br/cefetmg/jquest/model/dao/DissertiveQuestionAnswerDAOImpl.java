@@ -6,7 +6,7 @@
 package br.cefetmg.jquest.model.dao;
 
 
-import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
+import br.cefetmg.jquest.model.domain.DissertiveQuestionAnswer;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,80 +17,80 @@ import java.util.Objects;
  *
  * @author Thalesgsn
  */
-public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
-    private static OpenEndedAnswerDAOImpl Instance = null;
-    private final HashMap<OpenEndedAnswerID, OpenEndedAnswer> openEndedDB;
+public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswerDAO{
+    private static DissertiveQuestionAnswerDAOImpl Instance = null;
+    private final HashMap<DissertiveQuestionAnswerID, DissertiveQuestionAnswer> openEndedDB;
     
-    private OpenEndedAnswerDAOImpl() {
+    private DissertiveQuestionAnswerDAOImpl() {
       this.openEndedDB = new HashMap<>();
     }
     /**
      * Singleton constructor that return the unique instance of this object.
      * @return OpenEndedAwnserDAOImpl unique instance.
      */
-    public static OpenEndedAnswerDAOImpl getInstance() {
+    public static DissertiveQuestionAnswerDAOImpl getInstance() {
         if(Instance == null){
-            Instance = new OpenEndedAnswerDAOImpl();
+            Instance = new DissertiveQuestionAnswerDAOImpl();
         }
         return Instance;
     }
 
     @Override
-    synchronized public void insert(OpenEndedAnswer openEndedAnswer)
+    synchronized public void insert(DissertiveQuestionAnswer dissertiveQuestionAnswer)
             throws PersistenceException {
-        if(openEndedAnswer == null)
+        if(dissertiveQuestionAnswer == null)
             throw new PersistenceException("The object openEndedAwnser cannot be null.");
-        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
+        if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null)
             throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         
         
-        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getQuestionID(), 
-                openEndedAnswer.getUserID(), openEndedAnswer.getSeqAnswerUser());
+        DissertiveQuestionAnswerID id = new DissertiveQuestionAnswerID(dissertiveQuestionAnswer.getQuestionID(), 
+                dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getSeqAnswerUser());
         
         if(openEndedDB.containsKey(id))
             throw new PersistenceException("Question already inserted, or duplicated key.");
             
-        openEndedDB.put(id, openEndedAnswer);
+        openEndedDB.put(id, dissertiveQuestionAnswer);
     }
 
     @Override
-    synchronized public void update(OpenEndedAnswer openEndedAnswer) throws PersistenceException {
-        if(openEndedAnswer == null)
+    synchronized public void update(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws PersistenceException {
+        if(dissertiveQuestionAnswer == null)
          throw new PersistenceException("The object openEndedAwnser cannot be null.");
         
-        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+        if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null){
             throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         }
         
-        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getQuestionID(), 
-                openEndedAnswer.getUserID(), openEndedAnswer.getSeqAnswerUser());
+        DissertiveQuestionAnswerID id = new DissertiveQuestionAnswerID(dissertiveQuestionAnswer.getQuestionID(), 
+                dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getSeqAnswerUser());
       
         if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
-        openEndedDB.replace(id, openEndedAnswer);
+        openEndedDB.replace(id, dissertiveQuestionAnswer);
     }
 
     @Override
-    synchronized public OpenEndedAnswer remove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+    synchronized public DissertiveQuestionAnswer remove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
         if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        OpenEndedAnswerID id = new OpenEndedAnswerID(questionID, userID, seqAnswerUser);
+        DissertiveQuestionAnswerID id = new DissertiveQuestionAnswerID(questionID, userID, seqAnswerUser);
          if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
-        OpenEndedAnswer aux = openEndedDB.get(id);
+        DissertiveQuestionAnswer aux = openEndedDB.get(id);
         openEndedDB.remove(id);
         return aux;
     }
 
     @Override
-    synchronized public OpenEndedAnswer getOpenEndedAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+    synchronized public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
         if(questionID == null || userID == null || seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        OpenEndedAnswerID id = new OpenEndedAnswerID(questionID, userID, seqAnswerUser);
+        DissertiveQuestionAnswerID id = new DissertiveQuestionAnswerID(questionID, userID, seqAnswerUser);
          if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
         
@@ -98,8 +98,8 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
     }
 
     @Override
-    synchronized public List<OpenEndedAnswer> listAll() throws PersistenceException {
-        List<OpenEndedAnswer> aux = new ArrayList(openEndedDB.values());
+    synchronized public List<DissertiveQuestionAnswer> listAll() throws PersistenceException {
+        List<DissertiveQuestionAnswer> aux = new ArrayList(openEndedDB.values());
         if(aux.isEmpty())
             throw new PersistenceException("There isn't elements in the List.");
         
@@ -111,12 +111,12 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
  * A simple private class that supports the ID needed to the RAMPersistence.
  * @author Thalesgsn
  */
-class OpenEndedAnswerID{
+class DissertiveQuestionAnswerID{
   private Long questionID; 
   private Long userID; 
   private Long seqAnswerUser;
 
-    public OpenEndedAnswerID(Long questionID, Long userID, Long seqAnswerUser) {
+    public DissertiveQuestionAnswerID(Long questionID, Long userID, Long seqAnswerUser) {
         this.questionID = questionID;
         this.userID = userID;
         this.seqAnswerUser = seqAnswerUser;
@@ -166,7 +166,7 @@ class OpenEndedAnswerID{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final OpenEndedAnswerID other = (OpenEndedAnswerID) obj;
+        final DissertiveQuestionAnswerID other = (DissertiveQuestionAnswerID) obj;
         return true;
     }
     

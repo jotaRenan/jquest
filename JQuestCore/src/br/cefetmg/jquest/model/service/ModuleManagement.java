@@ -20,4 +20,5 @@ public interface ModuleManagement {
     public Module moduleRemove(Long moduleId) throws PersistenceException;
     public Module getModuleById(Long moduleId) throws PersistenceException;
     public List<Module> getAll() throws PersistenceException;    
+    public List<Long> getAllDomains() throws PersistenceException;    
 }

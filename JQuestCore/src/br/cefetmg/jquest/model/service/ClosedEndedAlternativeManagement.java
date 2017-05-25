@@ -18,6 +18,6 @@ public interface ClosedEndedAlternativeManagement {
     public Long insert(ClosedEndedAlternative closedEndedAlt) throws BusinessException, PersistenceException;
     public void update(ClosedEndedAlternative closedEndedAlt) throws BusinessException, PersistenceException;
     public ClosedEndedAlternative remove(Long closedEndedAltId) throws PersistenceException;
-    public ClosedEndedAlternative getToFAnswerById(Long closedEndedAltId) throws PersistenceException;
+    public ClosedEndedAlternative getClosedEndedAlternativeById(Long closedEndedAltId) throws PersistenceException;
     public List<ClosedEndedAlternative> listAll() throws PersistenceException;
 }

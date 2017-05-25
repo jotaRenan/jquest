@@ -17,63 +17,63 @@ import br.cefetmg.jquest.model.dao.QuestionAlternativeDAO;
  */
 public class QuestionAlternativeManagementImpl implements QuestionAlternativeManagement {
     
-    private final QuestionAlternativeDAO closedEndedAltDAO;
+    private final QuestionAlternativeDAO questionAltDAO;
 
-    public QuestionAlternativeManagementImpl(QuestionAlternativeDAO closedEndedAltDAO) {
-        this.closedEndedAltDAO = closedEndedAltDAO;
+    public QuestionAlternativeManagementImpl(QuestionAlternativeDAO questionAltDAO) {
+        this.questionAltDAO = questionAltDAO;
     }
     
     @Override
-    public Long insert(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException {
-        if (closedEndedAlt == null)
+    public Long insert(QuestionAlternative questionAlt) throws BusinessException, PersistenceException {
+        if (questionAlt == null)
             throw new BusinessException("Alternative cannot be null");
         
-        if (closedEndedAlt.getAssertionText() == null || closedEndedAlt.getAssertionText().isEmpty())
+        if (questionAlt.getAssertionText() == null || questionAlt.getAssertionText().isEmpty())
             throw new BusinessException("Assertion cannot be null");
         
-        if(closedEndedAlt.getQuestionId() == null)
+        if(questionAlt.getQuestionId() == null)
             throw new BusinessException("Question Id cannot be null");
         
-        closedEndedAltDAO.insert(closedEndedAlt);
-        return closedEndedAlt.getOptionSeq();
+        questionAltDAO.insert(questionAlt);
+        return questionAlt.getOptionSeq();
     }
 
     @Override
-    public void update(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException {
-        if (closedEndedAlt == null)
+    public void update(QuestionAlternative questionAlt) throws BusinessException, PersistenceException {
+        if (questionAlt == null)
             throw new BusinessException("Alternative cannot be null");
         
-        if (closedEndedAlt.getAssertionText() == null || closedEndedAlt.getAssertionText().isEmpty())
+        if (questionAlt.getAssertionText() == null || questionAlt.getAssertionText().isEmpty())
             throw new BusinessException("Assertion cannot be null");
         
-        if (closedEndedAlt.getQuestionId() == null)
+        if (questionAlt.getQuestionId() == null)
             throw new BusinessException("Question Id cannot be null");
         
-        if (closedEndedAlt.getOptionSeq() == null)
+        if (questionAlt.getOptionSeq() == null)
             throw new BusinessException("Option Seq cannot be null");
         
-        closedEndedAltDAO.update(closedEndedAlt);
+        questionAltDAO.update(questionAlt);
     }
 
     @Override
-    public QuestionAlternative remove(Long closedEndedAltId) throws PersistenceException {
-        if (closedEndedAltId == null)
+    public QuestionAlternative remove(Long questionAltId) throws PersistenceException {
+        if (questionAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
         
-        return closedEndedAltDAO.remove(closedEndedAltId);
+        return questionAltDAO.remove(questionAltId);
     }
 
     @Override
-    public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException {
-        if (closedEndedAltId == null)
+    public QuestionAlternative getQuestionAlternativeById(Long questionAltId) throws PersistenceException {
+        if (questionAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
         
-        return closedEndedAltDAO.getQuestionAlternativeById(closedEndedAltId); //if the id isn't valid it throws an exception
+        return questionAltDAO.getQuestionAlternativeById(questionAltId); //if the id isn't valid it throws an exception
     }
 
     @Override
     public List<QuestionAlternative> listAll() throws PersistenceException {
-        List<QuestionAlternative> list = closedEndedAltDAO.listAll();        
+        List<QuestionAlternative> list = questionAltDAO.listAll();        
         return list;
     }
     

@@ -76,11 +76,11 @@ public class QuestionManagementImpl implements QuestionManagement {
     }
 
     @Override
-    public void questionRemove(Long questionId) throws PersistenceException {
+    public Question questionRemove(Long questionId) throws PersistenceException {
         if (questionId == null)
             throw new PersistenceException("Question's id cannot be null");
         
-       questionDAO.remove(questionId);
+       return questionDAO.remove(questionId);
     }
 
     @Override

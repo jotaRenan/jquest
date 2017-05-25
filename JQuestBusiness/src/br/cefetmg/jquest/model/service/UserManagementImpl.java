@@ -63,11 +63,11 @@ public class UserManagementImpl implements UserManagement {
     }
 
     @Override
-    public void userRemove(Long userId) throws PersistenceException {
+    public User userRemove(Long userId) throws PersistenceException {
         if (userId == null) {
             throw new PersistenceException("User's Id cannot be null");
         }
-        userDAO.remove(userId);
+        return userDAO.remove(userId);
     }
 
     @Override

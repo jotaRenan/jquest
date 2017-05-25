@@ -58,11 +58,11 @@ public class UseLogManagementImpl implements UseLogManagement{
     }
 
     @Override
-    public void useLogRemove(Long useLogSeq) throws PersistenceException {
+    public UseLog useLogRemove(Long useLogSeq) throws PersistenceException {
         if (useLogSeq == null) {
             throw new PersistenceException("UseLog's sequence cannot be null");
         }
-        useLogDAO.remove(useLogSeq);
+        return useLogDAO.remove(useLogSeq);
     }
 
     @Override

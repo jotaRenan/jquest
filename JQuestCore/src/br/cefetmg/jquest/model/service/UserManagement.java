@@ -17,7 +17,7 @@ import java.util.List;
 public interface UserManagement {
     public Long userInsert(User user) throws BusinessException, PersistenceException;
     public void userUpdate(User user) throws BusinessException, PersistenceException;
-    public void userRemove(Long userId) throws PersistenceException;
+    public User userRemove(Long userId) throws PersistenceException;
     public User getUserById(Long userId) throws PersistenceException;
     public List<User> getAll() throws PersistenceException;
 }

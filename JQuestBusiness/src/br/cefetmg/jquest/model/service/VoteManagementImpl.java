@@ -61,10 +61,10 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public void voteRemove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
+    public Vote voteRemove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
         if(questionID == null || discussionID == null || commentaryID == null || userID == null)
             throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
-        DAO.remove(questionID, discussionID, commentaryID, userID);
+        return DAO.remove(questionID, discussionID, commentaryID, userID);
     }
 
     @Override

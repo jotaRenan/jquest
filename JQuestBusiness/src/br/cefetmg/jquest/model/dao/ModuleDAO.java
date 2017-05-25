@@ -12,6 +12,7 @@ import java.util.List;
 /**
  *
  * @author Jota Renan
+ * Testing
  */
 public interface ModuleDAO {
     public Long insert(Module module) throws PersistenceException;
@@ -19,4 +20,5 @@ public interface ModuleDAO {
     public Module remove(Long moduleId) throws PersistenceException;
     public Module getModuleById(Long moduleId) throws PersistenceException;
     public List<Module> listAll() throws PersistenceException; 
+    public List<Long> listAllDomains() throws PersistenceException; 
 }

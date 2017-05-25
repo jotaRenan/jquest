@@ -62,11 +62,7 @@ public class CommentaryManagementImplTest {
     @Test(expected=BusinessException.class)
     public void testEmptyCommentaryInsert() throws BusinessException, PersistenceException {
         comment.setTextCommentary("");
-        try {
-            commentManager.commentaryInsert(comment);
-        } catch (BusinessException | PersistenceException ex) {
-            System.out.println("oi");
-        }
+        commentManager.commentaryInsert(comment);
     }
     /**
      * Test of commentaryUpdate method, of class CommentaryManagementImpl.

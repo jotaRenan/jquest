@@ -51,19 +51,6 @@ public class ForumManagementImplTest {
     }
 
     /**
-     * Test of setDAO method, of class ForumManagementImpl.
-     */
-    @Test
-    public void testSetDAO() {
-        System.out.println("setDAO");
-        ForumDAO DAO = null;
-        ForumManagementImpl instance = new ForumManagementImpl();
-        instance.setDAO(DAO);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of forumInsert method, of class ForumManagementImpl.
      */
     @Test(expected = BusinessException.class)

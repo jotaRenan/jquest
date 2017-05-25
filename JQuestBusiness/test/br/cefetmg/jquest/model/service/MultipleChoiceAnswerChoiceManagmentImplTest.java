@@ -47,6 +47,8 @@ public class MultipleChoiceAnswerChoiceManagmentImplTest {
             this.multChAnswerCh = null;
             multChAnswerChManag.insert(multChAnswerCh);
         } catch (BusinessException | PersistenceException ex) {
+            
+            
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "No MultipleChoiceAnswerChoice was informed";
             assertTrue(msgErr.contains(msgEsperada));

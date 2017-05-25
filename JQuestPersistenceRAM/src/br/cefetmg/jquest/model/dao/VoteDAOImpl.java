@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class VoteDAOImpl implements VoteDAO{
         private static VoteDAOImpl Instance = null;
-    private final HashMap<VoteID, Vote> voteDB;
+    private final HashMap<Long, Vote> voteDB;
     
     private VoteDAOImpl() {
       this.voteDB = new HashMap<>();
@@ -38,60 +38,48 @@ public class VoteDAOImpl implements VoteDAO{
             throws PersistenceException {
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
-        if(vote.getQuestionId() == null || vote.getDiscussionId()== null || vote.getCommentaryId() == null || vote.getUserId() == null)
-            throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
-        
-        
-        VoteID id = new VoteID(vote.getQuestionId(), 
-                vote.getDiscussionId(), vote.getCommentaryId(), vote.getUserId());
-        
-        if(voteDB.containsKey(id))
+        if(vote.getVoteID() == null)
+            throw new PersistenceException("VoteID can't be null.");
+           
+        if(voteDB.containsKey(vote.getVoteID()))
             throw new PersistenceException("Vote already inserted, or duplicated key.");
             
-        voteDB.put(id, vote);
+        voteDB.put(vote.getVoteID(), vote);
     }
 
     @Override
     synchronized public void update(Vote vote) throws PersistenceException {
        if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
-        if(vote.getQuestionId() == null || vote.getDiscussionId()== null || vote.getCommentaryId() == null || vote.getUserId() == null)
-            throw new PersistenceException("None of the questionId or discussionID or the comentaryID or userID can be null.");
-        
-        
-        VoteID id = new VoteID(vote.getQuestionId(), 
-                vote.getDiscussionId(), vote.getCommentaryId(), vote.getUserId());
-      
-        if(!voteDB.containsKey(id))
+        if(vote.getVoteID() == null)
+            throw new PersistenceException("VoteID can't be null.");      
+        if(!voteDB.containsKey(vote.getVoteID()))
             throw new PersistenceException("There isn't a vote with this key on the persistence.");
         
-        voteDB.replace(id, vote);
+        voteDB.replace(vote.getVoteID(), vote);
     }
 
     @Override
-    synchronized public Vote remove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
-       if(questionID == null || discussionID == null || commentaryID == null || userID == null)
+    synchronized public Vote remove(Long voteID) throws PersistenceException {
+       if(voteID == null)
             throw new PersistenceException("None of the questionId or discussionID or the comentaryID or userID can be null.");
-        VoteID id = new VoteID(questionID, 
-                discussionID, commentaryID, userID);
-         if(!voteDB.containsKey(id))
+         if(!voteDB.containsKey(voteID))
             throw new PersistenceException("There isn't a vote with this key on the persistence.");
         
-        Vote aux = voteDB.get(id);
-        voteDB.remove(id);
+        Vote aux = voteDB.get(voteID);
+        voteDB.remove(voteID);
         return aux;
     }
 
     @Override
-    synchronized public Vote getVoteById(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
-         if(questionID == null || discussionID == null || commentaryID == null || userID == null)
-            throw new PersistenceException("None of the questionId or discussionID or the comentaryID or userID can be null.");
-        VoteID id = new VoteID(questionID, 
-                discussionID, commentaryID, userID);
-         if(!voteDB.containsKey(id))
+    synchronized public Vote getVoteById(Long voteID) throws PersistenceException {
+         if(voteID == null)
+            throw new PersistenceException("voteID can´t be null.");
+
+         if(!voteDB.containsKey(voteID))
             throw new PersistenceException("There isn't a vote with this key on the persistence.");
         
-        return voteDB.get(id);
+        return voteDB.get(voteID);
     }
 
     @Override
@@ -103,53 +91,4 @@ public class VoteDAOImpl implements VoteDAO{
         return aux;
     }
 }
-class VoteID{
-    private Long questionId;
-    private Long discussionSeq;
-    private Long commentarySeq;
-    private Long userId;
 
-    public VoteID() {
-    }
-
-    public VoteID(Long questionId, Long discussionSeq, Long commentarySeq, Long userId) {
-        this.questionId = questionId;
-        this.discussionSeq = discussionSeq;
-        this.commentarySeq = commentarySeq;
-        this.userId = userId;
-    }
-
-    public Long getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
-    }
-
-    public Long getDiscussionSeq() {
-        return discussionSeq;
-    }
-
-    public void setDiscussionSeq(Long discussionSeq) {
-        this.discussionSeq = discussionSeq;
-    }
-
-    public Long getCommentarySeq() {
-        return commentarySeq;
-    }
-
-    public void setCommentarySeq(Long commentarySeq) {
-        this.commentarySeq = commentarySeq;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-    
-    
-}

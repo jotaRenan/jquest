@@ -18,7 +18,7 @@ public interface VoteDAO {
     //@TODO JAVADOCS
     public void insert(Vote vote) throws BusinessException, PersistenceException;
     public void update(Vote vote) throws BusinessException, PersistenceException;
-    public Vote remove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException;
-    public Vote getVoteById(Long questionID, Long discussionID, Long comentaryID, Long userID) throws PersistenceException;
+    public Vote remove(Long voteID) throws PersistenceException;
+    public Vote getVoteById(Long voteID) throws PersistenceException;
     public List<Vote> listAll() throws PersistenceException;
 }

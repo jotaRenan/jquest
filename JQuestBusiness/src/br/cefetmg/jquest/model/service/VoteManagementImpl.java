@@ -9,6 +9,7 @@ import br.cefetmg.jquest.model.dao.VoteDAO;
 import br.cefetmg.jquest.model.domain.Vote;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,42 +38,53 @@ public class VoteManagementImpl implements VoteManagement {
 
     @Override
     public Long voteInsert(Vote vote) throws BusinessException, PersistenceException {
+        List<String> errMsgList = new ArrayList<>();
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
-        if(vote.getQuestionId() == null || vote.getDiscussionId()== null || vote.getCommentaryId() == null || vote.getUserId() == null)
-            throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
+        if (vote.getVoteID() == null) {
+            errMsgList.add("Vote can´t be null.");
+        }
         if(vote.equals(new Vote()))
-            throw new BusinessException("The object Vote cannot be empty.");
+            errMsgList.add("The object Vote cannot be empty.");
         
+        if (!errMsgList.isEmpty()) {
+            String errMsg = "";
+            errMsg = errMsgList.stream().reduce("", (errMsgStack, msg) -> errMsgStack = errMsgStack.concat(msg + "\n"));
+            throw new BusinessException(errMsg);
+        }
         DAO.insert(vote);
-        return vote.getCommentaryId();
+        return vote.getQuestionId();
     }
 
     @Override
     public void voteUpdate(Vote vote) throws BusinessException, PersistenceException {
+        List<String> errMsgList = new ArrayList<>();
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
-        if(vote.getQuestionId() == null || vote.getDiscussionId()== null || vote.getCommentaryId() == null || vote.getUserId() == null)
-            throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
-        if(vote.equals(new Vote()))
-            throw new BusinessException("The object Vote cannot be empty.");
+        if(vote.getVoteID() == null)
+            errMsgList.add("Vote can´t be null.");
+        if (!errMsgList.isEmpty()) {
+            final String errMsg = "";
+            errMsgList.stream().forEach(msg -> errMsg.concat(msg + "\n"));
+            throw new BusinessException(errMsg);
+        }
         
         DAO.update(vote);
     }
 
     @Override
-    public void voteRemove(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
-        if(questionID == null || discussionID == null || commentaryID == null || userID == null)
-            throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
-        DAO.remove(questionID, discussionID, commentaryID, userID);
+    public void voteRemove(Long voteID) throws PersistenceException {
+        if(voteID == null)
+            throw new PersistenceException("Vote can´t be null.");
+        DAO.remove(voteID);
     }
 
     @Override
-    public Vote getVoteById(Long questionID, Long discussionID, Long commentaryID, Long userID) throws PersistenceException {
-       if(questionID == null || discussionID == null || commentaryID == null || userID == null)
-            throw new PersistenceException("None of the QuestionId or discussionID or the comentaryID or userID can be null.");
+    public Vote getVoteById(Long voteID) throws PersistenceException {
+       if(voteID == null)
+            throw new PersistenceException("Vote can´t be null.");
         
-        return DAO.getVoteById(questionID, discussionID, commentaryID, userID);
+        return DAO.getVoteById(voteID);
     }
 
     @Override

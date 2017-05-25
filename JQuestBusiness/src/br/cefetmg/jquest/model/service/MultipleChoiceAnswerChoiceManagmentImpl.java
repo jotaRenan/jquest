@@ -14,6 +14,7 @@ import br.cefetmg.jquest.model.domain.MultipleChoiceAnswerChoice;
 import br.cefetmg.jquest.model.domain.OpenEndedAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAnswerChoiceManagement{
@@ -34,31 +35,44 @@ public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAn
 
     @Override
     public Long insert(MultipleChoiceAnswerChoice multChoiceAnswerChoice) throws BusinessException, PersistenceException {
+        List<String> errMsgList = new ArrayList<>();
         if (multChoiceAnswerChoice == null) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be null.");
+            throw new BusinessException("No TrueOrFalseAnswer was informed");
         }
         if (multChoiceAnswerChoice.getQuestionId() == null || multChoiceAnswerChoice.getUserId() == null || multChoiceAnswerChoice.getUserAnswerSeq() == null) {
-            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
+            errMsgList.add("None of the questionID or userID or seqAnswer can be null.");
         }
         if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswerChoice())) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be empty.");
+            errMsgList.add("The object multChoiceAnswerChoice cannot be empty.");
         }
-
-        DAO.insert(multChoiceAnswerChoice);
-        return multChoiceAnswerChoice.getUserAnswerSeq();
+        if (!errMsgList.isEmpty()) {
+            String errMsg = "";
+            errMsg = errMsgList.stream().reduce("", (errMsgStack, msg) -> errMsgStack = errMsgStack.concat(msg + "\n"));
+            throw new BusinessException(errMsg);
+        }
+        
+        return DAO.insert(multChoiceAnswerChoice);
     }
 
     @Override
     public void update(MultipleChoiceAnswerChoice multChoiceAnswerChoice) throws BusinessException, PersistenceException {
+        List<String> errMsgList = new ArrayList<>();
         if (multChoiceAnswerChoice == null) {
             throw new BusinessException("The object multChoiceAnswerChoice cannot be null.");
         }
         if (multChoiceAnswerChoice.getQuestionId() == null || multChoiceAnswerChoice.getUserId() == null || multChoiceAnswerChoice.getUserAnswerSeq() == null) {
-            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
+            errMsgList.add("None of the questionID or userID or seqAnswer can be null.");
         }
         if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswerChoice())) {
-            throw new BusinessException("The object multChoiceAnswerChoice cannot be empty.");
+            errMsgList.add("The object multChoiceAnswerChoice cannot be empty.");
         }
+        
+        if (!errMsgList.isEmpty()) {
+            final String errMsg = "";
+            errMsgList.stream().forEach(msg -> errMsg.concat(msg + "\n"));
+            throw new BusinessException(errMsg);
+        }
+        
         DAO.update(multChoiceAnswerChoice);
     }
 
@@ -80,7 +94,7 @@ public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAn
     }
 
     @Override
-    public List<MultipleChoiceAnswerChoice> listAll() throws PersistenceException {
+    public List<MultipleChoiceAnswerChoice> listAll() throws PersistenceException {       
         List<MultipleChoiceAnswerChoice> aux = DAO.listAll();
         if(aux.isEmpty()) {
             throw new PersistenceException("There isn't elements in the List.");

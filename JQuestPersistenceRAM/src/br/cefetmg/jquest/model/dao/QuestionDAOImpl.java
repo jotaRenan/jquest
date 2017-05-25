@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Aluno
+ * @author Breno Mariz
  */
 public class QuestionDAOImpl implements QuestionDAO {
 

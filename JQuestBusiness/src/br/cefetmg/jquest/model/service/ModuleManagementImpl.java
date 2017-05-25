@@ -77,10 +77,6 @@ public class ModuleManagementImpl implements ModuleManagement {
     @Override
     public List<Module> getAll() throws PersistenceException {
         List<Module> list = moduleDAO.listAll();
-        
-        if (list.isEmpty())
-            throw new PersistenceException("No modules found");
-        
         return list;
     }
     

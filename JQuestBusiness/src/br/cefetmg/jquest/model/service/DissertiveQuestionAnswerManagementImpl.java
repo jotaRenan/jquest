@@ -97,8 +97,6 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     @Override
     public List<DissertiveQuestionAnswer> getAll() throws PersistenceException {
         List<DissertiveQuestionAnswer> aux = DAO.listAll();
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
         return aux;
     }
 

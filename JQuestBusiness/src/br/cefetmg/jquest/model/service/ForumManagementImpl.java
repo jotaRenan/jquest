@@ -93,8 +93,6 @@ public class ForumManagementImpl implements ForumManagement {
     @Override
     public List<Forum> getAll() throws PersistenceException {
         List<Forum> aux = DAO.listAll();
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
         return aux;
     }
 }

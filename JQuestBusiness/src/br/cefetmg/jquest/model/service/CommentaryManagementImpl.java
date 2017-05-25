@@ -101,11 +101,6 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     @Override
     public List<Commentary> getAll() throws PersistenceException {
         List<Commentary> list = commentaryDAO.listAll();
-
-        if (list.isEmpty()) {
-            throw new PersistenceException("No commentarys found");
-        }
-
         return list;
     }
     

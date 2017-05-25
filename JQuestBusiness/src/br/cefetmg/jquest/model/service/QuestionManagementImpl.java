@@ -96,11 +96,6 @@ public class QuestionManagementImpl implements QuestionManagement {
     @Override
     public List<Question> getAll() throws PersistenceException {
         List<Question> list = questionDAO.listAll();
-
-        if (list.isEmpty()) {
-            throw new PersistenceException("No questions found");
-        }
-
         return list;
     }
 

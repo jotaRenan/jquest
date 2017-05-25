@@ -76,11 +76,6 @@ public class UseLogManagementImpl implements UseLogManagement{
     @Override
     public List<UseLog> getAll() throws PersistenceException {
         List<UseLog> list = useLogDAO.listAll();
-
-        if (list.isEmpty()) {
-            throw new PersistenceException("No useLogs found");
-        }
-
         return list;
     }
     

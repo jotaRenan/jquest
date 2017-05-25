@@ -78,11 +78,8 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
     }
 
     @Override
-    public List<MultipleChoiceAnswer> listAll() throws PersistenceException {
+    public List<MultipleChoiceAnswer> getAll() throws PersistenceException {
         List<MultipleChoiceAnswer> aux = DAO.listAll();
-        if(aux.isEmpty()) {
-            throw new PersistenceException("There isn't elements in the List.");
-        }
         return aux;
     }
     

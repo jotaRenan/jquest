@@ -97,9 +97,6 @@ public class ForumDAOImpl implements ForumDAO {
     @Override
     synchronized public List<Forum> listAll() throws PersistenceException {
         List<Forum> aux = new ArrayList(forumDB.values());
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
-        
         return aux;
     }
 }

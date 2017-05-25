@@ -92,9 +92,6 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
     @Override
     synchronized public List<DissertiveQuestionAnswer> listAll() throws PersistenceException {
         List<DissertiveQuestionAnswer> aux = new ArrayList(dissertiveQuestionAnswerDB.values());
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
-        
         return aux;
     }
         

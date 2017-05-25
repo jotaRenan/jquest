@@ -99,7 +99,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
     }
 
     @Override
-    public List<TrueOrFalseAnswer> listAll() throws PersistenceException {
+    public List<TrueOrFalseAnswer> getAll() throws PersistenceException {
         return tofadao.listAll();
     }
     

@@ -78,8 +78,6 @@ public class VoteManagementImpl implements VoteManagement {
     @Override
     public List<Vote> getAll() throws PersistenceException {
         List<Vote> aux = DAO.listAll();
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
         return aux;
     }
 }

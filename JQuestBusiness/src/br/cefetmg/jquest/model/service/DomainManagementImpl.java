@@ -74,10 +74,6 @@ public class DomainManagementImpl implements DomainManagement {
     @Override
     public List<Domain> getAll() throws PersistenceException {
         List<Domain> list = domainDAO.listAll();
-        
-        if (list.isEmpty())
-            throw new PersistenceException("No domains found");
-        
         return list;
     }
     

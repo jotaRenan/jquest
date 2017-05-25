@@ -113,7 +113,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
         
         //removes registered dissertiveQuestionAnswer
         try {
-            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerRemove(1L, 2L, 3L);
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerRemove(3L);
         } catch (PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }   
@@ -211,7 +211,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
             return;
         }
         try {
-            if (!dissertiveQuestionAnswerManagement.getDissertiveQuestionAnswerById(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser()).getTxtAnswer().equals("Update test")) {
+            if (!dissertiveQuestionAnswerManagement.getDissertiveQuestionAnswerById(dissertiveQuestionAnswer.getSeqAnswerUser()).getTxtAnswer().equals("Update test")) {
                 fail("Failed to update dissertiveQuestionAnswer");
             }
         } catch (PersistenceException ex) {
@@ -227,7 +227,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerRemove(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser());
+            dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerRemove(dissertiveQuestionAnswer.getSeqAnswerUser());
         } catch (PersistenceException ex) {
             
         fail(ex.getMessage());
@@ -244,7 +244,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
         }
         DissertiveQuestionAnswer dissertiveQuestionAnswerTest;
         try {
-            dissertiveQuestionAnswerTest = dissertiveQuestionAnswerManagement.getDissertiveQuestionAnswerById(dissertiveQuestionAnswer.getUserID(), dissertiveQuestionAnswer.getQuestionID(), dissertiveQuestionAnswer.getSeqAnswerUser());
+            dissertiveQuestionAnswerTest = dissertiveQuestionAnswerManagement.getDissertiveQuestionAnswerById(dissertiveQuestionAnswer.getSeqAnswerUser());
         } catch (PersistenceException ex) {
             fail(ex.getMessage());
             //fail("Failed to get dissertiveQuestionAnswer by id");

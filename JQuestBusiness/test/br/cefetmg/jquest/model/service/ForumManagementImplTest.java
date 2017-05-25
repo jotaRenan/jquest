@@ -87,13 +87,13 @@ public class ForumManagementImplTest {
     @Test(expected = PersistenceException.class)
     public void testForumRemoveNullDiscussionSeq() throws Exception {
         forum.setDiscussionSeq(null);
-        forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.forumRemove(forum.getDiscussionSeq());
     }
 
     @Test(expected = PersistenceException.class)
     public void testForumRemoveNullQuestionId() throws Exception {
         forum.setDiscussionSeq(null);
-        forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.forumRemove(forum.getDiscussionSeq());
     }
     
     /**
@@ -102,7 +102,7 @@ public class ForumManagementImplTest {
     @Test(expected = PersistenceException.class)
     public void testGetForumByIdNullQuestionId() throws Exception {
         forum.setUserId(null);
-        forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.getForumById(forum.getDiscussionSeq());
     }
     
     /**
@@ -111,7 +111,7 @@ public class ForumManagementImplTest {
     @Test(expected = PersistenceException.class)
     public void testGetForumByIdNullDiscussionSeq() throws Exception {
         forum.setDiscussionSeq(null);
-        forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.getForumById(forum.getDiscussionSeq());
     }
 
     /**

@@ -16,9 +16,9 @@ import java.util.List;
  */
 public interface ForumDAO {
     //@TODO JAVADOCS
-    public void insert(Forum forum) throws BusinessException, PersistenceException;
+    public Long insert(Forum forum) throws BusinessException, PersistenceException;
     public void update(Forum forum) throws BusinessException, PersistenceException;
-    public Forum remove(Long questionID, Long discussionSeq) throws PersistenceException;
-    public Forum getForumById(Long questionID, Long discussionSeq) throws PersistenceException;
+    public Forum remove(Long discussionSeq) throws PersistenceException;
+    public Forum getForumById(Long discussionSeq) throws PersistenceException;
     public List<Forum> listAll() throws PersistenceException;
 }

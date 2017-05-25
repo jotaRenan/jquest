@@ -79,19 +79,19 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public void DissertiveQuestionAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
-        if(questionID == null || userID == null || seqAnswerUser == null)
+    public void DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException {
+        if(seqAnswerUser == null)
             throw new PersistenceException("None of the parameters can be null.");
          
-        DAO.remove(questionID, userID, seqAnswerUser);
+        DAO.remove(seqAnswerUser);
     }
 
     @Override
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
-        if(questionID == null || userID == null || seqAnswerUser == null){
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long seqAnswerUser) throws PersistenceException {
+        if(seqAnswerUser == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        return DAO.getDissertiveQuestionAnswerById(questionID, userID, seqAnswerUser);
+        return DAO.getDissertiveQuestionAnswerById(seqAnswerUser);
     }
 
     @Override

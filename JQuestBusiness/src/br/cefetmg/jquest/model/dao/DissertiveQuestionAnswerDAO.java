@@ -20,7 +20,7 @@ public interface DissertiveQuestionAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void insert(DissertiveQuestionAnswer openEndedAnswer) throws PersistenceException;
+    public Long insert(DissertiveQuestionAnswer openEndedAnswer) throws PersistenceException;
     
     /**
      * Updates the DissertiveQuestionAnswer object in the persistence.
@@ -39,7 +39,7 @@ public interface DissertiveQuestionAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public DissertiveQuestionAnswer remove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer remove(Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the DissertiveQuestionAnswer object by id in the persistence.
@@ -50,7 +50,7 @@ public interface DissertiveQuestionAnswerDAO {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long seqAnswerUser) throws PersistenceException;
     
     /**
      * List all the DissertiveQuestionAnswer objects in the persistence.

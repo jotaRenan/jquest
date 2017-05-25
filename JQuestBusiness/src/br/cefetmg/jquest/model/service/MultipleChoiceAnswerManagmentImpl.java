@@ -8,37 +8,37 @@ package br.cefetmg.jquest.model.service;
  * 
  */
 
-import br.cefetmg.jquest.model.dao.MultipleChoiceAnswerChoiceDAO;
-import br.cefetmg.jquest.model.domain.MultipleChoiceAnswerChoice;
+import br.cefetmg.jquest.model.dao.MultipleChoiceAnswerDAO;
+import br.cefetmg.jquest.model.domain.MultipleChoiceAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 
-public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAnswerChoiceManagement{
+public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerManagement{
     
-    private MultipleChoiceAnswerChoiceDAO DAO;
+    private MultipleChoiceAnswerDAO DAO;
     
-    public MultipleChoiceAnswerChoiceManagmentImpl() {};
+    public MultipleChoiceAnswerManagmentImpl() {};
     
-        public MultipleChoiceAnswerChoiceManagmentImpl(MultipleChoiceAnswerChoiceDAO DAO) {
+        public MultipleChoiceAnswerManagmentImpl(MultipleChoiceAnswerDAO DAO) {
         this.DAO = DAO;
     }
 
-    public void setDAO(MultipleChoiceAnswerChoiceDAO DAO) {
+    public void setDAO(MultipleChoiceAnswerDAO DAO) {
         this.DAO = DAO;
     }
     
     
 
     @Override
-    public Long insert(MultipleChoiceAnswerChoice multChoiceAnswerChoice) throws BusinessException, PersistenceException {
+    public Long insert(MultipleChoiceAnswer multChoiceAnswerChoice) throws BusinessException, PersistenceException {
         if (multChoiceAnswerChoice == null) {
             throw new BusinessException("The object multChoiceAnswerChoice cannot be null.");
         }
         if (multChoiceAnswerChoice.getQuestionId() == null || multChoiceAnswerChoice.getUserId() == null || multChoiceAnswerChoice.getUserAnswerSeq() == null) {
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswerChoice())) {
+        if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswer())) {
             throw new BusinessException("The object multChoiceAnswerChoice cannot be empty.");
         }
 
@@ -47,21 +47,21 @@ public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAn
     }
 
     @Override
-    public void update(MultipleChoiceAnswerChoice multChoiceAnswerChoice) throws BusinessException, PersistenceException {
+    public void update(MultipleChoiceAnswer multChoiceAnswerChoice) throws BusinessException, PersistenceException {
         if (multChoiceAnswerChoice == null) {
             throw new BusinessException("The object multChoiceAnswerChoice cannot be null.");
         }
         if (multChoiceAnswerChoice.getQuestionId() == null || multChoiceAnswerChoice.getUserId() == null || multChoiceAnswerChoice.getUserAnswerSeq() == null) {
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswerChoice())) {
+        if (multChoiceAnswerChoice.equals(new MultipleChoiceAnswer())) {
             throw new BusinessException("The object multChoiceAnswerChoice cannot be empty.");
         }
         DAO.update(multChoiceAnswerChoice);
     }
 
     @Override
-    public MultipleChoiceAnswerChoice remove(Long multChoiceAnswerChoiceId) throws PersistenceException {
+    public MultipleChoiceAnswer remove(Long multChoiceAnswerChoiceId) throws PersistenceException {
         if (multChoiceAnswerChoiceId == null) {
             throw new PersistenceException("None of the parameters can be null.");
         }
@@ -69,7 +69,7 @@ public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAn
     }
 
     @Override
-    public MultipleChoiceAnswerChoice getToFAnswerById(Long multChoiceAnswerChoiceId) throws PersistenceException {
+    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerChoiceId) throws PersistenceException {
         if(multChoiceAnswerChoiceId == null) {
             throw new PersistenceException("multChoiceAnswerChoiceId can't be null.");
         } 
@@ -78,8 +78,8 @@ public class MultipleChoiceAnswerChoiceManagmentImpl implements MultipleChoiceAn
     }
 
     @Override
-    public List<MultipleChoiceAnswerChoice> listAll() throws PersistenceException {
-        List<MultipleChoiceAnswerChoice> aux = DAO.listAll();
+    public List<MultipleChoiceAnswer> listAll() throws PersistenceException {
+        List<MultipleChoiceAnswer> aux = DAO.listAll();
         if(aux.isEmpty()) {
             throw new PersistenceException("There isn't elements in the List.");
         }

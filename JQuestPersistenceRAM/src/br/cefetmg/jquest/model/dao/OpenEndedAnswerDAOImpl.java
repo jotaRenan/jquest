@@ -11,6 +11,7 @@ import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -39,12 +40,12 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
             throws PersistenceException {
         if(openEndedAnswer == null)
             throw new PersistenceException("The object openEndedAwnser cannot be null.");
-        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
+        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
             throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         
         
-        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getquestionID(), 
-                openEndedAnswer.getuserID(), openEndedAnswer.getSeqAnswerUser());
+        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getQuestionID(), 
+                openEndedAnswer.getUserID(), openEndedAnswer.getSeqAnswerUser());
         
         if(openEndedDB.containsKey(id))
             throw new PersistenceException("Question already inserted, or duplicated key.");
@@ -57,12 +58,12 @@ public class OpenEndedAnswerDAOImpl implements OpenEndedAnswerDAO{
         if(openEndedAnswer == null)
          throw new PersistenceException("The object openEndedAwnser cannot be null.");
         
-        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
             throw new PersistenceException("None of the questionID or userID or seqAnswer can be null.");
         }
         
-        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getquestionID(), 
-                openEndedAnswer.getuserID(), openEndedAnswer.getSeqAnswerUser());
+        OpenEndedAnswerID id = new OpenEndedAnswerID(openEndedAnswer.getQuestionID(), 
+                openEndedAnswer.getUserID(), openEndedAnswer.getSeqAnswerUser());
       
         if(!openEndedDB.containsKey(id))
             throw new PersistenceException("There isn't a question with this key on the persistence.");
@@ -121,7 +122,7 @@ class OpenEndedAnswerID{
         this.seqAnswerUser = seqAnswerUser;
     }
 
-    public Long getquestionID() {
+    public Long getQuestionID() {
         return questionID;
     }
 
@@ -129,7 +130,7 @@ class OpenEndedAnswerID{
         this.questionID = questionID;
     }
 
-    public Long getuserID() {
+    public Long getUserID() {
         return userID;
     }
 
@@ -143,6 +144,30 @@ class OpenEndedAnswerID{
 
     public void setSeqAnswerUser(Long seqAnswerUser) {
         this.seqAnswerUser = seqAnswerUser;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.questionID);
+        hash = 79 * hash + Objects.hashCode(this.userID);
+        hash = 79 * hash + Objects.hashCode(this.seqAnswerUser);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OpenEndedAnswerID other = (OpenEndedAnswerID) obj;
+        return true;
     }
     
 }

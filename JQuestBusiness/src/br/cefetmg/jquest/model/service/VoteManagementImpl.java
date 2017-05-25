@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author aluno
+ * @author Thalesgsn
  */
 public class VoteManagementImpl implements VoteManagement {
        private VoteDAO DAO;

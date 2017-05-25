@@ -42,18 +42,18 @@ public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
     }
 
     @Override
-    public Long OpenEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException {
+    public Long openEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException {
         if(openEndedAnswer == null){
             throw new BusinessException("The object OpenEndedAnswer cannot be null.");
         }
-        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
         if(openEndedAnswer.equals(new OpenEndedAnswer())){
             throw new BusinessException("The object OpenEndedAnswer cannot be empty.");
         }
-        if(openEndedAnswer.getTxtAnswer().isEmpty()){
-            throw new BusinessException("The Answer text cannot be empty.");
+        if(openEndedAnswer.getTxtAnswer() == null){
+            throw new BusinessException("The Answer text cannot be null.");
         }
         
         DAO.insert(openEndedAnswer);
@@ -61,28 +61,28 @@ public class OpenEndedAnswerManagementImpl implements OpenEndedAnswerManagement{
     }
 
     @Override
-    public void OpenEndedAnswerUpdate(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException {
-        if(openEndedAnswer == null){
+    public void openEndedAnswerUpdate(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException {
+        if(openEndedAnswer == null)
             throw new BusinessException("The object cannot be null.");
-        }
-        if(openEndedAnswer.getquestionID() == null || openEndedAnswer.getuserID() == null || openEndedAnswer.getSeqAnswerUser() == null){
+        
+        if(openEndedAnswer.getQuestionID() == null || openEndedAnswer.getUserID() == null || openEndedAnswer.getSeqAnswerUser() == null)
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
-        }
+        
         if(openEndedAnswer.equals(new OpenEndedAnswer())){
             throw new BusinessException("The object cannot be empty.");
         }
-        if(openEndedAnswer.getTxtAnswer().isEmpty()){
-            throw new BusinessException("The Answer text cannot be empty.");
+        if(openEndedAnswer.getTxtAnswer() == null){
+            throw new BusinessException("The Answer text cannot be null.");
         }
         
         DAO.update(openEndedAnswer);
     }
 
     @Override
-    public void OpenEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
-        if(questionID == null || userID == null || seqAnswerUser == null){
+    public void openEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException {
+        if(questionID == null || userID == null || seqAnswerUser == null)
             throw new PersistenceException("None of the parameters can be null.");
-        } 
+         
         DAO.remove(questionID, userID, seqAnswerUser);
     }
 

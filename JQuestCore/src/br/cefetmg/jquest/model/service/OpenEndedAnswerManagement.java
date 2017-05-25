@@ -26,7 +26,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public Long OpenEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
+    public Long openEndedAnswerInsert(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
      
     /**
      * Apply the business rules and updates the OpenEndedAnswer object in the 
@@ -37,7 +37,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void OpenEndedAnswerUpdate(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
+    public void openEndedAnswerUpdate(OpenEndedAnswer openEndedAnswer) throws BusinessException, PersistenceException;
     
     /**
      * Removes the OpenEndedAnswer object in the persistence.
@@ -47,7 +47,7 @@ public interface OpenEndedAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void OpenEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
+    public void openEndedAnswerRemove(Long questionID, Long userID, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the OpenEndedAnswer object by id in the persistence.

@@ -47,7 +47,7 @@ public class VoteManagementImplTest {
             VoteManag.voteInsert(vote);
         } catch (BusinessException | PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
-            String msgEsperada = "No vote was informed";
+            String msgEsperada = "The object vote cannot be null.";
             assertTrue(msgErr.contains(msgEsperada));
         } catch (NullPointerException ex) {
             fail("Insertion of null vote");
@@ -61,7 +61,7 @@ public class VoteManagementImplTest {
                 VoteManag.voteUpdate(vote);
             } catch (BusinessException | PersistenceException ex) {
                 ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
-                String msgEsperada = "No vote was informed";
+                String msgEsperada = "The object vote cannot be null.";
                 assertTrue(msgErr.contains(msgEsperada));
                 return;
             }
@@ -72,10 +72,10 @@ public class VoteManagementImplTest {
     public void testVoteNullIDRemoval() throws PersistenceException, BusinessException {
         try {
             this.vote.setVoteID(null);
-            VoteManag.voteRemove(vote.getQuestionId());
+            VoteManag.voteRemove(vote.getVoteID());
         } catch (PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
-            String msgEsperada = "No vote ID was informed";
+            String msgEsperada = "Vote can´t be null.";
             assertTrue(msgErr.contains(msgEsperada));
             return;
         }

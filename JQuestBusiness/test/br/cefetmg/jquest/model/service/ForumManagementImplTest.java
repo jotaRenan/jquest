@@ -202,7 +202,8 @@ public class ForumManagementImplTest {
      * Test of getForumById method, of class ForumManagementImpl.
      */
     @Test
-    public void testGetForumById() {
+    public void testGetForumById() throws BusinessException, PersistenceException {
+        forumManager.forumInsert(forum);
         try {
             forumManager.getForumById(forum.getDiscussionSeq());
         } catch (PersistenceException ex) {

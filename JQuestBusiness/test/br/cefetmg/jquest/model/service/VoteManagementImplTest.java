@@ -5,13 +5,15 @@
  */
 package br.cefetmg.jquest.model.service;
 
-import br.cefetmg.jquest.model.dao.VoteDAO;
 import br.cefetmg.jquest.model.dao.VoteDAOImpl;
 import br.cefetmg.jquest.model.domain.Vote;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
@@ -23,7 +25,7 @@ import org.junit.Before;
  * @author Breno Mariz
  */
 public class VoteManagementImplTest {
-        private static VoteManagementImpl VoteManag;
+    private static VoteManagementImpl VoteManag;
     private static VoteDAOImpl VoteDAO;
     private Vote vote;
     
@@ -55,6 +57,49 @@ public class VoteManagementImplTest {
     }
     
     @Test
+    public void testVoteInsertNullCommentarySeq() {
+        vote.setCommentarySeq(null);
+        try {
+            VoteManag.voteInsert(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            return;
+        }
+        fail("Could insert vote with null CommentarySeq");
+    }
+    
+    @Test
+    public void testVoteInsertNullDiscussionSeq(){
+        vote.setDiscussionSeq(null);
+        try {
+            VoteManag.voteInsert(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            return;
+        }
+        fail("Could insert vote with null DiscussionSeq");
+    }
+    
+    @Test
+    public void testVoteInsertNullQuestionId() {
+        vote.setQuestionId(null);
+        try {
+            VoteManag.voteInsert(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            return;
+        }
+        fail("Could insert vote with null QuestionId");
+    }
+    
+    @Test
+    public void testVoteInsertCorrect() throws PersistenceException {
+        try {
+            VoteManag.voteInsert(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            fail("Couldn't insert vote");
+        }
+        VoteManag.voteRemove(vote.getVoteID());
+    }
+    
+    @Test
     public void testVoteNullUpdate () throws PersistenceException, BusinessException {
             try {
                 this.vote = null;
@@ -69,6 +114,52 @@ public class VoteManagementImplTest {
     }
     
     @Test
+    public void testVoteUpdateNullCommentarySeq() throws BusinessException, PersistenceException {
+        VoteManag.voteInsert(vote);
+        vote.setCommentarySeq(null);
+        try {
+            VoteManag.voteUpdate(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            return;
+        }
+        fail("Could update vote with null CommentarySeq");
+    }
+    
+    @Test
+    public void testVoteUpdateNullDiscussionSeq() throws BusinessException, PersistenceException{
+        VoteManag.voteInsert(vote);
+        vote.setDiscussionSeq(null);
+        try {
+            VoteManag.voteUpdate(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            return;
+        }
+        fail("Could update vote with null DiscussionSeq");
+    }
+    
+    @Test
+    public void testVoteUpdateNullQuestionId() throws BusinessException, PersistenceException {
+        VoteManag.voteInsert(vote);
+        vote.setQuestionId(null);
+        try {
+            VoteManag.voteUpdate(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            return;
+        }
+        fail("Could insert vote with null QuestionId");
+    }
+    
+    @Test
+    public void testVoteUpdateCorrect() throws PersistenceException, BusinessException {
+        VoteManag.voteInsert(vote);
+        try {
+            VoteManag.voteUpdate(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            fail("Couldn't insert vote");
+        }
+    }
+    
+    @Test
     public void testVoteNullIDRemoval() throws PersistenceException, BusinessException {
         try {
             this.vote.setVoteID(null);
@@ -80,6 +171,60 @@ public class VoteManagementImplTest {
             return;
         }
         fail("Update of null vote ID");
+    }
+    
+    @Test
+    public void testVoteRemove() {
+        try {
+            VoteManag.voteInsert(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            Logger.getLogger(VoteManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            VoteManag.voteRemove(vote.getVoteID());
+        } catch (PersistenceException ex) {
+            fail("Failed to remove domain");
+        }
+    }
+    
+    @Test
+    public void testGetModuleById() {
+        try {
+            VoteManag.voteInsert(vote);
+        } catch (BusinessException | PersistenceException ex) {
+            Logger.getLogger(VoteManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Vote voteTest;
+        try {
+            voteTest = VoteManag.getVoteById(vote.getVoteID());
+        } catch (PersistenceException ex) {
+            fail("Failed to get vote by id");
+            return;
+        }
+        if (!voteTest.equals(vote)) {
+            fail("Failed to get vote by id");
+        }
+    }
+    
+    @Test
+    public void testGetAll() {
+        Vote vote2 = vote;
+        List<Vote> list;
+        try {
+            VoteManag.voteInsert(vote);
+            VoteManag.voteInsert(vote2);
+        } catch (BusinessException | PersistenceException ex) {
+            Logger.getLogger(VoteManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            list = VoteManag.getAll();
+        } catch (PersistenceException ex) {
+            fail("Failed to get all domains");
+            return;
+        }
+        if(list.isEmpty()) {
+            fail("Failed to get all domains correctly");
+        }
     }
        
 }

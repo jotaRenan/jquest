@@ -38,36 +38,44 @@ public class VoteManagementImpl implements VoteManagement {
 
     @Override
     public Long voteInsert(Vote vote) throws BusinessException, PersistenceException {
-        List<String> errMsgList = new ArrayList<>();
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
-        if (vote.getVoteID() == null) {
-            errMsgList.add("Vote can´t be null.");
-        }
-        if(vote.equals(new Vote()))
-            errMsgList.add("The object Vote cannot be empty.");
         
-        if (!errMsgList.isEmpty()) {
-            String errMsg = "";
-            errMsg = errMsgList.stream().reduce("", (errMsgStack, msg) -> errMsgStack = errMsgStack.concat(msg + "\n"));
-            throw new BusinessException(errMsg);
-        }
+        if(vote.getCommentarySeq() == null)
+            throw new PersistenceException("The commentarySeq cannot be null.");
+        
+        if(vote.getDiscussionSeq() == null)
+            throw new PersistenceException("The discussionSeq cannot be null.");
+        
+        if(vote.getQuestionId() == null)
+            throw new PersistenceException("The questionId cannot be null.");
+        
+        if(vote.getUserId() == null)
+            throw new PersistenceException("The userId cannot be null.");
+        
         DAO.insert(vote);
-        return vote.getQuestionId();
+        return vote.getVoteID();
     }
 
     @Override
     public void voteUpdate(Vote vote) throws BusinessException, PersistenceException {
-        List<String> errMsgList = new ArrayList<>();
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
+        
         if(vote.getVoteID() == null)
-            errMsgList.add("Vote can´t be null.");
-        if (!errMsgList.isEmpty()) {
-            final String errMsg = "";
-            errMsgList.stream().forEach(msg -> errMsg.concat(msg + "\n"));
-            throw new BusinessException(errMsg);
-        }
+            throw new PersistenceException("The voteId cannot be null.");
+        
+        if(vote.getCommentarySeq() == null)
+            throw new PersistenceException("The commentarySeq cannot be null.");
+        
+        if(vote.getDiscussionSeq() == null)
+            throw new PersistenceException("The discussionSeq cannot be null.");
+        
+        if(vote.getQuestionId() == null)
+            throw new PersistenceException("The questionId cannot be null.");
+        
+        if(vote.getUserId() == null)
+            throw new PersistenceException("The userId cannot be null.");
         
         DAO.update(vote);
     }

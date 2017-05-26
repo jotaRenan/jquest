@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface VoteDAO {
     //@TODO JAVADOCS
-    public void insert(Vote vote) throws BusinessException, PersistenceException;
+    public Long insert(Vote vote) throws BusinessException, PersistenceException;
     public void update(Vote vote) throws BusinessException, PersistenceException;
     public Vote remove(Long voteID) throws PersistenceException;
     public Vote getVoteById(Long voteID) throws PersistenceException;

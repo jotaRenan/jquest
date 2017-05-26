@@ -201,7 +201,7 @@ public class DomainManagementImplTest {
     }
     
     @Test
-    public void testGetModuleById() {
+    public void testGetDomainById() {
         try {
             domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {

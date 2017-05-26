@@ -49,11 +49,8 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
         if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null){
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if(dissertiveQuestionAnswer.equals(new DissertiveQuestionAnswer())){
-            throw new BusinessException("The object DissertiveQuestionAnswer cannot be empty.");
-        }
-        if(dissertiveQuestionAnswer.getTxtAnswer() == null){
-            throw new BusinessException("The Answer text cannot be null.");
+        if(dissertiveQuestionAnswer.getTxtAnswer() == null || dissertiveQuestionAnswer.getTxtAnswer().isEmpty()){
+            throw new BusinessException("The Answer text cannot be null or empty.");
         }
         
         DAO.insert(dissertiveQuestionAnswer);
@@ -68,11 +65,8 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
         if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null)
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         
-        if(dissertiveQuestionAnswer.equals(new DissertiveQuestionAnswer())){
-            throw new BusinessException("The object cannot be empty.");
-        }
-        if(dissertiveQuestionAnswer.getTxtAnswer() == null){
-            throw new BusinessException("The Answer text cannot be null.");
+        if(dissertiveQuestionAnswer.getTxtAnswer() == null || dissertiveQuestionAnswer.getTxtAnswer().isEmpty()){
+            throw new BusinessException("The Answer text cannot be null or empty.");
         }
         
         DAO.update(dissertiveQuestionAnswer);
@@ -81,16 +75,16 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     @Override
     public void DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException {
         if(seqAnswerUser == null)
-            throw new PersistenceException("None of the parameters can be null.");
+            throw new PersistenceException("The seqAwnserUser can't be null.");
          
         DAO.remove(seqAnswerUser);
     }
 
     @Override
     public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long seqAnswerUser) throws PersistenceException {
-        if(seqAnswerUser == null){
-            throw new PersistenceException("None of the parameters can be null.");
-        }
+        if(seqAnswerUser == null)
+            throw new PersistenceException("The seqAwnserUser can't be null.");
+
         return DAO.getDissertiveQuestionAnswerById(seqAnswerUser);
     }
 

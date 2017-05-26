@@ -28,11 +28,11 @@ public class DomainManagementImpl implements DomainManagement {
         if (domain == null)
             throw new BusinessException("Domain cannot be null");
         
-        if (domain.getName() == null)
-            throw new BusinessException("Domain's name cannot be null");
+        if (domain.getName() == null || domain.getName().isEmpty())
+            throw new BusinessException("Domain's name cannot be null or empty.");
         
-        if (domain.getDescription() == null)
-            throw new BusinessException("Domain's description cannot be null");
+        if (domain.getDescription() == null || domain.getDescription().isEmpty())
+            throw new BusinessException("Domain's description cannot be null or empty");
         
         domainDAO.insert(domain);
         return domain.getId();
@@ -43,11 +43,11 @@ public class DomainManagementImpl implements DomainManagement {
         if (domain == null)
             throw new BusinessException("Domain cannot be null");
         
-        if (domain.getName() == null)
-            throw new BusinessException("Domain's name cannot be null");
+        if (domain.getName() == null || domain.getName().isEmpty())
+            throw new BusinessException("Domain's name cannot be null or empty.");
         
-        if (domain.getDescription() == null)
-            throw new BusinessException("Domain's description cannot be null");
+        if (domain.getDescription() == null || domain.getDescription().isEmpty())
+            throw new BusinessException("Domain's description cannot be null or empty");
         
         if (domain.getId() == null)
             throw new BusinessException("Domain's id cannot be null when updating");

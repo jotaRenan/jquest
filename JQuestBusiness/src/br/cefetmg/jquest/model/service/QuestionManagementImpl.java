@@ -9,8 +9,6 @@ import br.cefetmg.jquest.model.dao.QuestionDAO;
 import br.cefetmg.jquest.model.domain.Question;
 import br.cefetmg.jquest.model.exception.BusinessException; 
 import br.cefetmg.jquest.model.exception.PersistenceException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,7 +28,7 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question == null)
             throw new BusinessException("Question cannot be null");
         
-        if (question.getHeadline() == null)
+        if (question.getHeadline() == null || question.getHeadline().isEmpty())
             throw new BusinessException("Question's statement cannot be null");
         
         if (question.getDificulty()== null)
@@ -57,7 +55,7 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question.getId() == null) 
             throw new BusinessException("Question's Id cannot be null");
 
-        if (question.getHeadline()== null) 
+        if (question.getHeadline() == null || question.getHeadline().isEmpty())
             throw new BusinessException("Question's statement cannot be null");
 
         if (question.getDificulty()== null)

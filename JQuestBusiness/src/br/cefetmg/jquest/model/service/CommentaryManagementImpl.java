@@ -42,8 +42,8 @@ public class CommentaryManagementImpl implements CommentaryManagement{
         if (commentary.getUserId()== null)
             throw new BusinessException("Commentary's userID cannot be null");
 
-        if ((commentary.getTextCommentary().equals("")) || (commentary.getTextCommentary() == null) )
-            throw new BusinessException("Commentary's text cannot be null");        
+        if (commentary.getTextCommentary() == null ||commentary.getTextCommentary().isEmpty()  )
+            throw new BusinessException("Commentary's text cannot be null or empty");        
         
         commentaryDAO.insert(commentary);
         return commentary.getCommentarySeq();

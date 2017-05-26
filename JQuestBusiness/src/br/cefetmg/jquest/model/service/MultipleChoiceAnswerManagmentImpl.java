@@ -38,9 +38,6 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
         if (multipleChoiceAnswer.getQuestionId() == null || multipleChoiceAnswer.getUserId() == null || multipleChoiceAnswer.getUserAnswerSeq() == null) {
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if (multipleChoiceAnswer.equals(new MultipleChoiceAnswer())) {
-            throw new BusinessException("The object multipleChoiceAnswer cannot be empty.");
-        }
 
         DAO.insert(multipleChoiceAnswer);
         return multipleChoiceAnswer.getUserAnswerSeq();
@@ -54,9 +51,7 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
         if (multipleChoiceAnswer.getQuestionId() == null || multipleChoiceAnswer.getUserId() == null || multipleChoiceAnswer.getUserAnswerSeq() == null) {
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
-        if (multipleChoiceAnswer.equals(new MultipleChoiceAnswer())) {
-            throw new BusinessException("The object multipleChoiceAnswer cannot be empty.");
-        }
+
         DAO.update(multipleChoiceAnswer);
     }
 

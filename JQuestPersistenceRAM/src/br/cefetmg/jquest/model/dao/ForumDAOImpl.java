@@ -16,8 +16,9 @@ import java.util.List;
  * @author Thalesgsn
  */
 public class ForumDAOImpl implements ForumDAO {
-    private static ForumDAOImpl Instance = null;
-    private final HashMap<ForumID, Forum> forumDB;
+    private static ForumDAOImpl ForumDAO = null;
+    private final HashMap<Long, Forum> forumDB;
+    private static long forumCount = 0;
     
     private ForumDAOImpl() {
       this.forumDB = new HashMap<>();
@@ -27,28 +28,26 @@ public class ForumDAOImpl implements ForumDAO {
      * @return OpenEndedAwnserDAOImpl unique instance.
      */
     public static ForumDAOImpl getInstance() {
-        if(Instance == null){
-            Instance = new ForumDAOImpl();
+        if(ForumDAO == null){
+            ForumDAO = new ForumDAOImpl();
         }
-        return Instance;
+        return ForumDAO;
     }
 
    @Override
-    synchronized public void insert(Forum forum)
-            throws PersistenceException {
-        if(forum == null)
-            throw new PersistenceException("The object forum cannot be null.");
-        if(forum.getQuestionId() == null || forum.getDiscussionSeq() == null)
-            throw new PersistenceException("None of the QuestionId or discussionSeq can be null.");
+    synchronized public Long insert(Forum forum) throws PersistenceException{
+      if (forum == null) {
+            throw new PersistenceException("The object openEndedAwnser cannot be null.");
+       }
+        Long forumSeq = forum.getDiscussionSeq();
         
-        
-        ForumID id = new ForumID(forum.getQuestionId(), 
-                forum.getDiscussionSeq());
-        
-        if(forumDB.containsKey(id))
-            throw new PersistenceException("Forum already inserted, or duplicated key.");
-            
-        forumDB.put(id, forum);
+        if (forum != null && forumDB.containsKey(forumSeq)) {
+            throw new PersistenceException("Duplicate key");
+        }
+        forumSeq = ++forumCount;
+        forum.setDiscussionSeq(forumSeq);
+        forumDB.put(forumSeq, forum);
+        return forumSeq;
     }
 
     @Override
@@ -58,100 +57,46 @@ public class ForumDAOImpl implements ForumDAO {
         if(forum.getQuestionId() == null || forum.getDiscussionSeq() == null)
             throw new PersistenceException("None of the QuestionId or discussionSeq can be null.");
         
-        
-        ForumID id = new ForumID(forum.getQuestionId(), 
-                forum.getDiscussionSeq());
-        
+        Long seq = forum.getDiscussionSeq();
+        if (seq == null) {
+            throw new PersistenceException("Entity Id cannot be null");
+        }
 
-      
-        if(!forumDB.containsKey(id))
+        if(!forumDB.containsKey(seq))
             throw new PersistenceException("There isn't a forum with this key on the persistence.");
         
-        forumDB.replace(id, forum);
+        forumDB.replace(seq, forum);
     }
+    
 
     @Override
-    synchronized public Forum remove(Long questionID, Long discussionSeq) throws PersistenceException {
-        if(questionID == null || discussionSeq == null){
+    synchronized public Forum remove(Long discussionSeq) throws PersistenceException {
+        if (discussionSeq == null) {
             throw new PersistenceException("None of the parameters can be null.");
         }
-        ForumID id = new ForumID(questionID, discussionSeq);
-         if(!forumDB.containsKey(id))
+        if (!forumDB.containsKey(discussionSeq)){
             throw new PersistenceException("There isn't a forum with this key on the persistence.");
-        
-        Forum aux = forumDB.get(id);
-        forumDB.remove(id);
-        return aux;
+        }
+        return forumDB.remove(discussionSeq);
     }
+    
 
     @Override
-    synchronized public Forum getForumById(Long questionID, Long discussionSeq) throws PersistenceException {
-        if(questionID == null || discussionSeq == null){
+    synchronized public Forum getForumById(Long discussionSeq) throws PersistenceException {
+        if(discussionSeq == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        ForumID id = new ForumID(questionID, discussionSeq);
-         if(!forumDB.containsKey(id))
+
+        if (!forumDB.containsKey(discussionSeq)) {
             throw new PersistenceException("There isn't a forum with this key on the persistence.");
+        }
+        return forumDB.get(discussionSeq);
         
-        return forumDB.get(id);
     }
 
     @Override
     synchronized public List<Forum> listAll() throws PersistenceException {
         List<Forum> aux = new ArrayList(forumDB.values());
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
-        
         return aux;
     }
-}
-class ForumID{
-    private Long questionID;
-    
-    private Long discussionSeq;
-
-    public ForumID() {
-    }
-
-    public ForumID(Long questionID, Long discussionSeq) {
-        this.questionID = questionID;
-        this.discussionSeq = discussionSeq;
-    }
-
-    /**
-     * Get the value of questionID
-     *
-     * @return the value of questionID
-     */
-    public Long getQuestionID() {
-        return questionID;
-    }
-
-    /**
-     * Set the value of questionID
-     *
-     * @param questionID new value of questionID
-     */
-    public void setQuestionID(Long questionID) {
-        this.questionID = questionID;
-    }
-
-    /**
-     * Get the value of discussionSeq
-     *
-     * @return the value of discussionSeq
-     */
-    public Long getDiscussionSeq() {
-        return discussionSeq;
-    }
-
-    /**
-     * Set the value of discussionSeq
-     *
-     * @param discussionSeq new value of discussionSeq
-     */
-    public void setDiscussionSeq(Long discussionSeq) {
-        this.discussionSeq = discussionSeq;
-    }
-
 }

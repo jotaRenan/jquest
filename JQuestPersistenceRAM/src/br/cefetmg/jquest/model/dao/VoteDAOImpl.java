@@ -85,9 +85,6 @@ public class VoteDAOImpl implements VoteDAO{
     @Override
     synchronized public List<Vote> listAll() throws PersistenceException {
         List<Vote> aux = new ArrayList(voteDB.values());
-        if(aux.isEmpty())
-            throw new PersistenceException("There isn't elements in the List.");
-        
         return aux;
     }
 }

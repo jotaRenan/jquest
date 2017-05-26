@@ -32,14 +32,14 @@ public class UserManagementImpl implements UserManagement {
             throw new BusinessException("User's ID is required");
         }
         if (user.getName() == null
-                || user.getName().equals("")) {
+                || user.getName().isEmpty()) {
             throw new BusinessException("User's name cannot be null");
         }
         if (user.getSenha() == null) {
             throw new BusinessException("User's password cannot be null");
         }
         if (user.getEmail() == null
-                || user.getEmail().equals("")) {
+                || user.getEmail().isEmpty()) {
             throw new BusinessException("User's email cannot be null");
         }
         return userDAO.insert(user);
@@ -50,24 +50,29 @@ public class UserManagementImpl implements UserManagement {
         if (user == null) {
             throw new BusinessException("User cannot be null");
         }
-        if (user.getName() == null) {
-            throw new BusinessException("User's email cannot be null");
+        if (user.getId() == null) {
+            throw new BusinessException("User's ID is required");
+        }
+        if (user.getName() == null
+                || user.getName().isEmpty()) {
+            throw new BusinessException("User's name cannot be null");
         }
         if (user.getSenha() == null) {
             throw new BusinessException("User's password cannot be null");
         }
-        if (user.getEmail() == null ) {
+        if (user.getEmail() == null
+                || user.getEmail().isEmpty()) {
             throw new BusinessException("User's email cannot be null");
         }
         userDAO.update(user);
     }
 
     @Override
-    public void userRemove(Long userId) throws PersistenceException {
+    public User userRemove(Long userId) throws PersistenceException {
         if (userId == null) {
             throw new PersistenceException("User's Id cannot be null");
         }
-        userDAO.remove(userId);
+        return userDAO.remove(userId);
     }
 
     @Override

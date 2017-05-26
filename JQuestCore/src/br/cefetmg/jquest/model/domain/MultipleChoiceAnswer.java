@@ -9,7 +9,7 @@ package br.cefetmg.jquest.model.domain;
  *
  * @author João Pedro Renan
  */
-public class MultipleChoiceAnswerChoice {
+public class MultipleChoiceAnswer {
     
     private Long userId;
     private Long useSeq;
@@ -17,10 +17,10 @@ public class MultipleChoiceAnswerChoice {
     private Long userAnswerSeq;
     private Long optionSeq;
 
-    public MultipleChoiceAnswerChoice() {
+    public MultipleChoiceAnswer() {
     }
 
-    public MultipleChoiceAnswerChoice(Long userId, Long useSeq, Long questionId, Long userAnswerSeq, Long optionSeq) {
+    public MultipleChoiceAnswer(Long userId, Long useSeq, Long questionId, Long userAnswerSeq, Long optionSeq) {
         this.userId = userId;
         this.useSeq = useSeq;
         this.questionId = questionId;

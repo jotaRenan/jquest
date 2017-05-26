@@ -146,7 +146,7 @@ public class ForumManagementImplTest {
         if (!forum.getName().equals("Update test")) {
             fail("Couldn't insert forum correctly");
         }
-        forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.forumRemove(forum.getDiscussionSeq());
     }
     
     /**
@@ -155,13 +155,13 @@ public class ForumManagementImplTest {
     @Test(expected = PersistenceException.class)
     public void testForumRemoveNullDiscussionSeq() throws Exception {
         forum.setDiscussionSeq(null);
-        forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.forumRemove(forum.getDiscussionSeq());
     }
 
     @Test(expected = PersistenceException.class)
     public void testForumRemoveNullQuestionId() throws Exception {
         forum.setDiscussionSeq(null);
-        forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.forumRemove(forum.getDiscussionSeq());
     }
     
     /**
@@ -174,7 +174,7 @@ public class ForumManagementImplTest {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            forumManager.forumRemove(forum.getQuestionId(), forum.getDiscussionSeq());
+            forumManager.forumRemove(forum.getDiscussionSeq());
         } catch (PersistenceException ex) {
             fail("Failed to remove module");
         }
@@ -186,7 +186,7 @@ public class ForumManagementImplTest {
     @Test(expected = PersistenceException.class)
     public void testGetForumByIdNullQuestionId() throws Exception {
         forum.setUserId(null);
-        forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.getForumById(forum.getDiscussionSeq());
     }
     
     /**
@@ -195,7 +195,7 @@ public class ForumManagementImplTest {
     @Test(expected = PersistenceException.class)
     public void testGetForumByIdNullDiscussionSeq() throws Exception {
         forum.setDiscussionSeq(null);
-        forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
+        forumManager.getForumById(forum.getDiscussionSeq());
     }
     
     /**
@@ -204,7 +204,7 @@ public class ForumManagementImplTest {
     @Test
     public void testGetForumById() {
         try {
-            forumManager.getForumById(forum.getQuestionId(), forum.getDiscussionSeq());
+            forumManager.getForumById(forum.getDiscussionSeq());
         } catch (PersistenceException ex) {
             fail("Failed to get forum by id");
         }

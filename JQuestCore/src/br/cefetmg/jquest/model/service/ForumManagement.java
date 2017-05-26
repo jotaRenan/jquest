@@ -18,7 +18,7 @@ public interface ForumManagement {
     //@TODO JAVADOCS
     public Long forumInsert(Forum forum) throws BusinessException, PersistenceException;
     public void forumUpdate(Forum forum) throws BusinessException, PersistenceException;
-    public Forum forumRemove(Long questionID, Long discussionSeq) throws PersistenceException;
-    public Forum getForumById(Long questionID, Long discussionSeq) throws PersistenceException;
+    public Forum forumRemove(Long discussionSeq) throws PersistenceException;
+    public Forum getForumById(Long discussionSeq) throws PersistenceException;
     public List<Forum> getAll() throws PersistenceException;
 }

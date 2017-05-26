@@ -5,7 +5,7 @@
  */
 package br.cefetmg.jquest.model.dao;
 
-import br.cefetmg.jquest.model.domain.ClosedEndedAlternative;
+import br.cefetmg.jquest.model.domain.QuestionAlternative;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,38 +15,38 @@ import java.util.List;
  *
  * @author Paula Ribeiro
  */
-public class ClosedEndedAlternativeDAOImpl implements ClosedEndedAlternativeDAO {
-    private static ClosedEndedAlternativeDAOImpl cEAlternativeDAO = null;
-    private static HashMap<Long, ClosedEndedAlternative> cEAlternativeDB = new HashMap<Long, ClosedEndedAlternative>();
+public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
+    private static QuestionAlternativeDAOImpl questionAlternativeDAO = null;
+    private static HashMap<Long, QuestionAlternative> questionAlternativeDB = new HashMap<Long, QuestionAlternative>();
     private static long cEAlternativeCount = 0;
 
-    private ClosedEndedAlternativeDAOImpl() {}
+    private QuestionAlternativeDAOImpl() {}
     
-    public static ClosedEndedAlternativeDAOImpl getInstance() {
-        if (cEAlternativeDAO == null) {
-            cEAlternativeDAO = new ClosedEndedAlternativeDAOImpl();
+    public static QuestionAlternativeDAOImpl getInstance() {
+        if (questionAlternativeDAO == null) {
+            questionAlternativeDAO = new QuestionAlternativeDAOImpl();
         }
-        return cEAlternativeDAO;
+        return questionAlternativeDAO;
     }
     
     @Override
-    public Long insert(ClosedEndedAlternative closedEndedAlt) throws PersistenceException {
+    public Long insert(QuestionAlternative closedEndedAlt) throws PersistenceException {
         if (closedEndedAlt == null) {
             throw new PersistenceException("Domain cannot be null");
         }
         Long answerId = closedEndedAlt.getOptionSeq();
         
-        if (answerId != null && cEAlternativeDB.containsKey(answerId)) {
+        if (answerId != null && questionAlternativeDB.containsKey(answerId)) {
             throw new PersistenceException("Duplicate key");
         }
         answerId = ++cEAlternativeCount;
         closedEndedAlt.setOptionSeq(answerId);
-        cEAlternativeDB.put(answerId, closedEndedAlt);
+        questionAlternativeDB.put(answerId, closedEndedAlt);
         return answerId;
     }
 
     @Override
-    public void update(ClosedEndedAlternative closedEndedAlt) throws PersistenceException {
+    public void update(QuestionAlternative closedEndedAlt) throws PersistenceException {
         if (closedEndedAlt == null) {
             throw new PersistenceException("Answer cannot be null");
         }
@@ -54,37 +54,37 @@ public class ClosedEndedAlternativeDAOImpl implements ClosedEndedAlternativeDAO 
         if (answerId == null) {
             throw new PersistenceException("Entity Id cannot be null");
         }
-        if (!cEAlternativeDB.containsKey(answerId)) {
+        if (!questionAlternativeDB.containsKey(answerId)) {
             throw new PersistenceException("Answer with id " + closedEndedAlt.getOptionSeq()+ " is not persisted");
         }
-        cEAlternativeDB.replace(answerId, closedEndedAlt);
+        questionAlternativeDB.replace(answerId, closedEndedAlt);
     }
 
     @Override
-    public ClosedEndedAlternative remove(Long closedEndedAltId) throws PersistenceException {
+    public QuestionAlternative remove(Long closedEndedAltId) throws PersistenceException {
         if (closedEndedAltId == null) {
             throw new PersistenceException("Answer ID cant be null");
         }
-        if (!cEAlternativeDB.containsKey(closedEndedAltId)){
+        if (!questionAlternativeDB.containsKey(closedEndedAltId)){
             throw new PersistenceException("Answer with id " + closedEndedAltId + " is not persisted");
         }
-        return cEAlternativeDB.remove(closedEndedAltId);
+        return questionAlternativeDB.remove(closedEndedAltId);
     }
 
     @Override
-    public ClosedEndedAlternative getClosedEndedAlternativeById(Long closedEndedAltId) throws PersistenceException {
+    public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException {
         if (closedEndedAltId == null) {
             throw new PersistenceException("Answer ID cant be null");
         }
-        if (!cEAlternativeDB.containsKey(closedEndedAltId)) {
+        if (!questionAlternativeDB.containsKey(closedEndedAltId)) {
             throw new PersistenceException("Answer with id " + closedEndedAltId + " is not persisted");
         }
-        return cEAlternativeDB.get(closedEndedAltId);
+        return questionAlternativeDB.get(closedEndedAltId);
     }
 
     @Override
-    public List<ClosedEndedAlternative> listAll() throws PersistenceException {
-        List<ClosedEndedAlternative> aux = new ArrayList(cEAlternativeDB.values());        
+    public List<QuestionAlternative> listAll() throws PersistenceException {
+        List<QuestionAlternative> aux = new ArrayList(questionAlternativeDB.values());        
         return aux;
     }
 }

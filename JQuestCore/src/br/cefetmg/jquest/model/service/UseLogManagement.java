@@ -17,7 +17,7 @@ import java.util.List;
 public interface UseLogManagement {
     public Long useLogInsert(UseLog useLog) throws BusinessException, PersistenceException;
     public void useLogUpdate(UseLog useLog) throws BusinessException, PersistenceException;
-    public void useLogRemove(Long useLogSeq) throws PersistenceException;
+    public UseLog useLogRemove(Long useLogSeq) throws PersistenceException;
     public UseLog getUseLogBySeq(Long useLogSeq) throws PersistenceException;
     public List<UseLog> getAll() throws PersistenceException;  
 }

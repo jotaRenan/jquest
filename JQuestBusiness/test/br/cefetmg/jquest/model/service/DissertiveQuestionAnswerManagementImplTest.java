@@ -47,7 +47,6 @@ public class DissertiveQuestionAnswerManagementImplTest {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
             fail("Null dissertiveQuestionAnswer registered");
         } catch (BusinessException | PersistenceException ex) {
-            return;
         }
     }
     
@@ -59,7 +58,6 @@ public class DissertiveQuestionAnswerManagementImplTest {
             fail("DissertiveQuestionAnswer with null name registered");
         } catch (BusinessException | PersistenceException ex) {
             dissertiveQuestionAnswer.setTxtAnswer("Test");
-            return;
         }
     }
     
@@ -84,7 +82,6 @@ public class DissertiveQuestionAnswerManagementImplTest {
     
     @Test
     public void testDissertiveQuestionAnswerInsertNullSeqAnswerUser() {
-
         dissertiveQuestionAnswer.setSeqAnswerUser(null);
         try {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
@@ -98,7 +95,6 @@ public class DissertiveQuestionAnswerManagementImplTest {
         Long userAnsserSeq = -3L;
         
         try {
-            userAnsserSeq = dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
             userAnsserSeq = dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             
@@ -121,7 +117,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     
     @Test
     public void testDissertiveQuestionAnswerUpdateNull() {
-        try {
+         try {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,7 +131,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     
     @Test
     public void testDissertiveQuestionAnswerUpdateNullTxtAwnser() {
-        try {
+         try {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,7 +145,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     
     @Test
     public void testDissertiveQuestionAnswerUpdateNullUserID() {
-        try {
+         try {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,7 +161,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     
     @Test
     public void testDissertiveQuestionAnswerUpdateNullQuestionID() {
-        try {
+         try {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DissertiveQuestionAnswerManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);

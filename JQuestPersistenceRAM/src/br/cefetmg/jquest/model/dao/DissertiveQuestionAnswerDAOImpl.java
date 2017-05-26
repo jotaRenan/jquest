@@ -41,13 +41,13 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
         if (dissertiveQuestionAnswer == null) {
             throw new PersistenceException("The object openEndedAwnser cannot be null.");
         }
-        Long dissertiveQuestionId = dissertiveQuestionAnswer.getSeqAnswerUser();
+        
+        Long dissertiveQuestionId = ++DissertiveQuestionAnswerCount;
+        dissertiveQuestionAnswer.setSeqAnswerUser(dissertiveQuestionId);
         
         if (dissertiveQuestionAnswer != null && dissertiveQuestionAnswerDB.containsKey(dissertiveQuestionId)) {
             throw new PersistenceException("Duplicate key");
         }
-        dissertiveQuestionId = ++DissertiveQuestionAnswerCount;
-        dissertiveQuestionAnswer.setSeqAnswerUser(dissertiveQuestionId);
         dissertiveQuestionAnswerDB.put(dissertiveQuestionId, dissertiveQuestionAnswer);
         return dissertiveQuestionId;
     }

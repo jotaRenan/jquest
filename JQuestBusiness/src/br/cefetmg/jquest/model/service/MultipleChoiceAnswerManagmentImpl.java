@@ -35,8 +35,8 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
         if (multipleChoiceAnswer == null) {
             throw new BusinessException("The object multipleChoiceAnswer cannot be null.");
         }
-        if (multipleChoiceAnswer.getQuestionId() == null || multipleChoiceAnswer.getUserId() == null || multipleChoiceAnswer.getUserAnswerSeq() == null) {
-            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
+        if (multipleChoiceAnswer.getQuestionId() == null || multipleChoiceAnswer.getUserId() == null || multipleChoiceAnswer.getUserAnswerSeq() == null || multipleChoiceAnswer.getUseSeq() == null) {
+            throw new BusinessException("None of the questionID or userID or seqAnswer or useSeq can be null.");
         }
 
         DAO.insert(multipleChoiceAnswer);

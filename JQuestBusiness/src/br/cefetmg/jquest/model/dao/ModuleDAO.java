@@ -16,8 +16,8 @@ import java.util.List;
  */
 public interface ModuleDAO {
     public Long insert(Module module) throws PersistenceException;
-    public void update(Module module) throws PersistenceException;
-    public Module remove(Long moduleId) throws PersistenceException;
+    public boolean update(Module module) throws PersistenceException;
+    public boolean remove(Long moduleId) throws PersistenceException;
     public Module getModuleById(Long moduleId) throws PersistenceException;
     public List<Module> listAll() throws PersistenceException; 
     public List<Long> listAllDomains() throws PersistenceException; 

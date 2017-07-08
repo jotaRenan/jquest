@@ -42,7 +42,7 @@ public class ModuleManagementImpl implements ModuleManagement {
     }
 
     @Override
-    public void moduleUpdate(Module module) throws BusinessException, PersistenceException {
+    public boolean moduleUpdate(Module module) throws BusinessException, PersistenceException {
         if (module == null)
             throw new BusinessException("Module cannot be null");
         
@@ -55,11 +55,11 @@ public class ModuleManagementImpl implements ModuleManagement {
         if (module.getId() == null)
             throw new BusinessException("Module's id cannot be null when updating");
             
-        moduleDAO.update(module);
+        return moduleDAO.update(module);
     }
 
     @Override
-    public Module moduleRemove(Long moduleId) throws PersistenceException {
+    public boolean moduleRemove(Long moduleId) throws PersistenceException {
         if (moduleId == null)
             throw new PersistenceException("Module's id cannot be null");
         

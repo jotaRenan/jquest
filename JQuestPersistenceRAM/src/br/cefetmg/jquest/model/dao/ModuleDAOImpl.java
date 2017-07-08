@@ -54,7 +54,7 @@ public class ModuleDAOImpl implements ModuleDAO {
     }
 
     @Override
-    public void update(Module module) throws PersistenceException {
+    public boolean update(Module module) throws PersistenceException {
         if (module == null) {
             throw new PersistenceException("Module cannot be null");
         }
@@ -66,17 +66,19 @@ public class ModuleDAOImpl implements ModuleDAO {
             throw new PersistenceException("Module with id " + module.getId() + " is not persisted");
         }
         moduleDB.replace(moduleId, module);
+        return true;
     }
 
     @Override
-    public Module remove(Long moduleId) throws PersistenceException {
+    public boolean remove(Long moduleId) throws PersistenceException {
         if (moduleId == null) {
             throw new PersistenceException("Module ID cant be null");
         }
         if (!moduleDB.containsKey(moduleId)){
             throw new PersistenceException("Module with id " + moduleId + " is not persisted");
         }
-        return moduleDB.remove(moduleId);
+        moduleDB.remove(moduleId);
+        return true;
     }
 
     @Override
@@ -92,8 +94,8 @@ public class ModuleDAOImpl implements ModuleDAO {
 
     @Override
     public List<Module> listAll() {
-        List<Module> domainList = new ArrayList<>(moduleDB.values());
-        return domainList;
+        List<Module> moduleList = new ArrayList<>(moduleDB.values());
+        return moduleList;
     }
     
     @Override

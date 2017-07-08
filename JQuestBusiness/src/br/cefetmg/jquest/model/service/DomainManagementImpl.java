@@ -39,7 +39,7 @@ public class DomainManagementImpl implements DomainManagement {
     }
 
     @Override
-    public void domainUpdate(Domain domain) throws BusinessException, PersistenceException {
+    public boolean domainUpdate(Domain domain) throws BusinessException, PersistenceException {
         if (domain == null)
             throw new BusinessException("Domain cannot be null");
         
@@ -52,11 +52,11 @@ public class DomainManagementImpl implements DomainManagement {
         if (domain.getId() == null)
             throw new BusinessException("Domain's id cannot be null when updating");
             
-        domainDAO.update(domain);
+        return domainDAO.update(domain);
     }
 
     @Override
-    public Domain domainRemove(Long domainId) throws PersistenceException {
+    public boolean domainRemove(Long domainId) throws PersistenceException {
         if (domainId == null)
             throw new PersistenceException("Domain's id cannot be null");
         

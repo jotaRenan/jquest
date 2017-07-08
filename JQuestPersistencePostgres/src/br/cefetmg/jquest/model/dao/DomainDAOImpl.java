@@ -7,10 +7,15 @@ package br.cefetmg.jquest.model.dao;
 
 import br.cefetmg.jquest.model.domain.Domain;
 import br.cefetmg.jquest.model.exception.PersistenceException;
+import br.cefetmg.jquest.util.db.ConnectionManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +24,6 @@ import java.util.List;
 public class DomainDAOImpl implements DomainDAO {
 
     private static DomainDAOImpl domainDAO = null;
-    private static long domainCount = 0;
     
     private DomainDAOImpl() {}
 
@@ -35,61 +39,148 @@ public class DomainDAOImpl implements DomainDAO {
         if (domain == null) {
             throw new PersistenceException("Domain cannot be null");
         }
-        Long domainId = domain.getId();
         
-        if (domainId != null && domainDB.containsKey(domainId)) {
-            throw new PersistenceException("Duplicate key");
+        Long domainId = null;
+        
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+            
+            String sql = "INSERT INTO domain (nom_domain, desc_domain) " +
+                         "    VALUES (?, ?) returning cod_domain;";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, domain.getName());
+            pstmt.setString(2, domain.getDescription());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                domainId = rs.getLong("cod_domain");
+                domain.setId(domainId);
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+            
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DomainDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        domainId = ++domainCount;
-        domain.setId(domainId);
-        domainDB.put(domainId, domain);
+        
         return domainId;
     }
 
     @Override
-    public void update(Domain domain) throws PersistenceException {
-        if (domain == null) {
-            throw new PersistenceException("Domain cannot be null");
+    public boolean update(Domain domain) throws PersistenceException {
+        try {
+
+            Connection connection = ConnectionManager.getInstance().getConnection();
+            
+            String sql = "UPDATE domain " +
+                           " SET nom_domain = ?, " +
+                           "     desc_domain = ? " +
+                         " WHERE cod_domain = ?";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, domain.getName());
+            pstmt.setString(2, domain.getDescription());
+            pstmt.setLong(3, domain.getId());
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            connection.close();
+            
+            return true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e); 
         }
-        Long domainId = domain.getId();
-        if (domainId == null ) {
-            throw new PersistenceException("Entity Id cannot be null");
-        }
-        if (!domainDB.containsKey(domainId)) {
-            throw new PersistenceException("Domain with id " + domain.getId() + " is not persisted");
-        }
-        domainDB.replace(domainId, domain);
     }
 
     @Override
-    public Domain remove(Long domainId) throws PersistenceException {
-        if (domainId == null) {
-            throw new PersistenceException("Domain ID cant be null");
+    public boolean remove(Long domainId) throws PersistenceException {
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "DELETE FROM domain WHERE cod_domain = ?";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, domainId);
+            pstmt.executeUpdate();
+            
+            pstmt.close();
+            connection.close();
+            
+            return true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e); 
         }
-        if (!domainDB.containsKey(domainId)){
-            throw new PersistenceException("Domain with id " + domainId + " is not persisted");
-        }
-        return domainDB.remove(domainId);
     }
 
     @Override
     public Domain getDomainById(Long domainId) throws PersistenceException {
-        if (domainId == null) {
-            throw new PersistenceException("Domain ID cant be null");
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM domain WHERE cod_domain = ? ";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, domainId);
+            ResultSet rs = pstmt.executeQuery();
+
+            Domain domain = new Domain();
+            if (rs.next()) {
+                domain.setId(domainId);
+                domain.setName(rs.getString("nom_domain"));
+                domain.setDescription(rs.getString("desc_domain"));
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return domain;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
         }
-        if (!domainDB.containsKey(domainId)){
-            throw new PersistenceException("Domain with id " + domainId + " is not persisted");
-        }
-        return domainDB.get(domainId);
     }
 
     @Override
     public List<Domain> listAll() throws PersistenceException {
-        List<Domain> domainList = new ArrayList<>();
-        Iterator<Domain> it = domainDB.values().iterator();
-        while (it.hasNext()) {
-            domainList.add(it.next());
+        try {    
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM domain ORDER BY nom_domain";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayList<Domain> listAll = null;
+            Domain domain = null;
+            
+            if (rs.next()) {
+                listAll = new ArrayList<>();
+                do {
+                    domain = new Domain();
+                    domain.setId(rs.getLong("cod_domain"));
+                    domain.setName(rs.getString("nom_domain"));
+                    domain.setDescription(rs.getString("desc_domain"));
+                    listAll.add(domain);
+                } while (rs.next());
+            }
+            
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return listAll;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
         }
-        return domainList;
     }    
 }

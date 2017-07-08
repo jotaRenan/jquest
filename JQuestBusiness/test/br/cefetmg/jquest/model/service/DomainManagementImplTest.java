@@ -59,7 +59,6 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {
-            domain.setName("Teste");
             return;
         }
         fail("Domain with null name registered");
@@ -71,7 +70,6 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {
-            domain.setDescription("Teste");
             return;
         }
         fail("Domain with null description registered");
@@ -95,14 +93,15 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainRemove(id);
         } catch (PersistenceException ex) {
-            Logger.getLogger(DomainManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
+            fail("Failed to remove domain");
         }   
     }
     
     @Test
     public void testDomainUpdateNull() {
+        Long id = null;
         try {
-            domainManagement.domainInsert(domain);
+            id = domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DomainManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,6 +109,12 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainUpdate(domain);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered domain
+            try {
+                domainManagement.domainRemove(id);
+            } catch (PersistenceException e) {
+                fail("Failed to remove domain");
+            } 
             return;
         }
         fail("Domain updated to null");
@@ -126,6 +131,12 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainUpdate(domain);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered domain
+            try {
+                domainManagement.domainRemove(domain.getId());
+            } catch (PersistenceException e) {
+                fail("Failed to remove domain");
+            } 
             return;
         }
         fail("Domain updated with null name");
@@ -142,6 +153,12 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainUpdate(domain);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered domain
+            try {
+                domainManagement.domainRemove(domain.getId());
+            } catch (PersistenceException e) {
+                fail("Failed to remove domain");
+            } 
             return;
         }
         fail("Domain updated with null description");
@@ -149,8 +166,9 @@ public class DomainManagementImplTest {
     
     @Test
     public void testDomainUpdateNullId() {
+        Long id = null;
         try {
-            domainManagement.domainInsert(domain);
+            id = domainManagement.domainInsert(domain);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DomainManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -158,6 +176,12 @@ public class DomainManagementImplTest {
         try {
             domainManagement.domainUpdate(domain);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered domain
+            try {
+                domainManagement.domainRemove(id);
+            } catch (PersistenceException e) {
+                fail("Failed to remove domain");
+            } 
             return;
         }
         fail("Tried to update a domain with a null id");
@@ -184,6 +208,12 @@ public class DomainManagementImplTest {
         } catch (PersistenceException ex) {
             Logger.getLogger(DomainManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //removes registered domain
+        try {
+            domainManagement.domainRemove(domain.getId());
+        } catch (PersistenceException e) {
+            fail("Failed to remove domain");
+        } 
     }
     
     @Test
@@ -212,20 +242,24 @@ public class DomainManagementImplTest {
             domainTest = domainManagement.getDomainById(domain.getId());
         } catch (PersistenceException ex) {
             fail("Failed to get domain by id");
-            return;
         }
-        if (!domainTest.equals(domain)) {
-            fail("Failed to get domain by id");
-        }
+        //removes registered domain
+        try {
+            domainManagement.domainRemove(domain.getId());
+        } catch (PersistenceException e) {
+            fail("Failed to remove domain");
+        } 
     }
     
     @Test
     public void testGetAll() {
         Domain domain2 = domain;
+        Long id1 = null;
+        Long id2 = null;
         List<Domain> list;
         try {
-            domainManagement.domainInsert(domain);
-            domainManagement.domainInsert(domain2);
+            id1 = domainManagement.domainInsert(domain);
+            id2 = domainManagement.domainInsert(domain2);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(DomainManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -238,5 +272,12 @@ public class DomainManagementImplTest {
         if(list.isEmpty()) {
             fail("Failed to get all domains correctly");
         }
+        //removes registered domain
+        try {
+            domainManagement.domainRemove(id1);
+            domainManagement.domainRemove(id2);
+        } catch (PersistenceException e) {
+            fail("Failed to remove domains");
+        } 
     }
 }

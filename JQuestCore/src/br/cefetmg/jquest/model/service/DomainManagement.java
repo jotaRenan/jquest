@@ -16,8 +16,8 @@ import java.util.List;
  */
 public interface DomainManagement {
     public Long domainInsert(Domain domain) throws BusinessException, PersistenceException;
-    public void domainUpdate(Domain domain) throws BusinessException, PersistenceException;
-    public Domain domainRemove(Long domainId) throws PersistenceException;
+    public boolean domainUpdate(Domain domain) throws BusinessException, PersistenceException;
+    public boolean domainRemove(Long domainId) throws PersistenceException;
     public Domain getDomainById(Long domainId) throws PersistenceException;
     public List<Domain> getAll() throws PersistenceException;    
 }

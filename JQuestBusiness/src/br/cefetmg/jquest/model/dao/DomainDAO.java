@@ -15,8 +15,8 @@ import java.util.List;
  */
 public interface DomainDAO {
     public Long insert(Domain domain) throws PersistenceException;
-    public void update(Domain domain) throws PersistenceException;
-    public Domain remove(Long domainId) throws PersistenceException;
+    public boolean update(Domain domain) throws PersistenceException;
+    public boolean remove(Long domainId) throws PersistenceException;
     public Domain getDomainById(Long domainId) throws PersistenceException;
     public List<Domain> listAll() throws PersistenceException; 
 }

@@ -6,12 +6,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PostgresqlConnection implements ConnectionFactory {
+public class PostgresqlConnection extends Password implements ConnectionFactory {
 
     private final static String dbDriver = "org.postgresql.Driver";
-    private final static String dbURL = "jdbc:postgresql://localhost:5432/sislocdb";
-    private final static String user = "postgres";
-    private final static String pass = "postgres";
 
     public PostgresqlConnection() {
     }

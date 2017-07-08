@@ -49,7 +49,7 @@ public class DomainDAOImpl implements DomainDAO {
     }
 
     @Override
-    public void update(Domain domain) throws PersistenceException {
+    public boolean update(Domain domain) throws PersistenceException {
         if (domain == null) {
             throw new PersistenceException("Domain cannot be null");
         }
@@ -61,17 +61,19 @@ public class DomainDAOImpl implements DomainDAO {
             throw new PersistenceException("Domain with id " + domain.getId() + " is not persisted");
         }
         domainDB.replace(domainId, domain);
+        return true;
     }
 
     @Override
-    public Domain remove(Long domainId) throws PersistenceException {
+    public boolean remove(Long domainId) throws PersistenceException {
         if (domainId == null) {
             throw new PersistenceException("Domain ID cant be null");
         }
         if (!domainDB.containsKey(domainId)){
             throw new PersistenceException("Domain with id " + domainId + " is not persisted");
         }
-        return domainDB.remove(domainId);
+        domainDB.remove(domainId);
+        return true;
     }
 
     @Override

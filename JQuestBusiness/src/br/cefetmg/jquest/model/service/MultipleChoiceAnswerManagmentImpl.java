@@ -44,7 +44,7 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
     }
 
     @Override
-    public void update(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException {
+    public boolean update(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException {
         if (multipleChoiceAnswer == null) {
             throw new BusinessException("The object multipleChoiceAnswer cannot be null.");
         }
@@ -52,11 +52,11 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
             throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
         }
 
-        DAO.update(multipleChoiceAnswer);
+        return DAO.update(multipleChoiceAnswer);
     }
 
     @Override
-    public MultipleChoiceAnswer remove(Long multipleChoiceAnswerId) throws PersistenceException {
+    public boolean remove(Long multipleChoiceAnswerId) throws PersistenceException {
         if (multipleChoiceAnswerId == null) {
             throw new PersistenceException("None of the parameters can be null.");
         }

@@ -15,8 +15,8 @@ import java.util.List;
  */
 public interface TrueOrFalseAnswerDAO {
     public Long insert(TrueOrFalseAnswer tofAnswer) throws PersistenceException;
-    public void update(TrueOrFalseAnswer tofAnswer) throws PersistenceException;
-    public TrueOrFalseAnswer remove(Long tofAnswerId) throws PersistenceException;
+    public boolean update(TrueOrFalseAnswer tofAnswer) throws PersistenceException;
+    public boolean remove(Long tofAnswerId) throws PersistenceException;
     public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws PersistenceException;
     public List<TrueOrFalseAnswer> listAll() throws PersistenceException;
 }

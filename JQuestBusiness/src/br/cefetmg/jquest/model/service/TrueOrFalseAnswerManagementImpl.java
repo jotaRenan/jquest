@@ -54,7 +54,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
     }
 
     @Override
-    public void update(TrueOrFalseAnswer tofAnswer) throws BusinessException, PersistenceException {
+    public boolean update(TrueOrFalseAnswer tofAnswer) throws BusinessException, PersistenceException {
         List<String> errMsgList = new ArrayList<>();
         if (tofAnswer == null) {
             throw new BusinessException("No TrueOrFalseAnswer was informed");
@@ -79,11 +79,11 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
             errMsgList.stream().forEach( msg -> errMsg.concat(msg + "\n"));
             throw new BusinessException(errMsg);
         }
-        tofadao.update(tofAnswer);
+        return tofadao.update(tofAnswer);
     }
 
     @Override
-    public TrueOrFalseAnswer remove(Long tofAnswerId) throws PersistenceException, BusinessException {
+    public boolean remove(Long tofAnswerId) throws PersistenceException, BusinessException {
         if (tofAnswerId == null) {
             throw new BusinessException("No Answer ID was informed");
         }

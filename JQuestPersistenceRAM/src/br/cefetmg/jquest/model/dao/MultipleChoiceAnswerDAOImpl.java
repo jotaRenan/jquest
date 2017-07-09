@@ -48,7 +48,7 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO {
     }
 
     @Override
-    public void update(MultipleChoiceAnswer multipleChoiceAnswer) throws PersistenceException {
+    public boolean update(MultipleChoiceAnswer multipleChoiceAnswer) throws PersistenceException {
         if (multipleChoiceAnswer == null) {
             throw new PersistenceException("Answer cannot be null");
         }
@@ -59,18 +59,21 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO {
         if (!MultipleChoiceAnswerDB.containsKey(answerId)) {
             throw new PersistenceException("Answer with id " + multipleChoiceAnswer.getUseSeq() + " is not persisted");
         }
+        
         MultipleChoiceAnswerDB.replace(answerId, multipleChoiceAnswer);
+        return true;
     }
 
     @Override
-    public MultipleChoiceAnswer remove(Long multipleChoiceAnswerId) throws PersistenceException {
+    public boolean remove(Long multipleChoiceAnswerId) throws PersistenceException {
         if (multipleChoiceAnswerId == null) {
             throw new PersistenceException("Answer ID cant be null");
         }
         if (!MultipleChoiceAnswerDB.containsKey(multipleChoiceAnswerId)){
             throw new PersistenceException("Answer with id " + multipleChoiceAnswerId + " is not persisted");
         }
-        return MultipleChoiceAnswerDB.remove(multipleChoiceAnswerId);
+        MultipleChoiceAnswerDB.remove(multipleChoiceAnswerId);
+        return true;
     }
 
     @Override

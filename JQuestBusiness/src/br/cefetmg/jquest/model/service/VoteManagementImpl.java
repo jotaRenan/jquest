@@ -9,7 +9,6 @@ import br.cefetmg.jquest.model.dao.VoteDAO;
 import br.cefetmg.jquest.model.domain.Vote;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +57,7 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public void voteUpdate(Vote vote) throws BusinessException, PersistenceException {
+    public boolean voteUpdate(Vote vote) throws BusinessException, PersistenceException {
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
         
@@ -77,22 +76,26 @@ public class VoteManagementImpl implements VoteManagement {
         if(vote.getUserId() == null)
             throw new PersistenceException("The userId cannot be null.");
         
-        DAO.update(vote);
+        return DAO.update(vote);
     }
 
     @Override
-    public void voteRemove(Long voteID) throws PersistenceException {
-        if(voteID == null)
-            throw new PersistenceException("Vote can´t be null.");
-        DAO.remove(voteID);
+    public boolean voteRemove(Long seqCommentary,Long userID) throws PersistenceException {
+        if(seqCommentary == null)
+            throw new PersistenceException("seqCommentary can´t be null.");
+        if(userID == null)
+            throw new PersistenceException("userID can´t be null.");
+        return DAO.remove(seqCommentary, userID);
     }
 
     @Override
-    public Vote getVoteById(Long voteID) throws PersistenceException {
-       if(voteID == null)
-            throw new PersistenceException("Vote can´t be null.");
+    public Vote getVoteById(Long seqCommentary,Long userID) throws PersistenceException {
+        if(seqCommentary == null)
+            throw new PersistenceException("seqCommentary can´t be null.");
+        if(userID == null)
+            throw new PersistenceException("userID can´t be null.");
         
-        return DAO.getVoteById(voteID);
+        return DAO.getVoteById(seqCommentary, userID);
     }
 
     @Override

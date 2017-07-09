@@ -23,7 +23,9 @@ import java.util.logging.Logger;
  */
 public class ModuleDAOImpl implements ModuleDAO {
     private static ModuleDAOImpl moduleDAO = null;
-
+    
+    private ModuleDAOImpl() {}
+    
     public static ModuleDAOImpl getInstance(){
         if (moduleDAO == null) {
             moduleDAO = new ModuleDAOImpl();

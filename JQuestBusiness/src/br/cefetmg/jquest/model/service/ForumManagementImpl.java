@@ -68,7 +68,7 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public Forum forumRemove(Long discussionSeq) throws PersistenceException {
+    public boolean forumRemove(Long discussionSeq) throws PersistenceException {
         if(discussionSeq == null){
             throw new PersistenceException("None of the parameters can be null.");
         }

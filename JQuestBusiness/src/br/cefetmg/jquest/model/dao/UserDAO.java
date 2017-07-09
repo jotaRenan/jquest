@@ -15,8 +15,8 @@ import java.util.List;
  */
 public interface UserDAO {
     public Long insert(User user) throws PersistenceException;
-    public void update(User user) throws PersistenceException;
-    public User remove(Long userId) throws PersistenceException;
+    public boolean update(User user) throws PersistenceException;
+    public boolean remove(Long userId) throws PersistenceException;
     public User getUserById(Long userId) throws PersistenceException;
     public List<User> listAll() throws PersistenceException;
 }

@@ -31,46 +31,55 @@ public class UserManagementImpl implements UserManagement {
         if (user.getId() == null) {
             throw new BusinessException("User's ID is required");
         }
-        if (user.getName() == null
-                || user.getName().isEmpty()) {
+        if (user.getUserName() == null
+                || user.getUserName().isEmpty()) {
             throw new BusinessException("User's name cannot be null");
         }
-        if (user.getSenha() == null) {
+        if (user.getPassword() == null) {
             throw new BusinessException("User's password cannot be null");
         }
         if (user.getEmail() == null
                 || user.getEmail().isEmpty()) {
             throw new BusinessException("User's email cannot be null");
         }
+        if (user.getIdtProfile() == 0) {
+            throw new BusinessException("User's profile idt cannot be null");
+        }
         return userDAO.insert(user);
     }
 
     @Override
-    public void userUpdate(User user) throws BusinessException, PersistenceException {
+    public boolean userUpdate(User user) throws BusinessException, PersistenceException {
         if (user == null) {
             throw new BusinessException("User cannot be null");
         }
         if (user.getId() == null) {
             throw new BusinessException("User's ID is required");
         }
-        if (user.getName() == null
-                || user.getName().isEmpty()) {
+        if (user.getUserName() == null
+                || user.getUserName().isEmpty()) {
             throw new BusinessException("User's name cannot be null");
         }
-        if (user.getSenha() == null) {
+        if (user.getPassword() == null) {
             throw new BusinessException("User's password cannot be null");
         }
         if (user.getEmail() == null
                 || user.getEmail().isEmpty()) {
             throw new BusinessException("User's email cannot be null");
         }
-        userDAO.update(user);
+        if (user.getIdtProfile() == 0) {
+            throw new BusinessException("User's profile idt cannot be null");
+        }
+        return userDAO.update(user);
     }
 
     @Override
-    public User userRemove(Long userId) throws PersistenceException {
+    public boolean userRemove(Long userId) throws PersistenceException {
         if (userId == null) {
             throw new PersistenceException("User's Id cannot be null");
+        }
+        if (userDAO.getUserById(userId) == null) {
+            throw new PersistenceException("User with id " + userId + "doesn't exist");
         }
         return userDAO.remove(userId);
     }

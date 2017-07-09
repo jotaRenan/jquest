@@ -60,6 +60,9 @@ public class DomainManagementImpl implements DomainManagement {
         if (domainId == null)
             throw new PersistenceException("Domain's id cannot be null");
         
+        if (domainDAO.getDomainById(domainId) == null)
+            throw new PersistenceException("Domain with id " + domainId + "doesn't exist");
+        
         return domainDAO.remove(domainId);
     }
 

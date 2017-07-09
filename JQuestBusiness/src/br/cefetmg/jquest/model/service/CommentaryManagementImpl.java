@@ -50,7 +50,7 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     }
 
     @Override
-    public void commentaryUpdate(Commentary commentary) throws BusinessException, PersistenceException {
+    public boolean commentaryUpdate(Commentary commentary) throws BusinessException, PersistenceException {
         if (commentary == null)
             throw new BusinessException("Commentary cannot be null");
         
@@ -70,11 +70,11 @@ public class CommentaryManagementImpl implements CommentaryManagement{
                 || commentary.getTextCommentary().isEmpty())
             throw new BusinessException("Commentary's text cannot be null");  
 
-        commentaryDAO.update(commentary);
+        return commentaryDAO.update(commentary);
     }
 
     @Override
-    public Commentary commentaryRemove(Long commentarySeq) throws PersistenceException {
+    public boolean commentaryRemove(Long commentarySeq) throws PersistenceException {
         if (commentarySeq == null) {
             throw new PersistenceException("Commentary's sequence cannot be null");
         }

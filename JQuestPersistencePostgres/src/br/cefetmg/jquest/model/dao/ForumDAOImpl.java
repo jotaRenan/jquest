@@ -55,7 +55,6 @@ public class ForumDAOImpl implements ForumDAO {
 
             if (rs.next()) {
                 forumId = rs.getLong("SEQ_discussion");
-                forum.setDiscussionSeq(forumId);
             }
 
             rs.close();

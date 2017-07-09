@@ -43,12 +43,13 @@ public class ModuleDAOImpl implements ModuleDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO module (nom_module, desc_module) "
-                    + "    VALUES (?, ?) returning cod_module;";
+            String sql = "INSERT INTO module (cod_domain, nom_module, desc_module) "
+                    + "    VALUES (?, ?, ?) returning cod_module;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, module.getName());
-            pstmt.setString(2, module.getDescription());
+            pstmt.setLong(1, module.getDomainId());
+            pstmt.setString(2, module.getName());
+            pstmt.setString(3, module.getDescription());
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -76,12 +77,14 @@ public class ModuleDAOImpl implements ModuleDAO {
             String sql = "UPDATE module "
                     + " SET nom_module = ?, "
                     + "     desc_module = ? "
-                    + " WHERE cod_module = ?";
+                    + " WHERE cod_module = ? "
+                    + " AND cod_domain = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, module.getName());
             pstmt.setString(2, module.getDescription());
             pstmt.setLong(3, module.getId());
+            pstmt.setLong(4, module.getDomainId());
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -96,14 +99,15 @@ public class ModuleDAOImpl implements ModuleDAO {
     }
 
     @Override
-    public boolean remove(Long moduleId) throws PersistenceException {
+    public boolean remove(Long moduleId, Long domainId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM module WHERE cod_module = ?";
+            String sql = "DELETE FROM module WHERE cod_module = ? AND cod_domain = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, moduleId);
+            pstmt.setLong(2, domainId);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -118,19 +122,22 @@ public class ModuleDAOImpl implements ModuleDAO {
     }
 
     @Override
-    public Module getModuleById(Long moduleId) throws PersistenceException {
+    public Module getModuleById(Long moduleId, Long domainId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM module WHERE cod_module = ? ";
+            String sql = "SELECT * FROM module WHERE cod_module = ? AND cod_domain = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, moduleId);
+            pstmt.setLong(2, domainId);
             ResultSet rs = pstmt.executeQuery();
 
-            Module module = new Module();
+            Module module = null;
             if (rs.next()) {
+                module = new Module();
                 module.setId(moduleId);
+                module.setDomainId(domainId);
                 module.setName(rs.getString("nom_module"));
                 module.setDescription(rs.getString("desc_module"));
             }

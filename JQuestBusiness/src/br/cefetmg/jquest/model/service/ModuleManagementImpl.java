@@ -59,19 +59,22 @@ public class ModuleManagementImpl implements ModuleManagement {
     }
 
     @Override
-    public boolean moduleRemove(Long moduleId) throws PersistenceException {
+    public boolean moduleRemove(Long moduleId, Long domainId) throws PersistenceException {
         if (moduleId == null)
             throw new PersistenceException("Module's id cannot be null");
         
-        return moduleDAO.remove(moduleId);
+        if (moduleDAO.getModuleById(moduleId, domainId) == null)
+            throw new PersistenceException("Module doesn't exist");
+        
+        return moduleDAO.remove(moduleId, domainId);
     }
 
     @Override
-    public Module getModuleById(Long moduleId) throws PersistenceException {
-        if (moduleId == null)
-            throw new PersistenceException("ModuleId's id cannot be null");
+    public Module getModuleById(Long moduleId, Long domainId) throws PersistenceException {
+        if (moduleId == null || domainId == null)
+            throw new PersistenceException("Module's primary keys cannot be null");
         
-        return moduleDAO.getModuleById(moduleId); //if the id isn't valid it throws an exception
+        return moduleDAO.getModuleById(moduleId, domainId); //if the id isn't valid it throws an exception
     }
 
     @Override

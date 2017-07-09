@@ -94,7 +94,7 @@ public class ModuleManagementImplTest {
         
         //removes registered module
         try {
-            moduleManagement.moduleRemove(id);
+            moduleManagement.moduleRemove(id, module.getDomainId());
         } catch (PersistenceException ex) {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }   
@@ -179,7 +179,7 @@ public class ModuleManagementImplTest {
             return;
         }
         try {
-            if (!moduleManagement.getModuleById(module.getId()).getName().equals("Update test")) {
+            if (!moduleManagement.getModuleById(module.getId(), module.getDomainId()).getName().equals("Update test")) {
                 fail("Failed to update module");
             }
         } catch (PersistenceException ex) {
@@ -195,7 +195,7 @@ public class ModuleManagementImplTest {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            moduleManagement.moduleRemove(module.getId());
+            moduleManagement.moduleRemove(module.getId(), module.getDomainId());
         } catch (PersistenceException ex) {
             fail("Failed to remove module");
         }
@@ -210,13 +210,10 @@ public class ModuleManagementImplTest {
         }
         Module moduleTest;
         try {
-            moduleTest = moduleManagement.getModuleById(module.getId());
+            moduleTest = moduleManagement.getModuleById(module.getId(), module.getDomainId());
         } catch (PersistenceException ex) {
             fail("Failed to get module by id");
             return;
-        }
-        if (!moduleTest.equals(module)) {
-            fail("Failed to get module by id");
         }
     }
     

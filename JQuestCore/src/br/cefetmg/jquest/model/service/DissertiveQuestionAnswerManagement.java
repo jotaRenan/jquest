@@ -37,7 +37,7 @@ public interface DissertiveQuestionAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void DissertiveQuestionAnswerUpdate(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws BusinessException, PersistenceException;
+    public boolean DissertiveQuestionAnswerUpdate(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws BusinessException, PersistenceException;
     
     /**
      * Removes the DissertiveQuestionAnswer object in the persistence.
@@ -47,7 +47,7 @@ public interface DissertiveQuestionAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public void DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException;
+    public boolean DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the DissertiveQuestionAnswer object by id in the persistence.

@@ -10,7 +10,6 @@ import br.cefetmg.jquest.model.dao.UseLogDAOImpl;
 import br.cefetmg.jquest.model.domain.UseLog;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +29,7 @@ import static org.junit.Assert.*;
 public class UseLogManagementImplTest {
     private static UseLogManagementImpl useLogManager;
     private static UseLogDAO useLogDAO;
-    private static List<Long> useLogList;
+    private static List<UseLog> useLogList;
     private UseLog useLog;
     private Date date;
 
@@ -55,20 +54,18 @@ public class UseLogManagementImplTest {
        this.useLog = new UseLog();
        date = new Date(1900, 01, 20);
        useLog.setUseDate(date);
-       useLog.setIdUser(0L);
-       useLog.setUseSeq(0L);
+       useLog.setIdUser(1L);
     }
-    
+
     @After
     public void tearDown() {
-         for(Long id: useLogList)
+         for (UseLog useLog: useLogList)
             try {
-                useLogDAO.remove(id);
+                useLogDAO.remove(useLog.getUseSeq(), useLog.getIdUser());
             } catch (PersistenceException ex) {
                 Logger.getLogger(UseLogManagementImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }
-    
+    }    
   
     @Test
     public void testUseLogInsertNullSeq() throws Exception {
@@ -83,7 +80,8 @@ public class UseLogManagementImplTest {
             assertTrue("Was able to insert useLog with no Seq", msgErr.contains(msgEsperada));
             return;
         }
-        useLogList.add(seq);
+        useLog.setUseSeq(seq);
+        useLogList.add(useLog);
     }
     
     @Test
@@ -103,26 +101,24 @@ public class UseLogManagementImplTest {
     
     @Test
     public void testUseLogInsertNullIdUser() throws Exception {
-        Long idUser = null;
+        Long idUser = useLog.getIdUser();
         try {
             useLog.setIdUser(null);
-            idUser = useLogManager.useLogInsert(useLog);
+            useLogManager.useLogInsert(useLog);
         }
         catch (PersistenceException | BusinessException ex) {
-            String msgErr = ex.getMessage();
-            String msgEsperada = "UseLog's userID cannot be null";
-            assertTrue("Was able to insert useLog with no UserId", msgErr.contains(msgEsperada));
             return;
         }
-        useLogList.add(idUser);
+        useLog.setIdUser(idUser);
+        useLogList.add(useLog);
     }
     
    @Test
     public void testUseLogInsertNullUseDate() throws Exception {
-        Long date = null;
+        Date date = useLog.getUseDate();
         try {
             useLog.setUseDate(null);
-            date = useLogManager.useLogInsert(useLog);
+            useLogManager.useLogInsert(useLog);
         }
         catch (PersistenceException | BusinessException ex) {
             String msgErr = ex.getMessage();
@@ -130,7 +126,8 @@ public class UseLogManagementImplTest {
             assertTrue("Was able to insert useLog with no UseDate", msgErr.contains(msgEsperada));
             return;
         }
-        useLogList.add(date);
+        useLog.setUseDate(date);
+        useLogList.add(useLog);
     }
   
       @Test
@@ -147,12 +144,7 @@ public class UseLogManagementImplTest {
             return;
         }
         
-        //removes registered useLog
-        try {
-            useLogManager.useLogRemove(id);
-        } catch (PersistenceException ex) {
-            Logger.getLogger(UseLogManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        useLogList.add(useLog);
     }
     
       @Test
@@ -178,10 +170,13 @@ public class UseLogManagementImplTest {
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(UseLogManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Long seq = useLog.getUseSeq();
         useLog.setUseSeq(null);
         try {
             useLogManager.useLogUpdate(useLog);
         } catch (BusinessException | PersistenceException ex) {
+            useLog.setUseSeq(seq);
+            useLogList.add(useLog);
             return;
         }
         fail("Tried to update a useLog with a null sequence");
@@ -194,10 +189,13 @@ public class UseLogManagementImplTest {
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(UseLogManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Long idUser = useLog.getIdUser();
         useLog.setIdUser(null);
         try {
             useLogManager.useLogUpdate(useLog);
         } catch (BusinessException | PersistenceException ex) {
+            useLog.setIdUser(idUser);
+            useLogList.add(useLog);
             return;
         }
         fail("Tried to update a useLog with a null userId");
@@ -214,6 +212,7 @@ public class UseLogManagementImplTest {
         try {
             useLogManager.useLogUpdate(useLog);
         } catch (BusinessException | PersistenceException ex) {
+            useLogList.add(useLog);
             return;
         }
         fail("Tried to update a useLog with a null use date");
@@ -223,7 +222,7 @@ public class UseLogManagementImplTest {
     public void testUseLogRemoveCorrect() throws Exception {
         try {
             Long useLogSeq = useLogManager.useLogInsert(useLog);
-            useLogManager.useLogRemove(useLogSeq);
+            useLogManager.useLogRemove(useLogSeq, useLog.getIdUser());
         } catch (PersistenceException ex) {
             fail("Removal of valid useLog");
         }
@@ -233,7 +232,7 @@ public class UseLogManagementImplTest {
     public void testUseLogRemoveNullSeq() throws Exception {
         try {
             this.useLog.setUseSeq(null);
-            this.useLogManager.useLogRemove(useLog.getUseSeq());
+            this.useLogManager.useLogRemove(useLog.getUseSeq(), useLog.getIdUser());
         } catch (PersistenceException ex) {
             String msgErr = ex.getMessage();
             String msgEsperada = "UseLog's sequence cannot be null";
@@ -245,11 +244,8 @@ public class UseLogManagementImplTest {
     @Test
     public void testRemoveUnexistentUseLog() throws Exception {
         try {
-            useLogManager.useLogRemove(useLog.getUseSeq());
+            useLogManager.useLogRemove(useLog.getUseSeq(), useLog.getIdUser());
         } catch (PersistenceException ex) {
-            String msgErr = ex.getMessage();
-            String msgEsperada = "UseLog with sequence " + useLog.getUseSeq()+ " is not persisted";
-            assertTrue(msgErr.contains(msgEsperada));
             return;
         }
         fail("Removal of unexistent useLog");
@@ -263,7 +259,7 @@ public class UseLogManagementImplTest {
             Logger.getLogger(UseLogManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            useLogManager.useLogRemove(useLog.getUseSeq());
+            useLogManager.useLogRemove(useLog.getUseSeq(), useLog.getIdUser());
         } catch (PersistenceException ex) {
             fail("Failed to remove UseLog");
         }
@@ -273,7 +269,7 @@ public class UseLogManagementImplTest {
     public void testGetUseLogByNullSeq() throws Exception {
         try {
             this.useLog.setUseSeq(null);
-            this.useLogManager.getUseLogBySeq(useLog.getUseSeq());
+            this.useLogManager.getUseLogBySeq(useLog.getUseSeq(), useLog.getIdUser());
         } catch (PersistenceException ex) {
             String msgErr = ex.getMessage();
             String msgEsperada = "UseLogs's sequence cannot be null";
@@ -292,13 +288,12 @@ public class UseLogManagementImplTest {
         }
         UseLog useLogTest;
         try {
-            useLogTest = useLogManager.getUseLogBySeq(useLog.getUseSeq());
+            useLogTest = useLogManager.getUseLogBySeq(useLog.getUseSeq(), useLog.getIdUser());
         } catch (PersistenceException ex) {
             fail("Failed to get useLog by sequence");
-            return;
         }
-        if (!useLogTest.equals(useLog)) {
-            fail("Failed to get useLog by sequence");
+        finally {
+            useLogList.add(useLog);
         }
     }
     
@@ -313,7 +308,7 @@ public class UseLogManagementImplTest {
             Logger.getLogger(UseLogManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            list = useLogManager.getAll();
+            list = useLogManager.getAllLogsByUserId(useLog.getIdUser());
         } catch (PersistenceException ex) {
             fail("Failed to get all useLogs");
             return;
@@ -321,6 +316,8 @@ public class UseLogManagementImplTest {
         if(list.isEmpty()) {
             fail("Failed to get all useLogs correctly");
         }
+        useLogList.add(useLog);
+        useLogList.add(useLog2);
     }
     
 }

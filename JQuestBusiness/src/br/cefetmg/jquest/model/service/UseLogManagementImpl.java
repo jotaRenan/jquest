@@ -6,6 +6,7 @@
 package br.cefetmg.jquest.model.service;
 
 import br.cefetmg.jquest.model.dao.UseLogDAO;
+import br.cefetmg.jquest.model.dao.UserDAOImpl;
 import br.cefetmg.jquest.model.domain.UseLog;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -17,21 +18,20 @@ import java.util.List;
  */
 public class UseLogManagementImpl implements UseLogManagement{
     private final UseLogDAO useLogDAO;
+    private final UserManagement userManagement;
 
     public UseLogManagementImpl(UseLogDAO useLogDAO) {
         this.useLogDAO = useLogDAO;
+        this.userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
     }
 
     @Override
     public Long useLogInsert(UseLog useLog) throws BusinessException, PersistenceException {
         if (useLog == null)
             throw new BusinessException("UseLog cannot be null");
-        
-        if (useLog.getUseSeq()== null)
-            throw new BusinessException("UseLog's sequence cannot be null");
             
-        if (useLog.getIdUser()== null)
-            throw new BusinessException("UseLog's userID cannot be null");
+        if (useLog.getIdUser() == null || userManagement.getUserById(useLog.getIdUser()) == null)
+            throw new BusinessException("User id doesn't exist");
         
         if (useLog.getUseDate()== null)
             throw new BusinessException("UseLog's use date cannot be null");
@@ -41,7 +41,7 @@ public class UseLogManagementImpl implements UseLogManagement{
     }
 
     @Override
-    public void useLogUpdate(UseLog useLog) throws BusinessException, PersistenceException {
+    public boolean useLogUpdate(UseLog useLog) throws BusinessException, PersistenceException {
         if (useLog == null)
             throw new BusinessException("UseLog cannot be null");
         
@@ -54,32 +54,29 @@ public class UseLogManagementImpl implements UseLogManagement{
         if (useLog.getUseDate()== null)
             throw new BusinessException("UseLog's use date cannot be null");
         
-        useLogDAO.update(useLog);
+        return useLogDAO.update(useLog);
     }
 
     @Override
-    public UseLog useLogRemove(Long useLogSeq) throws PersistenceException {
+    public boolean useLogRemove(Long useLogSeq, Long userId) throws PersistenceException {
         if (useLogSeq == null) {
             throw new PersistenceException("UseLog's sequence cannot be null");
         }
-        return useLogDAO.remove(useLogSeq);
+        return useLogDAO.remove(useLogSeq, userId);
     }
 
     @Override
-    public UseLog getUseLogBySeq(Long useLogSeq) throws PersistenceException {
+    public UseLog getUseLogBySeq(Long useLogSeq, Long userId) throws PersistenceException {
         if (useLogSeq == null)
             throw new PersistenceException("UseLogs's sequence cannot be null");
         
-        return useLogDAO.getUseLogBySeq(useLogSeq); //if the id isn't valid it throws an exception
+        return useLogDAO.getUseLogBySeq(useLogSeq, userId); //if the id isn't valid it throws an exception
     }
 
     @Override
-    public List<UseLog> getAll() throws PersistenceException {
-        List<UseLog> list = useLogDAO.listAll();
+    public List<UseLog> getAllLogsByUserId(Long userId) throws PersistenceException {
+        List<UseLog> list = useLogDAO.getAllLogsByUserId(userId);
         return list;
     }
-    
-    
- 
-    
+
 }

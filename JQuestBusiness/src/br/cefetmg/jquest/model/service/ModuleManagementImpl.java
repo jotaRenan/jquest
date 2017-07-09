@@ -89,6 +89,6 @@ public class ModuleManagementImpl implements ModuleManagement {
     @Override
     public List<Module> getModulesByDomainId(Long domainId) throws PersistenceException {
         List<Module> list = moduleDAO.listModulesByDomainId(domainId);
-        return list;
+        return list; 
     }
 }

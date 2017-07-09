@@ -53,7 +53,7 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public void forumUpdate(Forum forum) throws BusinessException, PersistenceException {
+    public boolean forumUpdate(Forum forum) throws BusinessException, PersistenceException {
          if(forum == null){
             throw new BusinessException("The object Forum cannot be null.");
         }
@@ -64,7 +64,7 @@ public class ForumManagementImpl implements ForumManagement {
             throw new BusinessException("The forum name text cannot be empty, neither null.");
         }
         
-        DAO.update(forum);
+       return DAO.update(forum);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public void DissertiveQuestionAnswerUpdate(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws BusinessException, PersistenceException {
+    public boolean DissertiveQuestionAnswerUpdate(DissertiveQuestionAnswer dissertiveQuestionAnswer) throws BusinessException, PersistenceException {
         if(dissertiveQuestionAnswer == null)
             throw new BusinessException("The object cannot be null.");
         
@@ -69,15 +69,15 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
             throw new BusinessException("The Answer text cannot be null or empty.");
         }
         
-        DAO.update(dissertiveQuestionAnswer);
+       return DAO.update(dissertiveQuestionAnswer);
     }
 
     @Override
-    public void DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException {
+    public boolean DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException {
         if(seqAnswerUser == null)
             throw new PersistenceException("The seqAwnserUser can't be null.");
          
-        DAO.remove(seqAnswerUser);
+       return DAO.remove(seqAnswerUser);
     }
 
     @Override

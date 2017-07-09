@@ -5,7 +5,6 @@
  */
 package br.cefetmg.jquest.model.dao;
 
-import br.cefetmg.jquest.model.domain.Domain;
 import br.cefetmg.jquest.model.domain.Module;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import br.cefetmg.jquest.util.db.ConnectionManager;
@@ -171,6 +170,7 @@ public class ModuleDAOImpl implements ModuleDAO {
                 do {
                     module = new Module();
                     module.setId(rs.getLong("cod_module"));
+                    module.setDomainId(rs.getLong("cod_domain"));
                     module.setName(rs.getString("nom_module"));
                     module.setDescription(rs.getString("desc_module"));
                     listAll.add(module);
@@ -190,24 +190,27 @@ public class ModuleDAOImpl implements ModuleDAO {
     }    
 
     @Override
-    public List<Long> listAllDomains() throws PersistenceException {
+    public List<Module> listModulesByDomainId(Long domainId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM domain ORDER BY nom_domain";
+            String sql = "SELECT * FROM modules WHERE cod_domain = ? ORDER BY nom_domain";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, domainId);
             ResultSet rs = pstmt.executeQuery();
 
-            ArrayList<Long> listAll = null;
-            Domain domain = null;
+            ArrayList<Module> listAll = null;
 
             if (rs.next()) {
                 listAll = new ArrayList<>();
                 do {
-                    domain = new Domain();
-                    domain.setId(rs.getLong("cod_domain"));
-                    listAll.add(domain.getId());
+                    Module module = new Module();
+                    module.setId(rs.getLong("cod_module"));
+                    module.setDomainId(domainId);
+                    module.setName(rs.getString("nom_module"));
+                    module.setDescription(rs.getString("desc_module"));
+                    listAll.add(module);
                 } while (rs.next());
             }
 

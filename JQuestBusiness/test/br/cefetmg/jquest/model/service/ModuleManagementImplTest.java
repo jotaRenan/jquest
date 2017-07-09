@@ -60,7 +60,6 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleInsert(module);
         } catch (BusinessException | PersistenceException ex) {
-            module.setName("Teste");
             return;
         }
         fail("Module with null name registered");
@@ -72,7 +71,6 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleInsert(module);
         } catch (BusinessException | PersistenceException ex) {
-            module.setDescription("Teste");
             return;
         }
         fail("Module with null description registered");
@@ -107,10 +105,16 @@ public class ModuleManagementImplTest {
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        module = null;
+        Module moduleUp = null;
         try {
-            moduleManagement.moduleUpdate(module);
+            moduleManagement.moduleUpdate(moduleUp);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered module
+            try {
+                moduleManagement.moduleRemove(module.getId(), module.getDomainId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Module updated to null");
@@ -127,6 +131,12 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleUpdate(module);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered module
+            try {
+                moduleManagement.moduleRemove(module.getId(), module.getDomainId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Module updated with null name");
@@ -143,6 +153,12 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleUpdate(module);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered module
+            try {
+                moduleManagement.moduleRemove(module.getId(), module.getDomainId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Module updated with null description");
@@ -150,8 +166,9 @@ public class ModuleManagementImplTest {
     
     @Test
     public void testModuleUpdateNullId() {
+        Long id = null;
         try {
-            moduleManagement.moduleInsert(module);
+            id = moduleManagement.moduleInsert(module);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,6 +176,12 @@ public class ModuleManagementImplTest {
         try {
             moduleManagement.moduleUpdate(module);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered module
+            try {
+                moduleManagement.moduleRemove(id, module.getDomainId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Tried to update a module with a null id");
@@ -185,6 +208,12 @@ public class ModuleManagementImplTest {
         } catch (PersistenceException ex) {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //removes registered module
+        try {
+            moduleManagement.moduleRemove(module.getId(), module.getDomainId());
+        } catch (PersistenceException e) {
+            Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+        } 
     }
     
     @Test
@@ -213,17 +242,26 @@ public class ModuleManagementImplTest {
             moduleTest = moduleManagement.getModuleById(module.getId(), module.getDomainId());
         } catch (PersistenceException ex) {
             fail("Failed to get module by id");
-            return;
+        }
+        finally {
+            //removes registered module
+            try {
+                moduleManagement.moduleRemove(module.getId(), module.getDomainId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
         }
     }
     
     @Test
     public void testGetAll() {
         Module module2 = module;
+        Long id1 = null;
+        Long id2 = null;
         List<Module> list;
         try {
-            moduleManagement.moduleInsert(module);
-            moduleManagement.moduleInsert(module2);
+            id1 = moduleManagement.moduleInsert(module);
+            id2 = moduleManagement.moduleInsert(module2);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -236,5 +274,12 @@ public class ModuleManagementImplTest {
         if(list.isEmpty()) {
             fail("Failed to get all modules correctly");
         }
+        //removes registered module
+        try {
+            moduleManagement.moduleRemove(id1, module.getDomainId());
+            moduleManagement.moduleRemove(id2, module2.getDomainId());
+        } catch (PersistenceException e) {
+            Logger.getLogger(ModuleManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+        } 
     }
 }

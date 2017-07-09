@@ -20,5 +20,5 @@ public interface ModuleDAO {
     public boolean remove(Long moduleId, Long domainId) throws PersistenceException;
     public Module getModuleById(Long moduleId, Long domainId) throws PersistenceException;
     public List<Module> listAll() throws PersistenceException; 
-    public List<Long> listAllDomains() throws PersistenceException; 
+    public List<Module> listModulesByDomainId(Long domainId) throws PersistenceException; 
 }

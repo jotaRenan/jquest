@@ -15,11 +15,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -50,9 +45,10 @@ public class UserManagementImplTest {
     public void setUp() {
         this.user = new User();
         user.setEmail("a@a");
-        user.setName("testUser");
+        user.setUserName("testUser");
         user.setId(0L);
-        user.setSenha("opa");
+        user.setPassword("opa");
+        user.setIdtProfile('A');
     }
 
     @After
@@ -159,7 +155,7 @@ public class UserManagementImplTest {
     @Test
     public void testUserWithNullNameInsertion() throws Exception {
         try {
-            user.setName(null);
+            user.setUserName(null);
             userManager.userInsert(user);
         } catch (BusinessException | PersistenceException ex) {
             String msgErr = ex.getMessage();
@@ -190,7 +186,7 @@ public class UserManagementImplTest {
     public void testUserWithBlankNameInsertion() throws Exception {
         Long id = null;
         try {
-            user.setName("");
+            user.setUserName("");
             userManager.userInsert(user);
         } catch (BusinessException | PersistenceException ex) {
             String msgErr = ex.getMessage();
@@ -219,33 +215,10 @@ public class UserManagementImplTest {
     }
     
     @Test
-    public void testUserDuplicateKeyInsertion() throws Exception {
-        Long id1 = null, id2 = null;
-        try {
-            User userDuplicate = new User(user.getName(), user.getEmail(), user.getId()+1, user.getSenha());
-            id1 = userManager.userInsert(user);
-            id2 = userManager.userInsert(userDuplicate);
-        } catch (BusinessException | PersistenceException ex) {
-            String msgErr = ex.getMessage();
-            String msgEsperada = "Duplicate key";
-            // Exibe msg caso 2o param. seja falso
-            assertTrue(msgErr.contains(msgEsperada));
-            return;
-        }
-        userList.add(id1);
-        userList.add(id2);
-        fail("Insertion of user with duplicate key");
-    }
-    
-    @Test
     public void testRemovalOfUnexistentUser() throws Exception {
         try {
             userManager.userRemove(user.getId());
         } catch (PersistenceException ex) {
-            String msgErr = ex.getMessage();
-            String msgEsperada = "User with id " + user.getId() + " is not persisted";
-            // Exibe msg caso 2o param. seja falso
-            assertTrue(msgErr.contains(msgEsperada));
             return;
         }
         fail("Removal of unexistent user");

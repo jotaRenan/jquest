@@ -12,13 +12,13 @@ import java.util.List;
 /**
  *
  * @author Jota Renan
- * Testing
+ * 
  */
 public interface ModuleDAO {
     public Long insert(Module module) throws PersistenceException;
     public boolean update(Module module) throws PersistenceException;
-    public boolean remove(Long moduleId) throws PersistenceException;
-    public Module getModuleById(Long moduleId) throws PersistenceException;
+    public boolean remove(Long moduleId, Long domainId) throws PersistenceException;
+    public Module getModuleById(Long moduleId, Long domainId) throws PersistenceException;
     public List<Module> listAll() throws PersistenceException; 
-    public List<Long> listAllDomains() throws PersistenceException; 
+    public List<Module> listModulesByDomainId(Long domainId) throws PersistenceException; 
 }

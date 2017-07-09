@@ -17,8 +17,8 @@ import java.util.List;
 public interface ModuleManagement {
     public Long moduleInsert(Module module) throws BusinessException, PersistenceException;
     public boolean moduleUpdate(Module module) throws BusinessException, PersistenceException;
-    public boolean moduleRemove(Long moduleId) throws PersistenceException;
-    public Module getModuleById(Long moduleId) throws PersistenceException;
+    public boolean moduleRemove(Long moduleId, Long domainId) throws PersistenceException;
+    public Module getModuleById(Long moduleId, Long domainId) throws PersistenceException;
     public List<Module> getAll() throws PersistenceException;    
-    public List<Long> getAllDomains() throws PersistenceException;    
+    public List<Module> getModulesByDomainId(Long domainId) throws PersistenceException;    
 }

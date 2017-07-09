@@ -5,7 +5,6 @@
  */
 package br.cefetmg.jquest.model.dao;
 
-import br.cefetmg.jquest.model.domain.Domain;
 import br.cefetmg.jquest.model.domain.Module;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import br.cefetmg.jquest.util.db.ConnectionManager;
@@ -20,12 +19,12 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Aluno
+ * @author Gabriel Haddad
  */
 public class ModuleDAOImpl implements ModuleDAO {
     private static ModuleDAOImpl moduleDAO = null;
 
-    public ModuleDAOImpl getInstance(){
+    public static ModuleDAOImpl getInstance(){
         if (moduleDAO == null) {
             moduleDAO = new ModuleDAOImpl();
         }
@@ -43,12 +42,13 @@ public class ModuleDAOImpl implements ModuleDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO module (nom_module, desc_module) "
-                    + "    VALUES (?, ?) returning cod_module;";
+            String sql = "INSERT INTO module (cod_domain, nom_module, desc_module) "
+                    + "    VALUES (?, ?, ?) returning cod_module;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, module.getName());
-            pstmt.setString(2, module.getDescription());
+            pstmt.setLong(1, module.getDomainId());
+            pstmt.setString(2, module.getName());
+            pstmt.setString(3, module.getDescription());
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -76,12 +76,14 @@ public class ModuleDAOImpl implements ModuleDAO {
             String sql = "UPDATE module "
                     + " SET nom_module = ?, "
                     + "     desc_module = ? "
-                    + " WHERE cod_module = ?";
+                    + " WHERE cod_module = ? "
+                    + " AND cod_domain = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, module.getName());
             pstmt.setString(2, module.getDescription());
             pstmt.setLong(3, module.getId());
+            pstmt.setLong(4, module.getDomainId());
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -96,14 +98,15 @@ public class ModuleDAOImpl implements ModuleDAO {
     }
 
     @Override
-    public boolean remove(Long moduleId) throws PersistenceException {
+    public boolean remove(Long moduleId, Long domainId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM module WHERE cod_module = ?";
+            String sql = "DELETE FROM module WHERE cod_module = ? AND cod_domain = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, moduleId);
+            pstmt.setLong(2, domainId);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -118,19 +121,22 @@ public class ModuleDAOImpl implements ModuleDAO {
     }
 
     @Override
-    public Module getModuleById(Long moduleId) throws PersistenceException {
+    public Module getModuleById(Long moduleId, Long domainId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM module WHERE cod_module = ? ";
+            String sql = "SELECT * FROM module WHERE cod_module = ? AND cod_domain = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, moduleId);
+            pstmt.setLong(2, domainId);
             ResultSet rs = pstmt.executeQuery();
 
-            Module module = new Module();
+            Module module = null;
             if (rs.next()) {
+                module = new Module();
                 module.setId(moduleId);
+                module.setDomainId(domainId);
                 module.setName(rs.getString("nom_module"));
                 module.setDescription(rs.getString("desc_module"));
             }
@@ -164,6 +170,7 @@ public class ModuleDAOImpl implements ModuleDAO {
                 do {
                     module = new Module();
                     module.setId(rs.getLong("cod_module"));
+                    module.setDomainId(rs.getLong("cod_domain"));
                     module.setName(rs.getString("nom_module"));
                     module.setDescription(rs.getString("desc_module"));
                     listAll.add(module);
@@ -183,24 +190,27 @@ public class ModuleDAOImpl implements ModuleDAO {
     }    
 
     @Override
-    public List<Long> listAllDomains() throws PersistenceException {
+    public List<Module> listModulesByDomainId(Long domainId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM domain ORDER BY nom_domain";
+            String sql = "SELECT * FROM modules WHERE cod_domain = ? ORDER BY nom_domain";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, domainId);
             ResultSet rs = pstmt.executeQuery();
 
-            ArrayList<Long> listAll = null;
-            Domain domain = null;
+            ArrayList<Module> listAll = null;
 
             if (rs.next()) {
                 listAll = new ArrayList<>();
                 do {
-                    domain = new Domain();
-                    domain.setId(rs.getLong("cod_domain"));
-                    listAll.add(domain.getId());
+                    Module module = new Module();
+                    module.setId(rs.getLong("cod_module"));
+                    module.setDomainId(domainId);
+                    module.setName(rs.getString("nom_module"));
+                    module.setDescription(rs.getString("desc_module"));
+                    listAll.add(module);
                 } while (rs.next());
             }
 

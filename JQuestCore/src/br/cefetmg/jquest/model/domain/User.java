@@ -10,26 +10,36 @@ package br.cefetmg.jquest.model.domain;
  * @author Jota Renan
  */
 public class User {
-    private String name;
+    private String userName;
     private String email;
     private Long id;
     private String password;
+    private char idtProfile;
 
     public User() {}
     
-    public User(String name, String email, Long id, String senha) {
-        this.name = name;
+    public User(String name, String email, Long id, String password, char idt) {
+        this.userName = name;
         this.email = email;
         this.id = id;
-        this.password = senha;
-    }
-    
-    public String getName() {
-        return name;
+        this.password = password;
+        this.idtProfile = idt;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public char getIdtProfile() {
+        return idtProfile;
+    }
+
+    public void setIdtProfile(char idt) {
+        this.idtProfile = idt;
+    }
+    
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String name) {
+        this.userName = name;
     }
 
     public String getEmail() {
@@ -48,11 +58,11 @@ public class User {
         this.id = id;
     }
 
-    public String getSenha() {
+    public String getPassword() {
         return password;
     }
 
-    public void setSenha(String senha) {
+    public void setPassword(String senha) {
         this.password = senha;
     }
     

@@ -20,12 +20,12 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Aluno
+ * @author Gabriel Haddad
  */
 public class ModuleDAOImpl implements ModuleDAO {
     private static ModuleDAOImpl moduleDAO = null;
 
-    public ModuleDAOImpl getInstance(){
+    public static ModuleDAOImpl getInstance(){
         if (moduleDAO == null) {
             moduleDAO = new ModuleDAOImpl();
         }

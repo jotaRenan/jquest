@@ -58,9 +58,10 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
     @Override
     public boolean remove(Long multipleChoiceAnswerId) throws PersistenceException {
         if (multipleChoiceAnswerId == null) {
-            throw new PersistenceException("None of the parameters can be null.");
+            throw new PersistenceException("MultipleChoiceAnswerID canot be null.");
         }
-        return DAO.remove(multipleChoiceAnswerId);    
+        DAO.remove(multipleChoiceAnswerId);  
+        return true;
     }
 
     @Override

@@ -46,7 +46,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     }
 
     @Override
-    public void update(QuestionAlternative closedEndedAlt) throws PersistenceException {
+    public boolean update(QuestionAlternative closedEndedAlt) throws PersistenceException {
         if (closedEndedAlt == null) {
             throw new PersistenceException("Answer cannot be null");
         }
@@ -57,18 +57,20 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
         if (!questionAlternativeDB.containsKey(answerId)) {
             throw new PersistenceException("Answer with id " + closedEndedAlt.getOptionSeq()+ " is not persisted");
         }
-        questionAlternativeDB.replace(answerId, closedEndedAlt);
+       questionAlternativeDB.replace(answerId, closedEndedAlt);
+       return true;
     }
 
     @Override
-    public QuestionAlternative remove(Long closedEndedAltId) throws PersistenceException {
+    public boolean remove(Long closedEndedAltId) throws PersistenceException {
         if (closedEndedAltId == null) {
             throw new PersistenceException("Answer ID cant be null");
         }
         if (!questionAlternativeDB.containsKey(closedEndedAltId)){
             throw new PersistenceException("Answer with id " + closedEndedAltId + " is not persisted");
         }
-        return questionAlternativeDB.remove(closedEndedAltId);
+        questionAlternativeDB.remove(closedEndedAltId);
+        return true;
     }
 
     @Override

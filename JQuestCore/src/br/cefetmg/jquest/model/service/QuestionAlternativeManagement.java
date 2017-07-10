@@ -16,8 +16,8 @@ import java.util.List;
  */
 public interface QuestionAlternativeManagement {
     public Long insert(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException;
-    public void update(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException;
-    public QuestionAlternative remove(Long closedEndedAltId) throws PersistenceException;
+    public boolean update(QuestionAlternative closedEndedAlt) throws BusinessException, PersistenceException;
+    public boolean remove(Long closedEndedAltId) throws PersistenceException;
     public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException;
     public List<QuestionAlternative> listAll() throws PersistenceException;
 }

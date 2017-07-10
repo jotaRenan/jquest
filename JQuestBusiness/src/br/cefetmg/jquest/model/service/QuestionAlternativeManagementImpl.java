@@ -39,7 +39,7 @@ public class QuestionAlternativeManagementImpl implements QuestionAlternativeMan
     }
 
     @Override
-    public void update(QuestionAlternative questionAlt) throws BusinessException, PersistenceException {
+    public boolean update(QuestionAlternative questionAlt) throws BusinessException, PersistenceException {
         if (questionAlt == null)
             throw new BusinessException("Alternative cannot be null");
         
@@ -52,11 +52,11 @@ public class QuestionAlternativeManagementImpl implements QuestionAlternativeMan
         if (questionAlt.getOptionSeq() == null)
             throw new BusinessException("Option Seq cannot be null");
         
-        questionAltDAO.update(questionAlt);
+        return questionAltDAO.update(questionAlt);
     }
 
     @Override
-    public QuestionAlternative remove(Long questionAltId) throws PersistenceException {
+    public boolean remove(Long questionAltId) throws PersistenceException {
         if (questionAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
         

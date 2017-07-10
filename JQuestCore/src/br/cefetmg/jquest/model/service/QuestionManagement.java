@@ -16,10 +16,11 @@ import java.util.List;
  */
 public interface QuestionManagement {
     public Long questionInsert(Question question) throws BusinessException, PersistenceException;
-    public void questionUpdate(Question question) throws BusinessException, PersistenceException;
-    public Question questionRemove(Long questionId) throws PersistenceException;
+    public boolean questionUpdate(Question question) throws BusinessException, PersistenceException;
+    public boolean questionRemove(Long questionId) throws PersistenceException;
     public Question getQuestionById(Long questionId) throws PersistenceException;
-    public List<Question> getQuestionByModuleId(Long moduleId) throws PersistenceException;
+    public List<Question> getQuestionByModuleId(Long moduleId, Long domainId) throws PersistenceException;
     public List<Question> getQuestionByDomainId(Long domainId) throws PersistenceException;
+    public List<Question> getQuestionsByCreatorId(Long userId) throws PersistenceException;
     public List<Question> getAll() throws PersistenceException;
 }

@@ -15,10 +15,11 @@ import java.util.List;
  */
 public interface QuestionDAO {
     public Long insert(Question question) throws PersistenceException;
-    public void update(Question question) throws PersistenceException;
-    public Question remove(Long questionId) throws PersistenceException;
+    public boolean update(Question question) throws PersistenceException;
+    public boolean remove(Long questionId) throws PersistenceException;
     public Question getQuestionById(Long questionId) throws PersistenceException;
-    public List<Question> getQuestionsByModuleId(Long moduleId) throws PersistenceException;
+    public List<Question> getQuestionsByModuleId(Long moduleId, Long domainId) throws PersistenceException;
     public List<Question> getQuestionsByDomainId(Long domainId) throws PersistenceException;
+    public List<Question> getQuestionsByCreatorId(Long userId) throws PersistenceException;
     public List<Question> listAll() throws PersistenceException; 
 }

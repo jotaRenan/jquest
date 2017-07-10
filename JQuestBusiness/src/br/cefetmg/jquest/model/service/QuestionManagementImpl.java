@@ -5,7 +5,10 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.DomainDAOImpl;
+import br.cefetmg.jquest.model.dao.ModuleDAOImpl;
 import br.cefetmg.jquest.model.dao.QuestionDAO;
+import br.cefetmg.jquest.model.dao.UserDAOImpl;
 import br.cefetmg.jquest.model.domain.Question;
 import br.cefetmg.jquest.model.exception.BusinessException; 
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -18,9 +21,15 @@ import java.util.List;
 public class QuestionManagementImpl implements QuestionManagement {
 
     private final QuestionDAO questionDAO;
+    private final UserManagement userManagement;
+    private final DomainManagement domainManagement;
+    private final ModuleManagement moduleManagement;
 
     public QuestionManagementImpl(QuestionDAO questionDAO) {
         this.questionDAO = questionDAO;
+        this.userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
+        this.domainManagement = new DomainManagementImpl(DomainDAOImpl.getInstance());
+        this.moduleManagement = new ModuleManagementImpl(ModuleDAOImpl.getInstance());
     }
     
     @Override
@@ -31,14 +40,17 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question.getHeadline() == null || question.getHeadline().isEmpty())
             throw new BusinessException("Question's statement cannot be null");
         
-        if (question.getDificulty()== null)
+        if (question.getDificulty() == ' ')
             throw new BusinessException("Question's dificulty cannot be null");
         
         if (question.getDomainId() == null)
             throw new BusinessException("Question's domain cannot be null");
         
-        if (question.getModuleId() == null)
-            throw new BusinessException("Question's module cannot be null");
+        if (question.getModuleId() == null || moduleManagement.getModuleById(question.getModuleId(), question.getDomainId()) == null)
+            throw new BusinessException("Question's module cannot be null or inexistent");
+        
+        if (question.getUserId() == null || userManagement.getUserById(question.getUserId()) == null)
+            throw new BusinessException("Question's creator cannot be null or inexistent");
         
         if (question.getType() == ' ')
             throw new BusinessException("Question's type cannot be empty");
@@ -48,7 +60,7 @@ public class QuestionManagementImpl implements QuestionManagement {
     }
 
     @Override
-    public void questionUpdate(Question question) throws BusinessException, PersistenceException {
+    public boolean questionUpdate(Question question) throws BusinessException, PersistenceException {
         if (question == null)
             throw new BusinessException("Domain cannot be null");
         
@@ -58,7 +70,7 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question.getHeadline() == null || question.getHeadline().isEmpty())
             throw new BusinessException("Question's statement cannot be null");
 
-        if (question.getDificulty()== null)
+        if (question.getDificulty()== ' ')
             throw new BusinessException("Question's dificulty cannot be null");
 
         if (question.getDomainId()== null) 
@@ -70,11 +82,11 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question.getType() == ' ')
             throw new BusinessException("Question's type cannot be empty");
 
-        questionDAO.update(question);
+        return questionDAO.update(question);
     }
 
     @Override
-    public Question questionRemove(Long questionId) throws PersistenceException {
+    public boolean questionRemove(Long questionId) throws PersistenceException {
         if (questionId == null)
             throw new PersistenceException("Question's id cannot be null");
         
@@ -98,21 +110,30 @@ public class QuestionManagementImpl implements QuestionManagement {
     }
 
     @Override
-    public List<Question> getQuestionByModuleId(Long moduleId) throws PersistenceException {
-        if (moduleId == null) {
-            throw new PersistenceException("Module's id cannot be null");
+    public List<Question> getQuestionByModuleId(Long moduleId, Long domainId) throws PersistenceException {
+        if (moduleId == null || moduleManagement.getModuleById(moduleId, domainId) == null) {
+            throw new PersistenceException("Module doesn't exist");
         }
 
-        return questionDAO.getQuestionsByModuleId(moduleId);
+        return questionDAO.getQuestionsByModuleId(moduleId, domainId);
     }
 
     @Override
     public List<Question> getQuestionByDomainId(Long domainId) throws PersistenceException {
-        if (domainId == null) {
-            throw new PersistenceException("Domain's id cannot be null");
+        if (domainId == null || domainManagement.getDomainById(domainId) == null) {
+            throw new PersistenceException("Domain doesn't exist");
         }
 
         return questionDAO.getQuestionsByDomainId(domainId); 
+    }
+
+    @Override
+    public List<Question> getQuestionsByCreatorId(Long userId) throws PersistenceException {
+        if (userId == null || userManagement.getUserById(userId) == null) {
+            throw new PersistenceException("User doesn't exist");
+        }
+        
+        return questionDAO.getQuestionsByCreatorId(userId);
     }
 
 

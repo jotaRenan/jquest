@@ -39,11 +39,12 @@ public class QuestionManagementImplTest {
     @Before
     public void setUp() {
         this.question = new Question();
-        question.setDificulty("easy");
+        question.setDificulty('F');
         question.setDomainId(1L);
         question.setModuleId(1L);
         question.setHeadline("Enunciado teste");
         question.setType('o');
+        question.setUserId(1L);
     }
     
     @Test
@@ -125,8 +126,9 @@ public class QuestionManagementImplTest {
     
     @Test
     public void testQuestionUpdateNull() {
+        Long id = null;
         try {
-            questionManagement.questionInsert(question);
+            id = questionManagement.questionInsert(question);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,6 +136,12 @@ public class QuestionManagementImplTest {
         try {
             questionManagement.questionUpdate(question);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered question
+            try {
+                questionManagement.questionRemove(id);
+            } catch (PersistenceException e) {
+                Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Question updated to null");
@@ -150,6 +158,12 @@ public class QuestionManagementImplTest {
         try {
             questionManagement.questionUpdate(question);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered question
+            try {
+                questionManagement.questionRemove(question.getId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Question updated with null name");
@@ -162,10 +176,16 @@ public class QuestionManagementImplTest {
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        question.setDificulty(null);
+        question.setDificulty(' ');
         try {
             questionManagement.questionUpdate(question);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered question
+            try {
+                questionManagement.questionRemove(question.getId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Question updated with null description");
@@ -206,8 +226,9 @@ public class QuestionManagementImplTest {
     
     @Test
     public void testQuestionUpdateNullId() {
+        Long id = null;
         try {
-            questionManagement.questionInsert(question);
+            id = questionManagement.questionInsert(question);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -215,6 +236,12 @@ public class QuestionManagementImplTest {
         try {
             questionManagement.questionUpdate(question);
         } catch (BusinessException | PersistenceException ex) {
+            //removes registered question
+            try {
+                questionManagement.questionRemove(id);
+            } catch (PersistenceException e) {
+                Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
             return;
         }
         fail("Tried to update a question with a null id");
@@ -240,6 +267,14 @@ public class QuestionManagementImplTest {
             }
         } catch (PersistenceException ex) {
             Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            //removes registered question
+            try {
+                questionManagement.questionRemove(question.getId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
         }
     }
     
@@ -269,10 +304,14 @@ public class QuestionManagementImplTest {
             questionTest = questionManagement.getQuestionById(question.getId());
         } catch (PersistenceException ex) {
             fail("Failed to get question by id");
-            return;
         }
-        if (!questionTest.equals(question)) {
-            fail("Failed to get question by id");
+        finally {
+            //removes registered question
+            try {
+                questionManagement.questionRemove(question.getId());
+            } catch (PersistenceException e) {
+                Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+            } 
         }
     }
     
@@ -280,9 +319,11 @@ public class QuestionManagementImplTest {
     public void testGetAll() {
         Question question2 = question;
         List<Question> list;
+        Long id1 = null;
+        Long id2 = null;
         try {
-            questionManagement.questionInsert(question);
-            questionManagement.questionInsert(question2);
+            id1 = questionManagement.questionInsert(question);
+            id2 = questionManagement.questionInsert(question2);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -295,6 +336,13 @@ public class QuestionManagementImplTest {
         if(list.isEmpty()) {
             fail("Failed to get all questions correctly");
         }
+        //removes registered question
+        try {
+            questionManagement.questionRemove(id1);
+            questionManagement.questionRemove(id2);
+        } catch (PersistenceException e) {
+            Logger.getLogger(QuestionManagementImplTest.class.getName()).log(Level.SEVERE, null, e);
+        } 
     }
     
     

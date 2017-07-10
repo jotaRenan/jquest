@@ -13,20 +13,40 @@ public class Question {
     private Long id;
     private Long domainId;
     private Long moduleId;
+    private Long userId;
     private String headline;
-    private String dificulty;
+    private char dificulty;
+    private int weight;
     private char type;
 
     public Question() {}
 
-    public Question(Long id, Long domainId, Long moduleId, String headline, String dificulty, char type) {
+    public Question(Long id, Long domainId, Long moduleId, Long userId, String headline, char dificulty, char type) {
         this.domainId = domainId;
         this.moduleId = moduleId;
+        this.userId = userId;
         this.headline = headline;
         this.dificulty = dificulty;
+        this.weight = 1;
         this.type = type;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -59,11 +79,11 @@ public class Question {
         this.headline = headline;
     }
 
-    public String getDificulty() {
+    public char getDificulty() {
         return dificulty;
     }
 
-    public void setDificulty(String dificulty) {
+    public void setDificulty(char dificulty) {
         this.dificulty = dificulty;
     }
 

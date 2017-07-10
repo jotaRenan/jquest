@@ -41,7 +41,7 @@ public class UserDAOImpl implements UserDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
             
             String sql = "INSERT INTO \"user\" (nom_username, nom_email, txt_password, idt_profile) " +
-                         "    VALUES (?, ?, ?, ?) returning cod_id;";
+                         "    VALUES (?, ?, ?, ?) returning cod_userID;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, user.getUserName());
@@ -51,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                userId = rs.getLong("cod_id");
+                userId = rs.getLong("cod_userID");
                 user.setId(userId);
             }
 
@@ -77,7 +77,7 @@ public class UserDAOImpl implements UserDAO {
                            "     nom_email = ? " +
                            "     txt_password = ? " +
                            "     idt_profile = ? " +
-                         " WHERE cod_id = ?";
+                         " WHERE cod_userID = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, user.getUserName());
@@ -103,7 +103,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM \"user\" WHERE cod_id = ?";
+            String sql = "DELETE FROM \"user\" WHERE cod_userID = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, userId);
@@ -125,7 +125,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM \"user\" WHERE cod_id = ? ";
+            String sql = "SELECT * FROM \"user\" WHERE cod_userID = ? ";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, userId);
@@ -169,7 +169,7 @@ public class UserDAOImpl implements UserDAO {
                 listAll = new ArrayList<>();
                 do {
                     user = new User();
-                    user.setId(rs.getLong("cod_id"));
+                    user.setId(rs.getLong("cod_userID"));
                     user.setUserName(rs.getString("nom_username"));
                     user.setEmail(rs.getString("nom_email"));
                     user.setPassword(rs.getString("txt_password"));

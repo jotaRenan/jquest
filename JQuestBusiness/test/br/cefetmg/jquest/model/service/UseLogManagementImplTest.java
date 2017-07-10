@@ -85,21 +85,6 @@ public class UseLogManagementImplTest {
     }
     
     @Test
-    public void testInsertNullUseLog() throws Exception {
-        try {
-            useLog = null;
-            useLogManager.useLogInsert(useLog);
-        } catch (BusinessException | PersistenceException ex) {
-            String msgErr = ex.getMessage();
-            String msgEsperada = "UseLog cannot be null";
-            // Exibe msg caso 2o param. seja falso
-            assertTrue(msgErr.contains(msgEsperada));
-            return;
-        }
-        fail("Insertion of null useLog");
-    }
-    
-    @Test
     public void testUseLogInsertNullIdUser() throws Exception {
         Long idUser = useLog.getIdUser();
         try {
@@ -143,10 +128,9 @@ public class UseLogManagementImplTest {
             fail("UseLog failed to be registered");
             return;
         }
-        
         useLogList.add(useLog);
     }
-    
+ 
       @Test
     public void testUpdateNullUseLog() throws Exception {
         try {
@@ -299,11 +283,15 @@ public class UseLogManagementImplTest {
     
     @Test
     public void testGetAll() {
-        UseLog useLog2 = useLog;
+        UseLog useLog2 = new UseLog();
+        useLog2.setIdUser(1L);
+        useLog2.setUseDate(new Date(1900, 01, 20));
         List<UseLog> list;
         try {
             useLogManager.useLogInsert(useLog);
             useLogManager.useLogInsert(useLog2);
+            useLogList.add(useLog);
+            useLogList.add(useLog2);
         } catch (BusinessException | PersistenceException ex) {
             Logger.getLogger(UseLogManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -316,8 +304,6 @@ public class UseLogManagementImplTest {
         if(list.isEmpty()) {
             fail("Failed to get all useLogs correctly");
         }
-        useLogList.add(useLog);
-        useLogList.add(useLog2);
     }
     
 }

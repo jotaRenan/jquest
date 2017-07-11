@@ -5,7 +5,10 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.QuestionAlternativeDAOImpl;
+import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
 import br.cefetmg.jquest.model.dao.TrueOrFalseAnswerDAO;
+import br.cefetmg.jquest.model.dao.UserDAOImpl;
 import br.cefetmg.jquest.model.domain.TrueOrFalseAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -19,9 +22,15 @@ import java.util.List;
 public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagement {
 
     private final TrueOrFalseAnswerDAO tofadao;
+     private final QuestionManagement questionManagement;
+     private final UserManagement userManagement;
+     public final QuestionAlternativeManagement questionAlternativeManagement;
 
     public TrueOrFalseAnswerManagementImpl(TrueOrFalseAnswerDAO tofadao) {
         this.tofadao = tofadao;
+        questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
+        userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
+        questionAlternativeManagement = new QuestionAlternativeManagementImpl(QuestionAlternativeDAOImpl.getInstance());
     }
     
     @Override
@@ -33,16 +42,16 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
         if (tofAnswer.getUserAnswer() == null) {
             errMsgList.add("No answer to the question was informed");
         }
-        if ( tofAnswer.getUserId() == null) {
-            errMsgList.add("No user id was informed");
+        if (tofAnswer.getUserId() == null || userManagement.getUserById(tofAnswer.getUserId()) == null) {
+            errMsgList.add("userID doesn't exist.");
         }
-        if ( tofAnswer.getQuestionId() == null) {
-            errMsgList.add("No question ID was associated to the answer");
+        if (tofAnswer.getQuestionId() == null || questionManagement.getQuestionById(tofAnswer.getQuestionId()) == null) {
+            errMsgList.add("questionID doesn't exist.");
         }
-        if ( tofAnswer.getOptionSeq() == null) {
-            errMsgList.add("No option ID was informed");
+        if (tofAnswer.getOptionSeq() == null || questionAlternativeManagement.getQuestionAlternativeById(tofAnswer.getOptionSeq()) == null) {
+            errMsgList.add("optionID doesn't exist.");
         }
-        if ( tofAnswer.getUseSeq() == null) {
+        if (tofAnswer.getUseSeq() == null) {
             errMsgList.add("No user Sequence was informed");
         }
         if (!errMsgList.isEmpty()) {

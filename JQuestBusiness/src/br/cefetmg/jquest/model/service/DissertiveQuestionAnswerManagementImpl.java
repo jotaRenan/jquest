@@ -10,6 +10,9 @@ import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 import br.cefetmg.jquest.model.dao.DissertiveQuestionAnswerDAO;
+import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
+import br.cefetmg.jquest.model.dao.UseLogDAOImpl;
+import br.cefetmg.jquest.model.dao.UserDAOImpl;
 
 /**
  *
@@ -18,11 +21,8 @@ import br.cefetmg.jquest.model.dao.DissertiveQuestionAnswerDAO;
 public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestionAnswerManagement{
     
     private DissertiveQuestionAnswerDAO DAO;
-
-    /**
-     * Empty contructor for a javabeans object.
-     */
-    public DissertiveQuestionAnswerManagementImpl() { }
+    private final QuestionManagement questionManagement;
+    private final UserManagement userManagement;
 
     /**
      * Constructor that injects the DAO persistence dependency.
@@ -30,6 +30,8 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
      */
     public DissertiveQuestionAnswerManagementImpl(DissertiveQuestionAnswerDAO DAO) {
         this.DAO = DAO;
+        questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
+        userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
     }
     
     /**
@@ -46,8 +48,11 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
         if(dissertiveQuestionAnswer == null){
             throw new BusinessException("The object DissertiveQuestionAnswer cannot be null.");
         }
-        if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null){
-            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
+        if(dissertiveQuestionAnswer.getUserID() == null || userManagement.getUserById(dissertiveQuestionAnswer.getUserID()) == null)
+            throw new BusinessException(" userID doesn't exist.");
+        
+        if(dissertiveQuestionAnswer.getQuestionID() == null || questionManagement.getQuestionById(dissertiveQuestionAnswer.getQuestionID()) == null){
+            throw new BusinessException("questionId doesn't exist.");
         }
         if(dissertiveQuestionAnswer.getTxtAnswer() == null || dissertiveQuestionAnswer.getTxtAnswer().isEmpty()){
             throw new BusinessException("The Answer text cannot be null or empty.");

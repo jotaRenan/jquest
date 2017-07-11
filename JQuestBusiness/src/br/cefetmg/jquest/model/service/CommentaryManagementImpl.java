@@ -6,6 +6,9 @@
 package br.cefetmg.jquest.model.service;
 
 import br.cefetmg.jquest.model.dao.CommentaryDAO;
+import br.cefetmg.jquest.model.dao.ForumDAOImpl;
+import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
+import br.cefetmg.jquest.model.dao.UserDAOImpl;
 import br.cefetmg.jquest.model.domain.Commentary;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
@@ -18,9 +21,15 @@ import java.util.List;
 public class CommentaryManagementImpl implements CommentaryManagement{
     
     private final CommentaryDAO commentaryDAO;
+    private final ForumManagement forumManagement;
+    private final QuestionManagement questionManagement;
+    private final UserManagement userManagement;
 
     public CommentaryManagementImpl(CommentaryDAO commentaryDAO) {
         this.commentaryDAO = commentaryDAO;
+        forumManagement =  new ForumManagementImpl(ForumDAOImpl.getInstance());
+        questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
+        userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
     }
     
     
@@ -29,18 +38,18 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     public Long commentaryInsert(Commentary commentary) throws BusinessException, PersistenceException {
         if (commentary == null)
             throw new BusinessException("Commentary cannot be null");
+                    
+        if (commentary.getDiscussionId()== null 
+                || forumManagement.getForumById(commentary.getDiscussionId()) == null )
+            throw new BusinessException("Commentary's discussionID doesn't exist.");
         
-        if (commentary.getCommentarySeq()== null)
-            throw new BusinessException("Commentary's sequence cannot be null");
-            
-        if (commentary.getDiscussionId()== null)
-            throw new BusinessException("Commentary's discussionID cannot be null");
+        if (commentary.getQuestionId()== null 
+                || questionManagement.getQuestionById(commentary.getQuestionId()) == null)
+            throw new BusinessException("Commentary's questionID doesn't exist.");
         
-        if (commentary.getQuestionId()== null)
-            throw new BusinessException("Commentary's questionID cannot be null");
-        
-        if (commentary.getUserId()== null)
-            throw new BusinessException("Commentary's userID cannot be null");
+        if (commentary.getUserId()== null 
+                || userManagement.getUserById(commentary.getUserId()) == null)
+            throw new BusinessException("Commentary's userID doesn't exist.");
 
         if (commentary.getTextCommentary() == null ||commentary.getTextCommentary().isEmpty()  )
             throw new BusinessException("Commentary's text cannot be null or empty");        

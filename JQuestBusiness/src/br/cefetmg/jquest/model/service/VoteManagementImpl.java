@@ -5,6 +5,10 @@
  */
 package br.cefetmg.jquest.model.service;
 
+import br.cefetmg.jquest.model.dao.CommentaryDAOImpl;
+import br.cefetmg.jquest.model.dao.ForumDAOImpl;
+import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
+import br.cefetmg.jquest.model.dao.UserDAOImpl;
 import br.cefetmg.jquest.model.dao.VoteDAO;
 import br.cefetmg.jquest.model.domain.Vote;
 import br.cefetmg.jquest.model.exception.BusinessException;
@@ -16,13 +20,19 @@ import java.util.List;
  * @author Thalesgsn
  */
 public class VoteManagementImpl implements VoteManagement {
-       private VoteDAO DAO;
+    private VoteDAO DAO;
+    private final ForumManagement forumManagement;
+    private final QuestionManagement questionManagement;
+    private final UserManagement userManagement;
+    private final CommentaryManagement commentaryManagement;
 
-    public VoteManagementImpl() {
-    }
 
     public VoteManagementImpl(VoteDAO DAO) {
         this.DAO = DAO;
+        forumManagement =  new ForumManagementImpl(ForumDAOImpl.getInstance());
+        questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
+        userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
+        commentaryManagement = new CommentaryManagementImpl(CommentaryDAOImpl.getInstance());
     }
     
 
@@ -40,17 +50,17 @@ public class VoteManagementImpl implements VoteManagement {
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
         
-        if(vote.getCommentarySeq() == null)
-            throw new PersistenceException("The commentarySeq cannot be null.");
+        if(vote.getCommentarySeq() == null || commentaryManagement.getcommentaryBySeq(vote.getCommentarySeq()) == null)
+            throw new PersistenceException("commentarySeq doesn't exist.");
         
-        if(vote.getDiscussionSeq() == null)
-            throw new PersistenceException("The discussionSeq cannot be null.");
+        if(vote.getDiscussionSeq() == null || forumManagement.getForumById(vote.getDiscussionSeq()) == null)
+            throw new PersistenceException("discussionSeq doesn't exist.");
         
-        if(vote.getQuestionId() == null)
-            throw new PersistenceException("The questionId cannot be null.");
+        if(vote.getQuestionId() == null || questionManagement.getQuestionById(vote.getQuestionId()) == null)
+            throw new PersistenceException("questionId doesn't exist.");
         
-        if(vote.getUserId() == null)
-            throw new PersistenceException("The userId cannot be null.");
+        if(vote.getUserId() == null || userManagement.getUserById(vote.getUserId()) == null)
+            throw new PersistenceException("userId doesn't exist.");
         
         DAO.insert(vote);
         return vote.getVoteID();

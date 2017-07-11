@@ -33,7 +33,7 @@ public class QuestionManagementImpl implements QuestionManagement {
     }
     
     @Override
-    synchronized public Long questionInsert(Question question) throws BusinessException, PersistenceException {
+    public Long questionInsert(Question question) throws BusinessException, PersistenceException {
         if (question == null)
             throw new BusinessException("Question cannot be null");
         
@@ -43,8 +43,8 @@ public class QuestionManagementImpl implements QuestionManagement {
         if (question.getDificulty() == ' ')
             throw new BusinessException("Question's dificulty cannot be null");
         
-        if (question.getDomainId() == null)
-            throw new BusinessException("Question's domain cannot be null");
+        if (question.getDomainId() == null|| domainManagement.getDomainById(question.getDomainId()) == null)
+            throw new PersistenceException("Domain doesn't exist");
         
         if (question.getModuleId() == null || moduleManagement.getModuleById(question.getModuleId(), question.getDomainId()) == null)
             throw new BusinessException("Question's module cannot be null or inexistent");

@@ -10,6 +10,7 @@ import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 import br.cefetmg.jquest.model.dao.QuestionAlternativeDAO;
+import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
 
 /**
  *
@@ -18,9 +19,11 @@ import br.cefetmg.jquest.model.dao.QuestionAlternativeDAO;
 public class QuestionAlternativeManagementImpl implements QuestionAlternativeManagement {
     
     private final QuestionAlternativeDAO questionAltDAO;
+    private final QuestionManagement questionManagement;
 
     public QuestionAlternativeManagementImpl(QuestionAlternativeDAO questionAltDAO) {
         this.questionAltDAO = questionAltDAO;
+         questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
     }
     
     @Override
@@ -31,8 +34,8 @@ public class QuestionAlternativeManagementImpl implements QuestionAlternativeMan
         if (questionAlt.getAssertionText() == null || questionAlt.getAssertionText().isEmpty())
             throw new BusinessException("Assertion cannot be null");
         
-        if(questionAlt.getQuestionId() == null)
-            throw new BusinessException("Question Id cannot be null");
+        if(questionAlt.getQuestionId() == null || questionManagement.getQuestionById(questionAlt.getQuestionId()) == null)
+            throw new BusinessException("questionId doesn't exist.");
         
         questionAltDAO.insert(questionAlt);
         return questionAlt.getOptionSeq();

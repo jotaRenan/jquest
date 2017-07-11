@@ -96,7 +96,7 @@ public class VoteManagementImplTest {
         } catch (BusinessException | PersistenceException ex) {
             fail("Couldn't insert vote");
         }
-        VoteManag.voteRemove(vote.getVoteID());
+        VoteManag.voteRemove(vote.getCommentarySeq(), vote.getUserId());
     }
     
     @Test
@@ -163,7 +163,7 @@ public class VoteManagementImplTest {
     public void testVoteNullIDRemoval() throws PersistenceException, BusinessException {
         try {
             this.vote.setVoteID(null);
-            VoteManag.voteRemove(vote.getVoteID());
+            VoteManag.voteRemove(vote.getCommentarySeq(), vote.getUserId());
         } catch (PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "Vote can´t be null.";
@@ -181,9 +181,9 @@ public class VoteManagementImplTest {
             Logger.getLogger(VoteManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            VoteManag.voteRemove(vote.getVoteID());
+            VoteManag.voteRemove(vote.getCommentarySeq(), vote.getUserId());
         } catch (PersistenceException ex) {
-            fail("Failed to remove domain");
+            fail("Failed to remove VOTE");
         }
     }
     
@@ -196,7 +196,7 @@ public class VoteManagementImplTest {
         }
         Vote voteTest;
         try {
-            voteTest = VoteManag.getVoteById(vote.getVoteID());
+            voteTest = VoteManag.getVoteById(vote.getCommentarySeq(), vote.getUserId());
         } catch (PersistenceException ex) {
             fail("Failed to get vote by id");
             return;

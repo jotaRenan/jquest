@@ -37,7 +37,11 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     @Override
     public Long insert(QuestionAlternative closedEndedAlt) throws PersistenceException {
         if (closedEndedAlt == null) {
-            throw new PersistenceException("ClosesEndedAlternative cannot be null");
+            throw new PersistenceException("ClosedEndedAlternative cannot be null");
+        }
+        
+        if (closedEndedAlt.getOptionSeq() == null || closedEndedAlt.getQuestionId() == null || closedEndedAlt.getAssertionText() == null) {
+            throw new PersistenceException("none of parameters can be null");
         }
 
         Long optionSeq = null;
@@ -45,14 +49,13 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO QuestionAlternative (COD_question, SEQ_option, TXT_assertative, IDT_isCorrect) "
-                    + "    VALUES (?, ?, ?, ?) returning COD_ID;";
+            String sql = "INSERT INTO QuestionAlternative (COD_question, TXT_assertative, IDT_isCorrect) "
+                    + "    VALUES (?, ?, ?) returning SEQ_option;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, closedEndedAlt.getQuestionId());
-            pstmt.setLong(2, closedEndedAlt.getOptionSeq());
-            pstmt.setString(3, closedEndedAlt.getAssertionText());
-            pstmt.setBoolean(1, closedEndedAlt.isIsCorrect());
+            pstmt.setString(2, closedEndedAlt.getAssertionText());
+            pstmt.setBoolean(3, closedEndedAlt.isIsCorrect());
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -126,7 +129,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM QuestionAlternative WHERE cod_id = ? ";
+            String sql = "SELECT * FROM QuestionAlternative WHERE SEQ_question = ? ";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, closedEndedAltId);
@@ -135,9 +138,10 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
             
             QuestionAlternative questAlternative = new QuestionAlternative();
             if (rs.next()) {
-                questAlternative.setOptionSeq(closedEndedAltId);
+                questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
+                questAlternative.setQuestionId(rs.getLong("COD_question"));
                 questAlternative.setAssertionText(rs.getString("TXT_assertative"));
-                questAlternative.setIsCorrect(rs.getBoolean("IDT)_isCorrect"));
+                questAlternative.setIsCorrect(rs.getBoolean("IDT_isCorrect"));
             }
 
             rs.close();
@@ -152,11 +156,41 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     }
 
     @Override
+    public QuestionAlternative getAlternativeByQuestionId(Long questionId) throws PersistenceException {
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM QuestionAlternative WHERE COD_question = ? ";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, questionId);
+            ResultSet rs = pstmt.executeQuery();
+
+            QuestionAlternative questAlternative = new QuestionAlternative();
+            if (rs.next()) {
+                questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
+                questAlternative.setQuestionId(rs.getLong("COD_question"));
+                questAlternative.setAssertionText(rs.getString("TXT_assertative"));
+                questAlternative.setIsCorrect(rs.getBoolean("IDT)_isCorrect"));
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return questAlternative;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
+        }
+    }
+    
+    @Override
     public List<QuestionAlternative> listAll() throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM multiplechoiceanswer ORDER BY cod_id";
+            String sql = "SELECT * FROM multiplechoiceanswer ORDER BY SEQ_question";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -169,9 +203,10 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
                 do {
                     questAlternative = new QuestionAlternative();
                     questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
-                    questAlternative.setIsCorrect(rs.getBoolean("IDT_isCorrect"));
-                    questAlternative.setAssertionText(rs.getString("TXT_assertative"));
                     questAlternative.setQuestionId(rs.getLong("COD_question"));
+                    questAlternative.setAssertionText(rs.getString("TXT_assertative"));
+                    questAlternative.setIsCorrect(rs.getBoolean("IDT_isCorrect"));
+                    
                     listAll.add(questAlternative);
                 } while (rs.next());
             }
@@ -187,6 +222,5 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
             throw new PersistenceException(e);
         }
     }
-    
     
 }

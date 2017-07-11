@@ -80,11 +80,20 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
         
         return DAO.getToFAnswerById(multipleChoiceAnswerId);
     }
+    
+    @Override
+    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException {
+        if (userId == null) {
+            throw new PersistenceException("userId can't be null.");
+        }
+
+        return DAO.getAnswersByUserAndQuestionId(userId);
+    }
 
     @Override
     public List<MultipleChoiceAnswer> getAll() throws PersistenceException {
         List<MultipleChoiceAnswer> aux = DAO.listAll();
         return aux;
     }
-    
+   
 }

@@ -73,6 +73,15 @@ public class QuestionAlternativeManagementImpl implements QuestionAlternativeMan
         
         return questionAltDAO.getQuestionAlternativeById(questionAltId); //if the id isn't valid it throws an exception
     }
+    
+    @Override
+    public QuestionAlternative getAlternativeByQuestionId(Long questionId) throws PersistenceException {
+        if (questionId == null) {
+            throw new PersistenceException("QuestionId cannot be null");
+        }
+
+        return questionAltDAO.getAlternativeByQuestionId(questionId);
+    }
 
     @Override
     public List<QuestionAlternative> listAll() throws PersistenceException {

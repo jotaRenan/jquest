@@ -19,5 +19,6 @@ public interface TrueOrFalseAnswerManagement {
     public boolean update(TrueOrFalseAnswer tofAnswer) throws BusinessException, PersistenceException;
     public boolean remove(Long tofAnswerId) throws BusinessException, PersistenceException;
     public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws BusinessException, PersistenceException;
+    public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId)throws BusinessException, PersistenceException;
     public List<TrueOrFalseAnswer> getAll() throws PersistenceException;
 }

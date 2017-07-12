@@ -106,7 +106,22 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
         }
         return tofadao.getToFAnswerById(tofAnswerId);
     }
+    
+    @Override
+    public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId)throws BusinessException, PersistenceException {
+        List<String> errMsgList = new ArrayList<>();
+        if (userId == null) {
+            errMsgList.add("No user id was informed");
+        }
 
+        if (!errMsgList.isEmpty()) {
+            final String errMsg = "";
+            errMsgList.stream().forEach(msg -> errMsg.concat(msg + "\n"));
+            throw new BusinessException(errMsg);
+        }
+        return tofadao.getAnswersByUserAndQuestionId(userId);
+    }
+    
     @Override
     public List<TrueOrFalseAnswer> getAll() throws PersistenceException {
         return tofadao.listAll();

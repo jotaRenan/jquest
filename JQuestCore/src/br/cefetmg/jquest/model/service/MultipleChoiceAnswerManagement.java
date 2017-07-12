@@ -19,5 +19,6 @@ public interface MultipleChoiceAnswerManagement {
     public boolean update(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException;
     public boolean remove(Long multipleChoiceAnswerId) throws PersistenceException;
     public MultipleChoiceAnswer getToFAnswerById(Long multipleChoiceAnswerId) throws PersistenceException;
+    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException;
     public List<MultipleChoiceAnswer> getAll() throws PersistenceException;
 }

@@ -111,15 +111,12 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM MultipleChoiceAnswer WHERE SEQ_useAnswer = ?, SEQ_option = ?, COD_question = ?";
+            String sql = "DELETE FROM MultipleChoiceAnswer WHERE SEQ_useAnswer = ?";
 
             MultipleChoiceAnswer multChoiceAnswer = new MultipleChoiceAnswer();
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, multChoiceAnswerId);
-            pstmt.setLong(2, multChoiceAnswer.getOptionSeq());
-            pstmt.setLong(3, multChoiceAnswer.getQuestionId());
             pstmt.executeUpdate();
-
             pstmt.close();
             connection.close();
 
@@ -132,14 +129,15 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO{
     }
 
     @Override
-    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerId) throws PersistenceException {
+    public MultipleChoiceAnswer getAnswerById(Long multChoiceAnswerId, Long questionId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM multiplechoiceanswer WHERE SEQ_useAnswer = ? ";
+            String sql = "SELECT * FROM multiplechoiceanswer WHERE SEQ_useAnswer = ?, COD_question = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, multChoiceAnswerId);
+            pstmt.setLong(1, questionId);
             ResultSet rs = pstmt.executeQuery();
 
             MultipleChoiceAnswer multChoiceAnswer = new MultipleChoiceAnswer();
@@ -149,6 +147,71 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO{
                 multChoiceAnswer.setUseSeq(rs.getLong("SEQ_use"));
                 multChoiceAnswer.setQuestionId(rs.getLong("COD_question"));
                 multChoiceAnswer.setUserAnswerSeq(rs.getLong("SEQ_useAnswer"));
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return multChoiceAnswer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
+        }
+    }
+    
+    @Override
+    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException {
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM MultipleChoicewAnswer WHERE COD_userIDUseLog = ?, COD_question = ? ";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, userId);
+            pstmt.setLong(2, questionId);
+            ResultSet rs = pstmt.executeQuery();
+
+            MultipleChoiceAnswer multChoiceAnswer = new MultipleChoiceAnswer();
+            if (rs.next()) {
+                multChoiceAnswer.setUseSeq(userId);
+                multChoiceAnswer.setQuestionId(questionId);
+                multChoiceAnswer.setUseSeq(rs.getLong("seq_use"));
+                multChoiceAnswer.setUserAnswerSeq(rs.getLong("seq_useanswer"));
+                multChoiceAnswer.setOptionSeq(rs.getLong("seq_option"));
+
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return multChoiceAnswer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
+        }
+    }
+
+    @Override
+    public MultipleChoiceAnswer getAllByUserId(Long userId) throws PersistenceException {
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM MultipleChoicewAnswer WHERE COD_userIDUseLog = ?";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            MultipleChoiceAnswer multChoiceAnswer = new MultipleChoiceAnswer();
+            if (rs.next()) {
+                multChoiceAnswer.setUseSeq(userId);
+                multChoiceAnswer.setQuestionId(rs.getLong("COD_question"));
+                multChoiceAnswer.setUseSeq(rs.getLong("SEQ_use"));
+                multChoiceAnswer.setUserAnswerSeq(rs.getLong("SEQ_useanswer"));
+                multChoiceAnswer.setOptionSeq(rs.getLong("SEQ_option"));
+
             }
 
             rs.close();
@@ -199,39 +262,5 @@ public class MultipleChoiceAnswerDAOImpl implements MultipleChoiceAnswerDAO{
             throw new PersistenceException(e);
         }
     }
-
-    @Override
-    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException {
-        try {
-            Connection connection = ConnectionManager.getInstance().getConnection();
-
-            String sql = "SELECT * FROM MultipleChoicewAnswer WHERE COD_userIDUseLog = ? ";
-
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-
-            MultipleChoiceAnswer multChoiceAnswer = new MultipleChoiceAnswer();
-            if (rs.next()) {
-                multChoiceAnswer.setUseSeq(userId);
-                multChoiceAnswer.setUseSeq(rs.getLong("seq_use"));
-                multChoiceAnswer.setQuestionId(rs.getLong("cod_question"));
-                multChoiceAnswer.setUserAnswerSeq(rs.getLong("seq_useanswer"));
-                multChoiceAnswer.setOptionSeq(rs.getLong("seq_option"));
-
-            }
-
-            rs.close();
-            pstmt.close();
-            connection.close();
-
-            return multChoiceAnswer;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new PersistenceException(e);
-        }
-    }
-
-
 }
     

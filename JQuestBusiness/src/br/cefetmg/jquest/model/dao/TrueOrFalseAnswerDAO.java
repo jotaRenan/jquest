@@ -18,6 +18,6 @@ public interface TrueOrFalseAnswerDAO {
     public boolean update(TrueOrFalseAnswer tofAnswer) throws PersistenceException;
     public boolean remove(Long tofAnswerId) throws PersistenceException;
     public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws PersistenceException;
-    public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException;
+    public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException;
     public List<TrueOrFalseAnswer> listAll() throws PersistenceException;
 }

@@ -73,21 +73,30 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
     }
 
     @Override
-    public MultipleChoiceAnswer getToFAnswerById(Long multipleChoiceAnswerId) throws PersistenceException {
-        if(multipleChoiceAnswerId == null) {
-            throw new PersistenceException("multipleChoiceAnswerId can't be null.");
+    public MultipleChoiceAnswer getAnswerById(Long multipleChoiceAnswerId, Long questionId) throws PersistenceException {
+        if(multipleChoiceAnswerId == null || questionId == null) {
+            throw new PersistenceException("multipleChoiceAnswerId and questionId can't be null.");
         } 
         
-        return DAO.getToFAnswerById(multipleChoiceAnswerId);
+        return DAO.getAnswerById(multipleChoiceAnswerId, questionId);
     }
     
     @Override
-    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException {
+    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException {
+        if (userId == null || questionId == null) {
+            throw new PersistenceException("userId and questionId can't be null.");
+        }
+
+        return DAO.getAnswersByUserAndQuestionId(userId, questionId);
+    }
+    
+    @Override
+    public MultipleChoiceAnswer getAllByUserId(Long userId) throws PersistenceException {
         if (userId == null) {
             throw new PersistenceException("userId can't be null.");
         }
 
-        return DAO.getAnswersByUserAndQuestionId(userId);
+        return DAO.getAllByUserId(userId);
     }
 
     @Override
@@ -95,5 +104,5 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
         List<MultipleChoiceAnswer> aux = DAO.listAll();
         return aux;
     }
-   
+ 
 }

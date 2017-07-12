@@ -156,21 +156,22 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
     }
     
     @Override
-    public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException {
+    public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM TrueOrFalseQuestionAnswer WHERE COD_userIDUseLog = ? ";
+            String sql = "SELECT * FROM TrueOrFalseQuestionAnswer WHERE COD_userIDUseLog = ?, COD_question = ? ";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, userId);
+            pstmt.setLong(2, questionId);
             ResultSet rs = pstmt.executeQuery();
 
             TrueOrFalseAnswer tofAnswer = new TrueOrFalseAnswer();
             if (rs.next()) {
                 tofAnswer.setUseSeq(userId);
-                tofAnswer.setUseSeq(rs.getLong("seq_use"));
-                tofAnswer.setQuestionId(rs.getLong("cod_question"));
+                tofAnswer.setQuestionId(questionId);
+                tofAnswer.setUseSeq(rs.getLong("seq_use"));              
                 tofAnswer.setUserAnswer(rs.getLong("seq_useanswer"));
                 tofAnswer.setOptionSeq(rs.getLong("seq_option"));
 
@@ -192,7 +193,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM trueorfalseanswer ORDER BY SEQ_userAnswer";
+            String sql = "SELECT * FROM TrueOrFalseAnswer ORDER BY SEQ_option";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();

@@ -17,7 +17,8 @@ public interface MultipleChoiceAnswerDAO {
     public Long insert(MultipleChoiceAnswer multChoiceAnswer) throws PersistenceException;
     public boolean update(MultipleChoiceAnswer multChoiceAnswer) throws PersistenceException;
     public boolean remove(Long multChoiceAnswerId) throws PersistenceException;
-    public MultipleChoiceAnswer getToFAnswerById(Long multChoiceAnswerId) throws PersistenceException;
-    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId) throws PersistenceException;
+    public MultipleChoiceAnswer getAnswerById(Long multChoiceAnswerId, Long questionId) throws PersistenceException;
+    public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException;
+    public MultipleChoiceAnswer getAllByUserId(Long userId) throws PersistenceException;
     public List<MultipleChoiceAnswer> listAll() throws PersistenceException;
 }

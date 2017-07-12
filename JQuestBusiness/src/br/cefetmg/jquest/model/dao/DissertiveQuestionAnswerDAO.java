@@ -17,6 +17,7 @@ public interface DissertiveQuestionAnswerDAO {
     /**
      * Insert the DissertiveQuestionAnswer object in the persistence.
      * @param openEndedAnswer The object to be stored by the DAO.
+     * @return 
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
@@ -25,6 +26,7 @@ public interface DissertiveQuestionAnswerDAO {
     /**
      * Updates the DissertiveQuestionAnswer object in the persistence.
      * @param openEndedAnswer The object to be updated by the DAO.
+     * @return 
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
@@ -32,8 +34,6 @@ public interface DissertiveQuestionAnswerDAO {
     
     /**
      * Removes the DissertiveQuestionAnswer object in the persistence.
-     * @param questionID The id of the question Answered.
-     * @param userID The id of the user who Answered the question.
      * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be removed by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
@@ -43,8 +43,6 @@ public interface DissertiveQuestionAnswerDAO {
     
     /**
      * Get the DissertiveQuestionAnswer object by id in the persistence.
-     * @param questionID The id of the question Answered.
-     * @param userID The id of the user who Answered the question.
      * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be removed by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
@@ -54,9 +52,10 @@ public interface DissertiveQuestionAnswerDAO {
     
     /**
      * List all the DissertiveQuestionAnswer objects in the persistence.
+     * @param userID
      * @return A <b>List</b> of all OpenEndedAnswers Objects.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public List<DissertiveQuestionAnswer> listAll() throws PersistenceException; 
+    public List<DissertiveQuestionAnswer> listAllDissetiveAnswersByUserID(Long userID) throws PersistenceException; 
 }

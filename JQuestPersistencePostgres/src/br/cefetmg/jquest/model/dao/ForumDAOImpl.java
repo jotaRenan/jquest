@@ -101,15 +101,16 @@ public class ForumDAOImpl implements ForumDAO {
     }
 
     @Override
-    public boolean remove(Long seqDiscussion) throws PersistenceException {
+    public boolean remove(Long seqDiscussion, Long codQuestion) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "DELETE FROM forum "
-                    + "WHERE SEQ_discussion = ?;";
+                    + "WHERE SEQ_discussion = ? AND COD_questao = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, seqDiscussion);
+            pstmt.setLong(2, codQuestion);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -124,14 +125,16 @@ public class ForumDAOImpl implements ForumDAO {
     }
 
     @Override
-    public Forum getForumById(Long seqDiscussion) throws PersistenceException {
+    public Forum getForumById(Long seqDiscussion, Long codQuestion) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM forum WHERE SEQ_discussion = ? ";
+            String sql = "SELECT * FROM forum WHERE SEQ_discussion = ? "
+                    + "AND COD_questao = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, seqDiscussion);
+            pstmt.setLong(2, codQuestion);
             ResultSet rs = pstmt.executeQuery();
 
             Forum forum = new Forum();
@@ -155,13 +158,16 @@ public class ForumDAOImpl implements ForumDAO {
     }
 
     @Override
-    public List<Forum> listAll() throws PersistenceException {
+    public List<Forum> listAllForumsByQuestionID(Long codQuestion) throws PersistenceException {
         try {    
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM forum ORDER BY SEQ_discussion";
+            String sql = "SELECT * FROM forum WHERE COD_questao = ? ORDER BY SEQ_discussion";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            
+            pstmt.setLong(1, codQuestion);
+            
             ResultSet rs = pstmt.executeQuery();
 
             ArrayList<Forum> listAll = null;

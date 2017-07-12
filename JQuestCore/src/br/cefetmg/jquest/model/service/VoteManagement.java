@@ -20,5 +20,5 @@ public interface VoteManagement {
     public boolean voteUpdate(Vote vote) throws BusinessException, PersistenceException;
     public boolean voteRemove(Long seqCommentary, Long userID) throws PersistenceException;
     public Vote getVoteById(Long seqCommentary, Long userID) throws PersistenceException;
-    public List<Vote> getAll() throws PersistenceException;
+    public List<Vote> getAllVotesByCommentaryID(Long seqCommentary) throws PersistenceException;
 }

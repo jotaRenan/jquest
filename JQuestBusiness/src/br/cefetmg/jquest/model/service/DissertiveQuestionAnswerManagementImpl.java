@@ -11,7 +11,6 @@ import br.cefetmg.jquest.model.exception.PersistenceException;
 import java.util.List;
 import br.cefetmg.jquest.model.dao.DissertiveQuestionAnswerDAO;
 import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
-import br.cefetmg.jquest.model.dao.UseLogDAOImpl;
 import br.cefetmg.jquest.model.dao.UserDAOImpl;
 
 /**
@@ -67,9 +66,12 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
         if(dissertiveQuestionAnswer == null)
             throw new BusinessException("The object cannot be null.");
         
-        if(dissertiveQuestionAnswer.getQuestionID() == null || dissertiveQuestionAnswer.getUserID() == null || dissertiveQuestionAnswer.getSeqAnswerUser() == null)
-            throw new BusinessException("None of the questionID or userID or seqAnswer can be null.");
+        if(dissertiveQuestionAnswer.getUserID() == null || userManagement.getUserById(dissertiveQuestionAnswer.getUserID()) == null)
+            throw new BusinessException(" userID doesn't exist.");
         
+        if(dissertiveQuestionAnswer.getQuestionID() == null || questionManagement.getQuestionById(dissertiveQuestionAnswer.getQuestionID()) == null){
+            throw new BusinessException("questionId doesn't exist.");
+        }
         if(dissertiveQuestionAnswer.getTxtAnswer() == null || dissertiveQuestionAnswer.getTxtAnswer().isEmpty()){
             throw new BusinessException("The Answer text cannot be null or empty.");
         }
@@ -94,8 +96,8 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public List<DissertiveQuestionAnswer> getAll() throws PersistenceException {
-        List<DissertiveQuestionAnswer> aux = DAO.listAll();
+    public List<DissertiveQuestionAnswer> getAllDissetiveAnswersByUserID(Long userID) throws PersistenceException {
+        List<DissertiveQuestionAnswer> aux = DAO.listAllDissetiveAnswersByUserID(userID);
         return aux;
     }
 

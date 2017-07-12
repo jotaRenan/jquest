@@ -155,13 +155,16 @@ public class VoteDAOImpl implements VoteDAO {
     }
 
     @Override
-    public List<Vote> listAll() throws PersistenceException {
+    public List<Vote> listAllVotesByCommentaryID(Long seqCommentary) throws PersistenceException {
         try {    
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM vote ORDER BY SEQ_discussion";
+            String sql = "SELECT * FROM vote WHERE SEQ_commentary = ? ORDER BY SEQ_discussion";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            
+            pstmt.setLong(1, seqCommentary);
+            
             ResultSet rs = pstmt.executeQuery();
 
             ArrayList<Vote> listAll = null;

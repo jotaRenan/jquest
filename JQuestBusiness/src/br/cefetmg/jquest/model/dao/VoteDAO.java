@@ -20,5 +20,5 @@ public interface VoteDAO {
     public boolean update(Vote vote) throws BusinessException, PersistenceException;
     public boolean remove(Long seqCommentary, Long userID) throws PersistenceException;
     public Vote getVoteById(Long seqCommentary, Long userID) throws PersistenceException;
-    public List<Vote> listAll() throws PersistenceException;
+    public List<Vote> listAllVotesByCommentaryID(Long seqCommentary) throws PersistenceException;
 }

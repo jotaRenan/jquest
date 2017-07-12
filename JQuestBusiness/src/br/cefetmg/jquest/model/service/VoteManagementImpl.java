@@ -53,7 +53,7 @@ public class VoteManagementImpl implements VoteManagement {
         if(vote.getCommentarySeq() == null || commentaryManagement.getcommentaryBySeq(vote.getCommentarySeq()) == null)
             throw new PersistenceException("commentarySeq doesn't exist.");
         
-        if(vote.getDiscussionSeq() == null || forumManagement.getForumById(vote.getDiscussionSeq()) == null)
+        if(vote.getDiscussionSeq() == null || forumManagement.getForumById(vote.getDiscussionSeq(), vote.getQuestionId()) == null)
             throw new PersistenceException("discussionSeq doesn't exist.");
         
         if(vote.getQuestionId() == null || questionManagement.getQuestionById(vote.getQuestionId()) == null)
@@ -109,8 +109,8 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public List<Vote> getAll() throws PersistenceException {
-        List<Vote> aux = DAO.listAll();
+    public List<Vote> getAllVotesByCommentaryID(Long seqCommentary) throws PersistenceException {
+        List<Vote> aux = DAO.listAllVotesByCommentaryID(seqCommentary);
         if(aux.isEmpty())
             throw new PersistenceException("There isn't elements in the List.");
         return aux;

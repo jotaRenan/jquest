@@ -32,6 +32,7 @@ public interface DissertiveQuestionAnswerManagement {
      * Apply the business rules and updates the DissertiveQuestionAnswer object in the 
  persistence.
      * @param dissertiveQuestionAnswer The object to be updated by the DAO.
+     * @return 
      * @throws br.cefetmg.jquest.model.exception.BusinessException When some
      * business rule were broken.
      * @throws PersistenceException When occours some unexpected error in the
@@ -41,9 +42,8 @@ public interface DissertiveQuestionAnswerManagement {
     
     /**
      * Removes the DissertiveQuestionAnswer object in the persistence.
-     * @param questionID The id of the question Answered. The id of the question Answered.
-     * @param userID The id of the user who Answered the question. The id of the user who Answered the question.
      * @param seqAnswerUser The sequential number of the user answer to this question. The sequential number of the user answer to this question.
+     * @return 
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
@@ -51,8 +51,6 @@ public interface DissertiveQuestionAnswerManagement {
     
     /**
      * Get the DissertiveQuestionAnswer object by id in the persistence.
-     * @param questionID The id of the question Answered.
-     * @param userID The id of the user who Answered the question.
      * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be returned by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
@@ -66,5 +64,5 @@ public interface DissertiveQuestionAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public List<DissertiveQuestionAnswer> getAll() throws PersistenceException;    
+    public List<DissertiveQuestionAnswer> getAllDissetiveAnswersByUserID(Long userID) throws PersistenceException;    
 }

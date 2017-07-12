@@ -18,7 +18,7 @@ public interface ForumDAO {
     //@TODO JAVADOCS
     public Long insert(Forum forum) throws BusinessException, PersistenceException;
     public boolean update(Forum forum) throws BusinessException, PersistenceException;
-    public boolean remove(Long seqDiscussion) throws PersistenceException;
-    public Forum getForumById(Long seqDiscussion) throws PersistenceException;
-    public List<Forum> listAll() throws PersistenceException;
+    public boolean remove(Long seqDiscussion, Long codQuestion) throws PersistenceException;
+    public Forum getForumById(Long seqDiscussion, Long codQuestion) throws PersistenceException;
+    public List<Forum> listAllForumsByQuestionID(Long codQuestion) throws PersistenceException;
 }

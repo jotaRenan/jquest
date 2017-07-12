@@ -75,25 +75,25 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public boolean forumRemove(Long discussionSeq) throws PersistenceException {
-        if(discussionSeq == null){
+    public boolean forumRemove(Long seqDiscussion, Long codQuestion) throws PersistenceException {
+        if(seqDiscussion == null && codQuestion == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
-        return DAO.remove(discussionSeq);
+        return DAO.remove(seqDiscussion, codQuestion);
     }
 
     @Override
-    public Forum getForumById(Long discussionSeq) throws PersistenceException {
-        if(discussionSeq == null){
+    public Forum getForumById(Long seqDiscussion, Long codQuestion) throws PersistenceException {
+        if(seqDiscussion == null && codQuestion == null){
             throw new PersistenceException("None of the parameters can be null.");
         }
         
-        return DAO.getForumById(discussionSeq);
+        return DAO.getForumById(seqDiscussion, codQuestion);
     }
 
     @Override
-    public List<Forum> getAll() throws PersistenceException {
-        List<Forum> aux = DAO.listAll();
+    public List<Forum> getAllForumsByQuestionID(Long codQuestion) throws PersistenceException {
+        List<Forum> aux = DAO.listAllForumsByQuestionID(codQuestion);
         return aux;
     }
 }

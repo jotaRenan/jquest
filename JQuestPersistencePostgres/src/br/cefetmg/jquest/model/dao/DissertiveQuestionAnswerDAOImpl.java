@@ -165,13 +165,16 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
     }
 
     @Override
-    public List<DissertiveQuestionAnswer> listAll() throws PersistenceException {
+    public List<DissertiveQuestionAnswer> listAllDissetiveAnswersByUserID(Long userID) throws PersistenceException {
         try {    
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM DissertiveQuestionAnswer ORDER BY SEQ_use";
+            String sql = "SELECT * FROM DissertiveQuestionAnswer WHERE COD_userIDUseLog = ? ORDER BY SEQ_use";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            
+            pstmt.setLong(1, userID);
+            
             ResultSet rs = pstmt.executeQuery();
 
             ArrayList<DissertiveQuestionAnswer> listAll = null;

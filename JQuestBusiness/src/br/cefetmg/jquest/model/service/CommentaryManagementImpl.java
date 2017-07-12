@@ -40,7 +40,7 @@ public class CommentaryManagementImpl implements CommentaryManagement{
             throw new BusinessException("Commentary cannot be null");
                     
         if (commentary.getDiscussionId()== null 
-                || forumManagement.getForumById(commentary.getDiscussionId()) == null )
+                || forumManagement.getForumById(commentary.getDiscussionId(), commentary.getQuestionId()) == null )
             throw new BusinessException("Commentary's discussionID doesn't exist.");
         
         if (commentary.getQuestionId()== null 

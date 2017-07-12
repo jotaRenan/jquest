@@ -43,7 +43,7 @@ public class QuestionManagementImplTest {
         question.setDomainId(1L);
         question.setModuleId(1L);
         question.setHeadline("Enunciado teste");
-        question.setType('o');
+        question.setType('O'); // A = Aberta M = Multipla Escolha V = V ou F
         question.setUserId(1L);
     }
     

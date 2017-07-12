@@ -86,7 +86,8 @@ public class TrueOrFalseAnswerManagementImplTest {
     public void testToFAGetToFAnswerByNullId() {
         try {
             Long optionSeq = null;
-            tofaManagement.getToFAnswerById(optionSeq);
+            Long questionId = null;
+            tofaManagement.getToFAnswerById(optionSeq, questionId);
         } catch (BusinessException | PersistenceException ex) {
             String msgErr = ex.getMessage();
             String msgEsperada = "No Answer ID was informed";

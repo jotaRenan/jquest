@@ -126,7 +126,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM trueorfalsequestionanswer WHERE SEQ_useAnswer = ?, COD_question = ? ";
+            String sql = "SELECT * FROM trueorfalsequestionanswer WHERE SEQ_option = ?, COD_question = ? ";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, tofAnswerId);
@@ -135,11 +135,10 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
 
             TrueOrFalseAnswer tofAnswer = new TrueOrFalseAnswer();
             if (rs.next()) {
-                tofAnswer.setUserAnswer(tofAnswerId);
+                tofAnswer.setOptionSeq(tofAnswerId);
                 tofAnswer.setUseSeq(rs.getLong("seq_use"));
                 tofAnswer.setQuestionId(rs.getLong("cod_question"));
                 tofAnswer.setUserAnswer(rs.getLong("seq_useanswer"));
-                tofAnswer.setOptionSeq(rs.getLong("seq_option"));
 
             }
 

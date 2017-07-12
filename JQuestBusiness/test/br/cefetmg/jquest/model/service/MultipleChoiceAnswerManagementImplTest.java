@@ -77,14 +77,14 @@ public class MultipleChoiceAnswerManagementImplTest {
     }
      
     @Test
-    public void testMultChAnswerGetByNullId() {
+    public void testMultChAnswerGetByNullUserId() {
         try {
-            Long optionSeq = null;
-            multChAnswerManag.getToFAnswerById(optionSeq);
+            Long userId = null;
+            multChAnswerManag.getAllByUserId(userId);
         } catch (PersistenceException ex) {
             return;
         }
-        fail("GetById of null MultipleChoiceAnswer ID didnt throw an exception");
+        fail("GetById of null user ID didnt throw an exception");
     }
     
     @Test

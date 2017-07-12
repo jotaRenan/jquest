@@ -46,8 +46,8 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO trueorfalsequestionanswer (seq_use, cod_question, seq_useanswer, seq_option) "
-                    + "    VALUES (?, ?, ?, ?) returning cod_id;";
+            String sql = "INSERT INTO TrueOrFalseQuestionAnswer (COD_userIDUseLog, seq_use, cod_question, seq_useanswer, seq_option) "
+                    + "    VALUES (?, ?, ?, ?) returning SEQ_option;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, tofAnswer.getUseSeq());
@@ -58,7 +58,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                userAnswerSeq = rs.getLong("cod_id");
+                userAnswerSeq = rs.getLong("SEQ_option");
                 tofAnswer.setUseSeq(userAnswerSeq);
             }
 
@@ -79,15 +79,13 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
 
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "UPDATE trueorfalsequestionanswer "
-                    + " SET seq_use = ?, "
-                    + "     seq_useanswer = ? "
-                    + " WHERE cod_id = ?";
+            String sql = "UPDATE TrueOrFalseQuestionAnswer "
+                    + " SET seq_useanswer = ? "
+                    + " WHERE SEQ_option = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, tofAnswer.getUseSeq());
-            pstmt.setLong(2, tofAnswer.getUserAnswer());
-            pstmt.setLong(3, tofAnswer.getQuestionId());
+            pstmt.setLong(1, tofAnswer.getUserAnswer());
+            pstmt.setLong(2, tofAnswer.getOptionSeq());
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -106,7 +104,7 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM trueorfalsequestionanswer WHERE cod_id = ?";
+            String sql = "DELETE FROM trueorfalsequestionanswer WHERE SEQ_useAnswer = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, tofAnswerId);
@@ -124,14 +122,15 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
     }
 
     @Override
-    public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws PersistenceException {
+    public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId, Long questionId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM trueorfalsequestionanswer WHERE cod_id = ? ";
+            String sql = "SELECT * FROM trueorfalsequestionanswer WHERE SEQ_useAnswer = ?, COD_question = ? ";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, tofAnswerId);
+            pstmt.setLong(2, questionId);
             ResultSet rs = pstmt.executeQuery();
 
             TrueOrFalseAnswer tofAnswer = new TrueOrFalseAnswer();
@@ -187,6 +186,38 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
             throw new PersistenceException(e);
         }
     }
+    
+    @Override
+    public TrueOrFalseAnswer getAllByUserId(Long userId) throws PersistenceException {
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM TrueOrFalseQuestionAnswer WHERE COD_userIDUseLog = ? ";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setLong(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            TrueOrFalseAnswer tofAnswer = new TrueOrFalseAnswer();
+            if (rs.next()) {
+                tofAnswer.setUseSeq(userId);                
+                tofAnswer.setUseSeq(rs.getLong("seq_use"));
+                tofAnswer.setQuestionId(rs.getLong("COD_question"));
+                tofAnswer.setUserAnswer(rs.getLong("seq_useanswer"));
+                tofAnswer.setOptionSeq(rs.getLong("seq_option"));
+
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return tofAnswer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
+        }
+    }
 
     @Override
     public List<TrueOrFalseAnswer> listAll() throws PersistenceException {
@@ -225,5 +256,5 @@ public class TrueOrFalseAnswerDAOImpl implements TrueOrFalseAnswerDAO{
             throw new PersistenceException(e);
         }
     }
-   
+  
 }

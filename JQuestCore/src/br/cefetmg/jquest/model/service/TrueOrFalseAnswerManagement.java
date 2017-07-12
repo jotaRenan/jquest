@@ -18,7 +18,8 @@ public interface TrueOrFalseAnswerManagement {
     public Long insert(TrueOrFalseAnswer tofAnswer) throws BusinessException, PersistenceException;
     public boolean update(TrueOrFalseAnswer tofAnswer) throws BusinessException, PersistenceException;
     public boolean remove(Long tofAnswerId) throws BusinessException, PersistenceException;
-    public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws BusinessException, PersistenceException;
+    public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId, Long questionId) throws BusinessException, PersistenceException;
     public TrueOrFalseAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws BusinessException, PersistenceException;
+    public TrueOrFalseAnswer getAllByUserId(Long userId) throws BusinessException, PersistenceException;
     public List<TrueOrFalseAnswer> getAll() throws PersistenceException;
 }

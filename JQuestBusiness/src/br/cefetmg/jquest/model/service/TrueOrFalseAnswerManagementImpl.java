@@ -100,11 +100,15 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
     }
 
     @Override
-    public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId) throws BusinessException, PersistenceException {
+    public TrueOrFalseAnswer getToFAnswerById(Long tofAnswerId, Long questionId) throws BusinessException, PersistenceException {
         if (tofAnswerId == null) {
             throw new BusinessException("No Answer ID was informed");
         }
-        return tofadao.getToFAnswerById(tofAnswerId);
+        if (questionId == null) {
+            throw new BusinessException("No Question ID was informed");
+        }
+        
+        return tofadao.getToFAnswerById(tofAnswerId, questionId);
     }
     
     @Override
@@ -124,6 +128,21 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
             throw new BusinessException(errMsg);
         }
         return tofadao.getAnswersByUserAndQuestionId(userId, questionId);
+    }
+    
+    @Override
+    public TrueOrFalseAnswer getAllByUserId(Long userId) throws BusinessException, PersistenceException {
+        List<String> errMsgList = new ArrayList<>();
+        if (userId == null) {
+            errMsgList.add("No user id was informed");
+        }
+
+        if (!errMsgList.isEmpty()) {
+            final String errMsg = "";
+            errMsgList.stream().forEach(msg -> errMsg.concat(msg + "\n"));
+            throw new BusinessException(errMsg);
+        }
+        return tofadao.getAllByUserId(userId);
     }
     
     @Override

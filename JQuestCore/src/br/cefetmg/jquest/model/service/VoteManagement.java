@@ -18,7 +18,7 @@ public interface VoteManagement {
     //@TODO: Javadocs
     public Long voteInsert(Vote vote) throws BusinessException, PersistenceException;
     public boolean voteUpdate(Vote vote) throws BusinessException, PersistenceException;
-    public boolean voteRemove(Long seqCommentary, Long userID) throws PersistenceException;
-    public Vote getVoteById(Long seqCommentary, Long userID) throws PersistenceException;
+    public boolean voteRemove(Long COD_question, Long SEQ_discussion, Long seqCommentary, Long userID) throws PersistenceException;
+    public Vote getVoteById(Long COD_question, Long SEQ_discussion, Long seqCommentary, Long userID) throws PersistenceException;
     public List<Vote> getAllVotesByCommentaryID(Long seqCommentary) throws PersistenceException;
 }

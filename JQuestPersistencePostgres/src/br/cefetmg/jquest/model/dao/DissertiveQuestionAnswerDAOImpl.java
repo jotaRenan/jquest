@@ -110,16 +110,18 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
     }
 
     @Override
-    public boolean remove(Long seqUse) throws PersistenceException {
+    public boolean remove(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "DELETE A, B FROM DissertiveQuestionAnswer A"
                     + " JOIN UseLog ON A.SEQ_use = B.SEQ_use "
-                    + "WHERE SEQ_use = ?;";
-
+                    + "WHERE COD_userIDUseLog = ? AND SEQ_discussion = ? AND SEQ_Use = ?"; 
+            
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, seqUse);
+            pstmt.setLong(1, COD_userIDUseLog);
+            pstmt.setLong(2, COD_question);
+            pstmt.setLong(3, seqAnswerUser);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -134,21 +136,22 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
     }
 
     @Override
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long seqUse) throws PersistenceException {
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM DissertiveQuestionAnswer WHERE SEQ_discussion = ? ";
-
+            String sql = "SELECT * FROM DissertiveQuestionAnswer WHERE COD_userIDUseLog = ? AND SEQ_discussion = ? AND SEQ_Use = ?"; 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, seqUse);
+            pstmt.setLong(1, COD_userIDUseLog);
+            pstmt.setLong(2, COD_question);
+            pstmt.setLong(3, seqAnswerUser);
             ResultSet rs = pstmt.executeQuery();
 
             DissertiveQuestionAnswer dissertiveQuestionAnswer = new DissertiveQuestionAnswer();
             if (rs.next()) {
-                dissertiveQuestionAnswer.setUserID(rs.getLong("COD_ID"));
-                dissertiveQuestionAnswer.setQuestionID(rs.getLong("COD_question"));
-                dissertiveQuestionAnswer.setSeqAnswerUser(seqUse);
+                dissertiveQuestionAnswer.setUserID(COD_userIDUseLog);
+                dissertiveQuestionAnswer.setQuestionID(COD_question);
+                dissertiveQuestionAnswer.setSeqAnswerUser(seqAnswerUser);
                 dissertiveQuestionAnswer.setTxtAnswer(rs.getString("TXT_answer"));
                 dissertiveQuestionAnswer.setValueScore(rs.getDouble("VLE_grade"));
             }

@@ -90,22 +90,22 @@ public class VoteManagementImpl implements VoteManagement {
     }
 
     @Override
-    public boolean voteRemove(Long seqCommentary,Long userID) throws PersistenceException {
+    public boolean voteRemove(Long COD_question, Long SEQ_discussion, Long seqCommentary, Long userID) throws PersistenceException {
         if(seqCommentary == null)
             throw new PersistenceException("seqCommentary can´t be null.");
         if(userID == null)
             throw new PersistenceException("userID can´t be null.");
-        return DAO.remove(seqCommentary, userID);
+        return DAO.remove(COD_question, SEQ_discussion, seqCommentary, userID);
     }
 
     @Override
-    public Vote getVoteById(Long seqCommentary,Long userID) throws PersistenceException {
+    public Vote getVoteById(Long COD_question, Long SEQ_discussion, Long seqCommentary, Long userID) throws PersistenceException {
         if(seqCommentary == null)
             throw new PersistenceException("seqCommentary can´t be null.");
         if(userID == null)
             throw new PersistenceException("userID can´t be null.");
         
-        return DAO.getVoteById(seqCommentary, userID);
+        return DAO.getVoteById(COD_question, SEQ_discussion, seqCommentary, userID);
     }
 
     @Override

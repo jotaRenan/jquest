@@ -98,16 +98,18 @@ public class VoteDAOImpl implements VoteDAO {
     }
 
     @Override
-    public boolean remove(Long seqCommentary, Long userID) throws PersistenceException {
+    public boolean remove(Long COD_question, Long SEQ_discussion, Long seqCommentary, Long userID) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "DELETE FROM vote "
-                    + "WHERE SEQ_commentary = ? AND COD_ID = ?;";
+                    + "WHERE COD_question = ? AND SEQ_discussion = ? AND SEQ_commentary = ? AND COD_ID = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, seqCommentary);
-            pstmt.setLong(2, userID);
+            pstmt.setLong(1, COD_question);
+            pstmt.setLong(2, SEQ_discussion);
+            pstmt.setLong(3, seqCommentary);
+            pstmt.setLong(4, userID);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -120,18 +122,20 @@ public class VoteDAOImpl implements VoteDAO {
             throw new PersistenceException(e);
         }
     }
-
+ 
     @Override
-    public Vote getVoteById(Long seqCommentary, Long userID) throws PersistenceException {
+    public Vote getVoteById(Long COD_question, Long SEQ_discussion, Long seqCommentary, Long userID) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "SELECT * FROM vote "
-                    + "WHERE SEQ_commentary = ? AND COD_ID = ?;";
+                    + "WHERE COD_question = ? AND SEQ_discussion = ? AND SEQ_commentary = ? AND COD_ID = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, seqCommentary);
-            pstmt.setLong(2, userID);
+            pstmt.setLong(1, COD_question);
+            pstmt.setLong(2, SEQ_discussion);
+            pstmt.setLong(3, seqCommentary);
+            pstmt.setLong(4, userID);
             ResultSet rs = pstmt.executeQuery();
 
             Vote vote = new Vote();

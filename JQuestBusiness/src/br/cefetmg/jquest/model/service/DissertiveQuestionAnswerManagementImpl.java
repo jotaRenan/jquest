@@ -80,19 +80,19 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public boolean DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException {
+    public boolean DissertiveQuestionAnswerRemove(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException {
         if(seqAnswerUser == null)
             throw new PersistenceException("The seqAwnserUser can't be null.");
          
-       return DAO.remove(seqAnswerUser);
+       return DAO.remove(COD_userIDUseLog, COD_questio, seqAnswerUser);
     }
 
     @Override
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long seqAnswerUser) throws PersistenceException {
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException {
         if(seqAnswerUser == null)
             throw new PersistenceException("The seqAwnserUser can't be null.");
 
-        return DAO.getDissertiveQuestionAnswerById(seqAnswerUser);
+        return DAO.getDissertiveQuestionAnswerById(COD_userIDUseLog, COD_questio, seqAnswerUser);
     }
 
     @Override

@@ -47,7 +47,7 @@ public interface DissertiveQuestionAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public boolean DissertiveQuestionAnswerRemove(Long seqAnswerUser) throws PersistenceException;
+    public boolean DissertiveQuestionAnswerRemove(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the DissertiveQuestionAnswer object by id in the persistence.
@@ -56,7 +56,7 @@ public interface DissertiveQuestionAnswerManagement {
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException;
    
     /**
      * List all the DissertiveQuestionAnswer objects in the persistence.

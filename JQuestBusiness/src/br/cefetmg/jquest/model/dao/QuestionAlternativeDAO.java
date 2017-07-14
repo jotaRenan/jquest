@@ -18,6 +18,6 @@ public interface QuestionAlternativeDAO {
     public boolean update(QuestionAlternative closedEndedAlt) throws PersistenceException;
     public boolean remove(Long closedEndedAltId) throws PersistenceException;
     public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException;
-    public QuestionAlternative getAlternativeByQuestionId(Long questionId) throws PersistenceException;
+    public List<QuestionAlternative> getAlternativesByQuestionId(Long questionId) throws PersistenceException;
     public List<QuestionAlternative> listAll() throws PersistenceException;
 }

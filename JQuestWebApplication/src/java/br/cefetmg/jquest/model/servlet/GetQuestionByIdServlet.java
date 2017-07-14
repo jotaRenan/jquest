@@ -5,15 +5,18 @@
  */
 package br.cefetmg.jquest.model.servlet;
 
+import br.cefetmg.jquest.model.dao.QuestionAlternativeDAOImpl;
 import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
 import br.cefetmg.jquest.model.domain.Question;
+import br.cefetmg.jquest.model.domain.QuestionAlternative;
 import br.cefetmg.jquest.model.exception.PersistenceException;
+import br.cefetmg.jquest.model.service.QuestionAlternativeManagement;
+import br.cefetmg.jquest.model.service.QuestionAlternativeManagementImpl;
 import br.cefetmg.jquest.model.service.QuestionManagement;
 import br.cefetmg.jquest.model.service.QuestionManagementImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,82 +25,75 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Paula Ribeiro
+ * @url /GetQuestionByIdServlet
  */
 public class GetQuestionByIdServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+    private Question question;
+    private QuestionManagement questionManagement;
+    private QuestionAlternativeManagement questionAlternativeManagement;
+    private String result;
+    
+    public GetQuestionByIdServlet() {
+        question = null;
+        result = "";
+    }
+    /* Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        String result = "";
         
-        try {            
-            //pega parametro da URL
-            String input = request.getParameter("questionId");
-            Long id = Long.getLong(input);
-            
+        //pega parametro da URL
+        String input = request.getParameter("id");
+        Long id = new Long(input);
+        
+        try {                
             //busca a questão no banco de dados
-            QuestionManagement questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
-            Question question = questionManagement.getQuestionById(id);
+            questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
+            question = questionManagement.getQuestionById(id);   
+            
+            
+            //busca alternativas no banco de dados
+            questionAlternativeManagement = new QuestionAlternativeManagementImpl(QuestionAlternativeDAOImpl.getInstance());
+            List<QuestionAlternative> alternativesList = questionAlternativeManagement.getAlternativesByQuestionId(id);
             
             //testa se questão foi recebida
-            if (question == null) {
+            if (question != null) {
+                result = "{"
+                         + "     id: " + question.getId()
+                         + ",    heading: '" + question.getHeadline()
+                         + "',    isMultipleChoice: " + this.isMultipleChoice(question.getType())
+                         + ",    correct: " + this.selectCorrectAnswer(alternativesList)
+                         + ",    alternatives: [";
+                                for (QuestionAlternative alternative: alternativesList) {
+                                    result += alternative.getAssertionText();
+                                    result += ",    ";
+                                }
+                int ult = result.lastIndexOf(',');
+                result = result.substring(0, ult);
+                result += "]    }";
+
+            }
+
+            else {
                 result = "[]";
             }
-            else {
-                result = "[ {"
-                         + "    id: " + question.getId()
-                         + "    heading: " + question.getHeadline()
-                         + "    isMultipleChoice: " + this.isMultipleChoice(question.getType())
-                         
-                         + "} ]";
-                
-            }
-            
-            try (PrintWriter out = response.getWriter()) {
-                
-                
-            }
-        }   catch (PersistenceException ex) {
-            Logger.getLogger(GetQuestionByIdServlet.class.getName()).log(Level.SEVERE, null, ex);
+        
         }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+        
+        catch (PersistenceException ex) {
+            result = ex.getMessage();
+        }
+        
+        PrintWriter out = response.getWriter();
+        out.println(result);
     }
 
     /**
@@ -107,14 +103,20 @@ public class GetQuestionByIdServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Gets a question by its Id";
     }// </editor-fold>
     
     private boolean isMultipleChoice(char idt) {
-        if (idt == 'M')
-            return true;
-        else
-            return false;
+        return idt == 'M';
+    }
+    
+    private Long selectCorrectAnswer (List<QuestionAlternative> alternatives) {
+        Long seq = null;
+        for (QuestionAlternative alternative: alternatives) {
+            if (alternative.isIsCorrect())
+                seq = alternative.getOptionSeq();
+        }
+        return seq;
     }
     
 }

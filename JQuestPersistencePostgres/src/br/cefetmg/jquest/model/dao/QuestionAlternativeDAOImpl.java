@@ -49,7 +49,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "INSERT INTO QuestionAlternative (COD_question, TXT_assertative, IDT_isCorrect) "
+            String sql = "INSERT INTO QuestionAlternative (COD_question, TXT_assertive, IDT_isCorrect) "
                     + "    VALUES (?, ?, ?) returning SEQ_option;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "UPDATE QuestionAlternative "
-                    + " SET TXT_assertative = ?, "
+                    + " SET TXT_assertive = ?, "
                     + "     IDT_isCorrect = ? "
                     + " WHERE SEQ_option = ?";
 
@@ -140,7 +140,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
             if (rs.next()) {
                 questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
                 questAlternative.setQuestionId(rs.getLong("COD_question"));
-                questAlternative.setAssertionText(rs.getString("TXT_assertative"));
+                questAlternative.setAssertionText(rs.getString("TXT_assertive"));
                 questAlternative.setIsCorrect(rs.getBoolean("IDT_isCorrect"));
             }
 
@@ -156,7 +156,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     }
 
     @Override
-    public QuestionAlternative getAlternativeByQuestionId(Long questionId) throws PersistenceException {
+    public List<QuestionAlternative> getAlternativesByQuestionId(Long questionId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
@@ -165,20 +165,27 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, questionId);
             ResultSet rs = pstmt.executeQuery();
-
-            QuestionAlternative questAlternative = new QuestionAlternative();
+            
+            ArrayList<QuestionAlternative> listAll = null;
+            QuestionAlternative questAlternative = null;
+            
             if (rs.next()) {
-                questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
-                questAlternative.setQuestionId(rs.getLong("COD_question"));
-                questAlternative.setAssertionText(rs.getString("TXT_assertative"));
-                questAlternative.setIsCorrect(rs.getBoolean("IDT)_isCorrect"));
+                listAll = new ArrayList<>();
+                do {
+                    questAlternative = new QuestionAlternative();
+                    questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
+                    questAlternative.setQuestionId(rs.getLong("COD_question"));
+                    questAlternative.setAssertionText(rs.getString("TXT_assertive"));
+                    questAlternative.setIsCorrect(rs.getBoolean("IDT_isCorrect"));
+                    
+                    listAll.add(questAlternative);
+                } while (rs.next());
             }
-
             rs.close();
             pstmt.close();
             connection.close();
 
-            return questAlternative;
+            return listAll;
         } catch (Exception e) {
             e.printStackTrace();
             throw new PersistenceException(e);
@@ -204,7 +211,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
                     questAlternative = new QuestionAlternative();
                     questAlternative.setOptionSeq(rs.getLong("SEQ_option"));
                     questAlternative.setQuestionId(rs.getLong("COD_question"));
-                    questAlternative.setAssertionText(rs.getString("TXT_assertative"));
+                    questAlternative.setAssertionText(rs.getString("TXT_assertive"));
                     questAlternative.setIsCorrect(rs.getBoolean("IDT_isCorrect"));
                     
                     listAll.add(questAlternative);

@@ -119,7 +119,7 @@ public class GetQuestionsServlet extends HttpServlet {
         String res = "{"
                 + "\"id\": " + q.getId()
                 + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
-                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
+                + ", \"module\": \"" + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\""
                 + ", \"correctIndex\": " + this.selectCorrectAnswer(alternativesList)
@@ -139,7 +139,7 @@ public class GetQuestionsServlet extends HttpServlet {
         String res = "{"
                 + "\"id\": " + q.getId()
                 + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
-                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
+                + ", \"module\": \"" + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\"" 
                 + ", \"alternatives\": [";
@@ -159,7 +159,7 @@ public class GetQuestionsServlet extends HttpServlet {
         String res = "{"
                 + "\"id\": " + q.getId()
                 + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
-                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
+                + ", \"module\": \"" + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\""
                 + "}";

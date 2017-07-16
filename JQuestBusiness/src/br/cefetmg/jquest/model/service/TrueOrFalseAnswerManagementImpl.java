@@ -48,7 +48,7 @@ public class TrueOrFalseAnswerManagementImpl implements TrueOrFalseAnswerManagem
         if (tofAnswer.getQuestionId() == null || questionManagement.getQuestionById(tofAnswer.getQuestionId()) == null) {
             errMsgList.add("questionID doesn't exist.");
         }
-        if (tofAnswer.getOptionSeq() == null || questionAlternativeManagement.getQuestionAlternativeById(tofAnswer.getOptionSeq()) == null) {
+        if (tofAnswer.getOptionSeq() == null || questionAlternativeManagement.getQuestionAlternativeById(tofAnswer.getOptionSeq(), tofAnswer.getQuestionId()) == null) {
             errMsgList.add("optionID doesn't exist.");
         }
         if (tofAnswer.getUseSeq() == null) {

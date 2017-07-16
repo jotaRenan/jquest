@@ -47,7 +47,7 @@ public class GetQuestionByIdServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
         //pega parametro da URL
@@ -67,18 +67,18 @@ public class GetQuestionByIdServlet extends HttpServlet {
             //testa se questão foi recebida
             if (question != null) {
                 result = "{"
-                         + "     id: " + question.getId()
-                         + ",    heading: '" + question.getHeadline()
-                         + "',    isMultipleChoice: " + this.isMultipleChoice(question.getType())
-                         + ",    correct: " + this.selectCorrectAnswer(alternativesList)
-                         + ",    alternatives: [";
+                         + "\"id\": " + question.getId()
+                         + ", \"heading\": \"" + question.getHeadline()
+                         + "\" ,\"isMultipleChoice\": " + this.isMultipleChoice(question.getType()) 
+                         + ", \"correct\": " + this.selectCorrectAnswer(alternativesList)
+                         + ", \"alternatives\": [";
                                 for (QuestionAlternative alternative: alternativesList) {
-                                    result += alternative.getAssertionText();
-                                    result += ",    ";
+                                    result += "\"" + alternative.getAssertionText();
+                                    result += "\", ";
                                 }
                 int ult = result.lastIndexOf(',');
                 result = result.substring(0, ult);
-                result += "]    }";
+                result += "]}";
 
             }
 

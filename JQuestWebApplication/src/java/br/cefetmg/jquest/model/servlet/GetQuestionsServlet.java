@@ -5,11 +5,17 @@
  */
 package br.cefetmg.jquest.model.servlet;
 
+import br.cefetmg.jquest.model.dao.DomainDAOImpl;
+import br.cefetmg.jquest.model.dao.ModuleDAOImpl;
 import br.cefetmg.jquest.model.dao.QuestionAlternativeDAOImpl;
 import br.cefetmg.jquest.model.dao.QuestionDAOImpl;
 import br.cefetmg.jquest.model.domain.Question;
 import br.cefetmg.jquest.model.domain.QuestionAlternative;
 import br.cefetmg.jquest.model.exception.PersistenceException;
+import br.cefetmg.jquest.model.service.DomainManagement;
+import br.cefetmg.jquest.model.service.DomainManagementImpl;
+import br.cefetmg.jquest.model.service.ModuleManagement;
+import br.cefetmg.jquest.model.service.ModuleManagementImpl;
 import br.cefetmg.jquest.model.service.QuestionAlternativeManagement;
 import br.cefetmg.jquest.model.service.QuestionAlternativeManagementImpl;
 import br.cefetmg.jquest.model.service.QuestionManagement;
@@ -32,6 +38,8 @@ import javax.servlet.http.HttpServletResponse;
 public class GetQuestionsServlet extends HttpServlet {
     private List<Question> questionList;
     private QuestionManagement questionManagement;
+    private DomainManagement domainManagement;
+    private ModuleManagement moduleManagement;
     private QuestionAlternativeManagement questionAlternativeManagement;
     private String result;
     
@@ -110,9 +118,11 @@ public class GetQuestionsServlet extends HttpServlet {
         List<QuestionAlternative> alternativesList = getAlternatives(q.getId());
         String res = "{"
                 + "\"id\": " + q.getId()
+                + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
+                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\""
-                + ", \"correct\": " + this.selectCorrectAnswer(alternativesList)
+                + ", \"correctIndex\": " + this.selectCorrectAnswer(alternativesList)
                 + ", \"alternatives\": [";
                        for (QuestionAlternative alternative: alternativesList) {
                            res += "\"" + alternative.getAssertionText()
@@ -128,6 +138,8 @@ public class GetQuestionsServlet extends HttpServlet {
         List<QuestionAlternative> alternativesList = getAlternatives(q.getId());
         String res = "{"
                 + "\"id\": " + q.getId()
+                + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
+                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\"" 
                 + ", \"alternatives\": [";
@@ -146,6 +158,8 @@ public class GetQuestionsServlet extends HttpServlet {
     private String dissertiveQuestion (Question q) {
         String res = "{"
                 + "\"id\": " + q.getId()
+                + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
+                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\""
                 + "}";
@@ -172,4 +186,28 @@ public class GetQuestionsServlet extends HttpServlet {
         }
         return seq;
     }
+    
+    private String getDomain(Long domainId) {
+        String domain = "";
+        try {
+            domainManagement = new DomainManagementImpl(DomainDAOImpl.getInstance());
+            domain = domainManagement.getDomainById(domainId).getName();
+        } catch (PersistenceException ex) {
+            Logger.getLogger(GetQuestionsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return domain;
+    }
+    
+    private String getModule(Long moduleId, Long domainId) {
+        String module = "";
+        try {
+            moduleManagement = new ModuleManagementImpl(ModuleDAOImpl.getInstance());
+            module = moduleManagement.getModuleById(moduleId, domainId).getName();
+        } catch (PersistenceException ex) {
+            Logger.getLogger(GetQuestionsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return module;
+    }
+    
+    
 }

@@ -196,7 +196,7 @@ public class ModuleDAOImpl implements ModuleDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM modules WHERE cod_domain = ? ORDER BY nom_domain";
+            String sql = "SELECT * FROM module WHERE cod_domain = ? ORDER BY nom_module";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, domainId);

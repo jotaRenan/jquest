@@ -84,6 +84,7 @@ public class GetQuestionByIdServlet extends HttpServlet {
 
             else {
                 result = "[]";
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         
         }

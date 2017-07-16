@@ -298,7 +298,7 @@ public class QuestionDAOImpl implements QuestionDAO {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM question";
+            String sql = "SELECT * FROM question ";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();

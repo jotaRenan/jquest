@@ -83,12 +83,14 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
             String sql = "UPDATE QuestionAlternative "
                     + " SET TXT_assertive = ?, "
                     + "     IDT_isCorrect = ? "
-                    + " WHERE SEQ_option = ?";
+                    + " WHERE SEQ_option = ?"
+                    + " AND COD_question = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, closedEndedAlt.getAssertionText());
             pstmt.setBoolean(2, closedEndedAlt.isIsCorrect());
             pstmt.setLong(3, closedEndedAlt.getOptionSeq());
+            pstmt.setLong(4, closedEndedAlt.getQuestionId());
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -103,14 +105,15 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     }
 
     @Override
-    public boolean remove(Long closedEndedAltId) throws PersistenceException {
+    public boolean remove(Long closedEndedAltId, Long questionId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "DELETE FROM QuestionAlternative WHERE SEQ_option = ?";
+            String sql = "DELETE FROM QuestionAlternative WHERE SEQ_option = ? AND COD_question = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, closedEndedAltId);
+            pstmt.setLong(2, questionId);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -125,14 +128,15 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     }
 
     @Override
-    public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException {
+    public QuestionAlternative getQuestionAlternativeById(Long questionId, Long closedEndedAltId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM QuestionAlternative WHERE SEQ_question = ? ";
+            String sql = "SELECT * FROM QuestionAlternative WHERE SEQ_question = ? AND COD_question = ?";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, closedEndedAltId);
+            pstmt.setLong(2, questionId);
             ResultSet rs = pstmt.executeQuery();
 
             

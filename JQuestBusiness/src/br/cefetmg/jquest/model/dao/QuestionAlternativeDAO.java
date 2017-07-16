@@ -16,8 +16,8 @@ import java.util.List;
 public interface QuestionAlternativeDAO {
     public Long insert(QuestionAlternative closedEndedAlt) throws PersistenceException;
     public boolean update(QuestionAlternative closedEndedAlt) throws PersistenceException;
-    public boolean remove(Long closedEndedAltId) throws PersistenceException;
-    public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId) throws PersistenceException;
+    public boolean remove(Long closedEndedAltId, Long questionId) throws PersistenceException;
+    public QuestionAlternative getQuestionAlternativeById(Long closedEndedAltId, Long questionId) throws PersistenceException;
     public List<QuestionAlternative> getAlternativesByQuestionId(Long questionId) throws PersistenceException;
     public List<QuestionAlternative> listAll() throws PersistenceException;
 }

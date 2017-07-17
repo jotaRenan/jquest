@@ -92,8 +92,12 @@ public class ForumManagementImpl implements ForumManagement {
     }
 
     @Override
-    public List<Forum> getAllForumsByQuestionID(Long codQuestion) throws PersistenceException {
-        List<Forum> aux = DAO.listAllForumsByQuestionID(codQuestion);
+    public List<Forum> getAllForunsByQuestionID(Long codQuestion) throws PersistenceException {
+        if (codQuestion == null) {
+            throw new PersistenceException("Question Id cannot be null.");
+        }
+        
+        List<Forum> aux = DAO.listAllForunsByQuestionID(codQuestion);
         return aux;
     }
 }

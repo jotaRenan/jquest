@@ -20,5 +20,5 @@ public interface ForumDAO {
     public boolean update(Forum forum) throws BusinessException, PersistenceException;
     public boolean remove(Long seqDiscussion, Long codQuestion) throws PersistenceException;
     public Forum getForumById(Long seqDiscussion, Long codQuestion) throws PersistenceException;
-    public List<Forum> listAllForumsByQuestionID(Long codQuestion) throws PersistenceException;
+    public List<Forum> listAllForunsByQuestionID(Long codQuestion) throws PersistenceException;
 }

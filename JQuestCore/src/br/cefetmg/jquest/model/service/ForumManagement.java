@@ -20,5 +20,5 @@ public interface ForumManagement {
     public boolean forumUpdate(Forum forum) throws BusinessException, PersistenceException;
     public boolean forumRemove(Long seqDiscussion, Long codQuestion) throws PersistenceException;
     public Forum getForumById(Long seqDiscussion, Long codQuestion) throws PersistenceException;
-    public List<Forum> getAllForumsByQuestionID(Long codQuestion) throws PersistenceException;
+    public List<Forum> getAllForunsByQuestionID(Long codQuestion) throws PersistenceException;
 }

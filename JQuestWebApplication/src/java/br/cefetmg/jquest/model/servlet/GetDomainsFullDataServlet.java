@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,7 +58,7 @@ public class GetDomainsFullDataServlet extends HttpServlet {
             domainManagement = new DomainManagementImpl(DomainDAOImpl.getInstance());
             domainsList = domainManagement.getAll();
             
-            if (domainsList != null) {
+            if (!domainsList.isEmpty()) {
                 result = "[";
                 for (Domain domain: domainsList) {
                     
@@ -108,6 +107,7 @@ public class GetDomainsFullDataServlet extends HttpServlet {
         }
         
         PrintWriter out = response.getWriter();
+        response.addHeader("Access-Control-Allow-Origin", "*");
         out.println(result);
         
     }

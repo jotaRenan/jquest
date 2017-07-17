@@ -99,12 +99,11 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     }
 
     @Override
-    public List<Commentary> getCommentarysByForumId(Long forumId) throws PersistenceException {
-        if (forumId == null) {
+    public List<Commentary> getCommentariesByForumId(Long forumId, Long questionId) throws PersistenceException {
+        if (forumId == null || questionId == null) {
             throw new PersistenceException("Forum's id cannot be null");
         }
 
-        return commentaryDAO.getCommentarysByForumId(forumId);
+        return commentaryDAO.getCommentariesByForumId(forumId, questionId);
     }
-
 }

@@ -158,7 +158,7 @@ public class ForumDAOImpl implements ForumDAO {
     }
 
     @Override
-    public List<Forum> listAllForumsByQuestionID(Long codQuestion) throws PersistenceException {
+    public List<Forum> listAllForunsByQuestionID(Long codQuestion) throws PersistenceException {
         try {    
             Connection connection = ConnectionManager.getInstance().getConnection();
 
@@ -171,14 +171,14 @@ public class ForumDAOImpl implements ForumDAO {
             ResultSet rs = pstmt.executeQuery();
 
             ArrayList<Forum> listAll = null;
-            Forum forum = null;
             
             if (rs.next()) {
                 listAll = new ArrayList<>();
                 do {
-                    forum.setQuestionId(rs.getLong("COD_questao"));
+                    Forum forum = new Forum();
+                    forum.setQuestionId(codQuestion);
                     forum.setDiscussionSeq(rs.getLong("SEQ_discussion"));
-                    forum.setUserId(rs.getLong("COD_IDUser"));
+                    forum.setUserId(rs.getLong("COD_userId"));
                     forum.setName(rs.getString("NOM_forum"));
                     forum.setDescription(rs.getString("TXT_description"));
                     listAll.add(forum);

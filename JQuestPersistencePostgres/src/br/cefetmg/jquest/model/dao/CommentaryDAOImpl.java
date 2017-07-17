@@ -156,26 +156,27 @@ public class CommentaryDAOImpl implements CommentaryDAO {
     }
     
     @Override
-    public List<Commentary> getCommentarysByForumId(Long forumId) throws PersistenceException{
+    public List<Commentary> getCommentariesByForumId(Long forumId, Long questionId) throws PersistenceException{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            ArrayList<Commentary> list = null;
+            List<Commentary> list = new ArrayList<>();
             
-            String sql = "SELECT * FROM commentary "
-                    + "WHERE COD_discussão = ?;";
+            String sql = "SELECT * FROM comentary "
+                    + "WHERE COD_discussao = ? AND COD_questao = ?"
+                    + "ORDER BY SEQ_commentary";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, forumId);
+            pstmt.setLong(2, questionId);
             ResultSet rs = pstmt.executeQuery();
 
-            Commentary commentary = new Commentary();
             if (rs.next()) {
-                list = new ArrayList<>();
-                do{
-                    commentary.setQuestionId(rs.getLong("COD_questao"));
+                do {
+                    Commentary commentary = new Commentary();
+                    commentary.setQuestionId(questionId);
                     commentary.setDiscussionId(forumId);
                     commentary.setCommentarySeq(rs.getLong("SEQ_commentary"));
-                    commentary.setUserId(rs.getLong("COD_IDUser"));
+                    commentary.setUserId(rs.getLong("COD_userId"));
                     commentary.setTextCommentary(rs.getString("TXT_commentary"));
                     
                     list.add(commentary);

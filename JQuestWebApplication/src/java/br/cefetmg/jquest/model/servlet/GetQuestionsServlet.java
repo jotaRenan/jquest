@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,7 +66,7 @@ public class GetQuestionsServlet extends HttpServlet {
             questionList = questionManagement.getAll();
             
             //testa se questão foi recebida
-            if (questionList != null) {
+            if (!questionList.isEmpty()) {
                 result = "[";
                 for (Question question: questionList) {
                     switch(question.getType()) {
@@ -102,6 +101,7 @@ public class GetQuestionsServlet extends HttpServlet {
         }
         
         PrintWriter out = response.getWriter();
+        response.addHeader("Access-Control-Allow-Origin", "*");
         out.println(result);
     }
 

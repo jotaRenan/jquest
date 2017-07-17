@@ -170,10 +170,9 @@ public class ForumDAOImpl implements ForumDAO {
             
             ResultSet rs = pstmt.executeQuery();
 
-            ArrayList<Forum> listAll = null;
+            ArrayList<Forum> listAll = new ArrayList<>();
             
             if (rs.next()) {
-                listAll = new ArrayList<>();
                 do {
                     Forum forum = new Forum();
                     forum.setQuestionId(codQuestion);

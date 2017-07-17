@@ -58,6 +58,7 @@ public class GetForunsByQuestionIdServlet extends HttpServlet {
         
         response.setContentType("application/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         
         //pega parametro da URL
         String input = request.getParameter("id");
@@ -118,14 +119,13 @@ public class GetForunsByQuestionIdServlet extends HttpServlet {
             }
             
             else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                result = "[]";
             }
         
         } catch (PersistenceException ex) {
             result = ex.getMessage();
         }
         
-        response.addHeader("Access-Control-Allow-Origin", "*");
         PrintWriter out = response.getWriter();
         out.println(result);
         

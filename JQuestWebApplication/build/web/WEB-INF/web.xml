@@ -4,9 +4,25 @@
         <servlet-name>GetQuestionByIdServlet</servlet-name>
         <servlet-class>br.cefetmg.jquest.model.servlet.GetQuestionByIdServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetQuestionsServlet</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.GetQuestionsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetDomainsFullDataServlet</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.GetDomainsFullDataServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetQuestionByIdServlet</servlet-name>
         <url-pattern>/GetQuestionByIdServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetQuestionsServlet</servlet-name>
+        <url-pattern>/GetQuestionsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetDomainsFullDataServlet</servlet-name>
+        <url-pattern>/GetDomainsFullDataServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

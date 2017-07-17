@@ -15,15 +15,13 @@ public class Domain {
     private String name;
     private String description;
     private Long id;
-    private List<Module> modules;
 
     public Domain() {}
     
-    public Domain(String name, String description, Long id, List<Module> modules) {
+    public Domain(String name, String description, Long id) {
         this.name = name;
         this.description = description;
         this.id = id;
-        this.modules = modules;
     }
     
     public String getName() {
@@ -48,22 +46,6 @@ public class Domain {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Module> getModules() {
-        return modules;
-    }
-
-    public void setModules(List<Module> modules) {
-        this.modules = modules;
-    }
-    
-    public void addModule(Module module) {
-        modules.add(module);
-    }
-    
-    public void deleteModule(Module module) {
-        modules.remove(module);
     } 
     
 }

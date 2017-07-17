@@ -16,6 +16,10 @@
         <servlet-name>GetForunsByQuestionIdServlet</servlet-name>
         <servlet-class>br.cefetmg.jquest.model.servlet.GetForunsByQuestionIdServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateDomainServlet</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.CreateDomainServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetQuestionByIdServlet</servlet-name>
         <url-pattern>/GetQuestionByIdServlet</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>GetForunsByQuestionIdServlet</servlet-name>
         <url-pattern>/GetForunsByQuestionIdServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateDomainServlet</servlet-name>
+        <url-pattern>/CreateDomainServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

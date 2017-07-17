@@ -86,7 +86,6 @@ public class GetDomainsFullDataServlet extends HttpServlet {
                     
                     else {
                         result += "]";
-                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     }
                     
                     result += "},";

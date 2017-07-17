@@ -66,17 +66,17 @@ public class GetDomainsFullDataServlet extends HttpServlet {
                     modulesList = moduleManagement.getModulesByDomainId(domain.getId());
                     
                     result += "{"
-                            + "\"domainId\": " + domain.getId()
-                            + ", \"domainName\": \"" + domain.getName() + "\""
-                            + ", \"domainDescription\": \"" + domain.getDescription() + "\""
+                            + "\"id\": " + domain.getId()
+                            + ", \"name\": \"" + domain.getName() + "\""
+                            + ", \"description\": \"" + domain.getDescription() + "\""
                             + ", \"modules\": [";
                     
                     if (modulesList != null) {
                         for (Module module: modulesList) {
                             result += "{"
-                                    + "\"moduleId\": " + module.getId()
-                                    + ", \"moduleName\": \"" + module.getName() + "\""
-                                    + ", \"moduleDescription\": \"" + domain.getDescription() +"\""
+                                    + "\"id\": " + module.getId()
+                                    + ", \"name\": \"" + module.getName() + "\""
+                                    + ", \"description\": \"" + domain.getDescription() +"\""
                                     + "}, ";
                         }
                         int ult = result.lastIndexOf(',');

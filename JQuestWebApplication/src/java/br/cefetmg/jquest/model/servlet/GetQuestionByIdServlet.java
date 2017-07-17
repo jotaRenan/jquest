@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -118,7 +119,7 @@ public class GetQuestionByIdServlet extends HttpServlet {
         String res = "{"
                 + "\"id\": " + q.getId()
                 + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
-                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
+                + ", \"module\": \"" + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\""
                 + ", \"correctIndex\": " + this.selectCorrectAnswer(alternativesList)
@@ -138,7 +139,7 @@ public class GetQuestionByIdServlet extends HttpServlet {
         String res = "{"
                 + "\"id\": " + q.getId()
                 + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
-                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
+                + ", \"module\": \"" + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\"" 
                 + ", \"alternatives\": [";
@@ -158,7 +159,7 @@ public class GetQuestionByIdServlet extends HttpServlet {
         String res = "{"
                 + "\"id\": " + q.getId()
                 + ", \"domain\": \"" + this.getDomain(q.getDomainId()) + "\""
-                + ", \"module\": " + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
+                + ", \"module\": \"" + this.getModule(q.getModuleId(), q.getDomainId()) + "\""
                 + ", \"heading\": \"" + q.getHeadline() + "\""
                 + ", \"idt\": \"" + q.getType() + "\""
                 + "}";

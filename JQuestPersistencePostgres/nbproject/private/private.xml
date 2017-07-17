@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Thales/jquest/JQuestPersistencePostgres/src/br/cefetmg/jquest/model/dao/ForumDAOImpl.java</file>
-            <file>file:/C:/Users/Thales/jquest/JQuestPersistencePostgres/src/br/cefetmg/jquest/model/dao/DissertiveQuestionAnswerDAOImpl.java</file>
-            <file>file:/C:/Users/Thales/jquest/JQuestPersistencePostgres/src/br/cefetmg/jquest/model/dao/VoteDAOImpl.java</file>
-
+            <file>file:/C:/Users/pauli/Desktop/jquest/JQuestPersistencePostgres/src/br/cefetmg/jquest/util/db/PostgresqlConnection.java</file>
+            <file>file:/C:/Users/pauli/Desktop/jquest/JQuestPersistencePostgres/src/br/cefetmg/jquest/util/db/Password.java</file>
         </group>
     </open-files>
 </project-private>

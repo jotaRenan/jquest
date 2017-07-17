@@ -25,8 +25,20 @@
         <servlet-class>br.cefetmg.jquest.model.servlet.CreateDomainServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CreateModuleServlet</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.CreateModuleServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>CreateQuestionServlet</servlet-name>
         <servlet-class>br.cefetmg.jquest.model.servlet.CreateQuestionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateDomainServlet</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.UpdateDomainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateModuleServlet</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.UpdateModuleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -53,8 +65,20 @@
         <url-pattern>/CreateDomainServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CreateModuleServlet</servlet-name>
+        <url-pattern>/CreateModuleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CreateQuestionServlet</servlet-name>
         <url-pattern>/CreateQuestionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateDomainServlet</servlet-name>
+        <url-pattern>/UpdateDomainServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateModuleServlet</servlet-name>
+        <url-pattern>/UpdateModuleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

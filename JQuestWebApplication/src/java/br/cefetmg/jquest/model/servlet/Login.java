@@ -10,10 +10,10 @@ import br.cefetmg.jquest.model.domain.User;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import br.cefetmg.jquest.model.service.UserManagement;
 import br.cefetmg.jquest.model.service.UserManagementImpl;
+import br.cefetmg.jquest.model.servlet.util.ServletUtil;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Paula Ribeiro
+ * @url /Login
  */
 public class Login extends HttpServlet {
     private User user;
     private UserManagement userManagement;
     private String result;
+    private ServletUtil util;
+    private Gson gson;
     
     
     /**
@@ -48,10 +51,13 @@ public class Login extends HttpServlet {
         userManagement = new UserManagementImpl(UserDAOImpl.getInstance());
         
         try {
-                        
-            //pega parametro da URL
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
+             
+            util = new ServletUtil();
+            // recebe a questao enviada no payload via POST
+            String payload = util.getJson(request);
+            user = this.userFromJson(payload);
+            String email = user.getEmail();
+            String password = user.getPassword();
             
             user = userManagement.getUserByEmail(email);
             
@@ -89,6 +95,11 @@ public class Login extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Logs users in";
-    }
+    }   
 
+    private User userFromJson(String str) {
+        gson = new Gson();
+        User user = gson.fromJson(str, User.class);
+        return user;
+    }
 }

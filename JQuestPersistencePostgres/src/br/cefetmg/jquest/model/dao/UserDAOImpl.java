@@ -189,5 +189,38 @@ public class UserDAOImpl implements UserDAO {
             throw new PersistenceException(e);
         }
     }
+
+    @Override
+    public User getUserByEmail(String email) throws PersistenceException {
+        try {
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM \"user\" WHERE nom_email = ? ";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            User user = null;
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getLong("cod_userid"));
+                user.setUserName(rs.getString("nom_username"));
+                user.setEmail(rs.getString("nom_email"));
+                user.setPassword(rs.getString("txt_password"));
+                user.setIdtProfile(rs.getString("idt_profile").charAt(0));
+            }
+
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return user;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
+        }
+    }
     
 }

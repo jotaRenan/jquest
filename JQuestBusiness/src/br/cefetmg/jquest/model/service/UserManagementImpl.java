@@ -96,5 +96,13 @@ public class UserManagementImpl implements UserManagement {
     public List<User> getAll() throws PersistenceException {
         return userDAO.listAll();
     }
+
+    @Override
+    public User getUserByEmail(String email) throws PersistenceException {
+        if (email == null || email.isEmpty()) {
+            throw new PersistenceException("User's email cannot be null");
+        }
+        return userDAO.getUserByEmail(email);
+    }
     
 }

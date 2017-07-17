@@ -19,5 +19,6 @@ public interface UserManagement {
     public boolean userUpdate(User user) throws BusinessException, PersistenceException;
     public boolean userRemove(Long userId) throws PersistenceException;
     public User getUserById(Long userId) throws PersistenceException;
+    public User getUserByEmail(String email) throws PersistenceException;
     public List<User> getAll() throws PersistenceException;
 }

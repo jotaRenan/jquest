@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.Login</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>GetQuestionByIdServlet</servlet-name>
         <servlet-class>br.cefetmg.jquest.model.servlet.GetQuestionByIdServlet</servlet-class>
     </servlet>
@@ -24,6 +28,10 @@
         <servlet-name>CreateQuestionServlet</servlet-name>
         <servlet-class>br.cefetmg.jquest.model.servlet.CreateQuestionServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetQuestionByIdServlet</servlet-name>
         <url-pattern>/GetQuestionByIdServlet</url-pattern>

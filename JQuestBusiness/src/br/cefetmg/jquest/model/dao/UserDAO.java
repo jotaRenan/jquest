@@ -18,5 +18,6 @@ public interface UserDAO {
     public boolean update(User user) throws PersistenceException;
     public boolean remove(Long userId) throws PersistenceException;
     public User getUserById(Long userId) throws PersistenceException;
+    public User getUserByEmail(String email) throws PersistenceException;
     public List<User> listAll() throws PersistenceException;
 }

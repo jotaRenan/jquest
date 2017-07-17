@@ -80,19 +80,32 @@ public class DissertiveQuestionAnswerManagementImpl implements DissertiveQuestio
     }
 
     @Override
-    public boolean DissertiveQuestionAnswerRemove(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException {
+    public boolean DissertiveQuestionAnswerRemove(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException {
+        if(COD_userIDUseLog == null)
+            throw new PersistenceException("The COD_userIDUseLog can't be null.");
+        if(COD_question == null)
+            throw new PersistenceException("The COD_question can't be null.");
         if(seqAnswerUser == null)
             throw new PersistenceException("The seqanswerUser can't be null.");
          
-       return DAO.remove(COD_userIDUseLog, COD_questio, seqAnswerUser);
+       return DAO.remove(COD_userIDUseLog, COD_question, seqAnswerUser);
     }
 
     @Override
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException {
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException {
+        if(COD_userIDUseLog == null)
+            throw new PersistenceException("The COD_userIDUseLog can't be null.");
+        if(COD_question == null)
+            throw new PersistenceException("The COD_question can't be null.");
         if(seqAnswerUser == null)
             throw new PersistenceException("The seqanswerUser can't be null.");
+         
+        return DAO.getDissertiveQuestionAnswerById(COD_userIDUseLog, COD_question, seqAnswerUser);
+    }
 
-        return DAO.getDissertiveQuestionAnswerById(COD_userIDUseLog, COD_questio, seqAnswerUser);
+    @Override
+    public List<DissertiveQuestionAnswer> getPendentDissertativeQuestions() throws PersistenceException {
+        return  DAO.listPendentDissertativeQuestions();
     }
 
 

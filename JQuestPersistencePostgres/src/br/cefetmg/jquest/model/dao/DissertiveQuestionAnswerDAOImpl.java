@@ -205,4 +205,41 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
         }
     }    
 
+    @Override
+    public List<DissertiveQuestionAnswer> listPendentDissertativeQuestions() throws PersistenceException {
+        try {    
+            Connection connection = ConnectionManager.getInstance().getConnection();
+
+            String sql = "SELECT * FROM DissertiveQuestionAnswer WHERE VLE_grade = null";
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);            
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayList<DissertiveQuestionAnswer> listAll = null;
+            DissertiveQuestionAnswer dissertiveQuestionAnswer = null;
+            
+            if (rs.next()) {
+                listAll = new ArrayList<>();
+                do {
+                    dissertiveQuestionAnswer.setUserID(rs.getLong("COD_ID"));
+                    dissertiveQuestionAnswer.setQuestionID(rs.getLong("COD_question"));
+                    dissertiveQuestionAnswer.setSeqAnswerUser(rs.getLong("SEQ_use"));
+                    dissertiveQuestionAnswer.setTxtAnswer(rs.getString("TXT_answer"));
+                    dissertiveQuestionAnswer.setValueScore(rs.getDouble("VLE_grade"));
+                    listAll.add(dissertiveQuestionAnswer);
+                } while (rs.next());
+            }
+            
+            rs.close();
+            pstmt.close();
+            connection.close();
+
+            return listAll;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new PersistenceException(e);
+        }
+    }
+
 }

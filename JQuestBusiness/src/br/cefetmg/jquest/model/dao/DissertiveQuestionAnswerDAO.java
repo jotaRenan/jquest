@@ -62,4 +62,7 @@ public interface DissertiveQuestionAnswerDAO {
      * presistence.
      */
     public List<DissertiveQuestionAnswer> listAllDissetiveAnswersByUserID(Long userID) throws PersistenceException; 
+    
+    public List<DissertiveQuestionAnswer> listPendentDissertativeQuestions() throws PersistenceException;
+   
 }

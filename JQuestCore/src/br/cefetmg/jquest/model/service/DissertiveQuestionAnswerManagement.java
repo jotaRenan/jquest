@@ -61,5 +61,7 @@ public interface DissertiveQuestionAnswerManagement {
      * presistence.
      */
     public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException;
+    
+    public List<DissertiveQuestionAnswer> getPendentDissertativeQuestions() throws PersistenceException;
    
 }

@@ -98,7 +98,7 @@ public class UseLogDAOImpl implements UseLogDAO {
     }
 
     @Override
-    public boolean remove(Long useLogSeq, Long userId) throws PersistenceException {
+    public boolean remove(Long userId, Long useLogSeq) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
@@ -121,7 +121,7 @@ public class UseLogDAOImpl implements UseLogDAO {
     }
 
     @Override
-    public UseLog getUseLogBySeq(Long useLogSeq, Long userId) throws PersistenceException {
+    public UseLog getUseLogBySeq(Long userId, Long useLogSeq) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 

@@ -84,17 +84,15 @@ public class DissertiveQuestionAnswerDAOImpl implements DissertiveQuestionAnswer
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "UPDATE DissertiveQuestionAnswer "
-                    + " SET COD_ID = ?, "
-                    + "     COD_question = ? "
-                    + "     TXT_answer = ?"
+                    + " SET TXT_answer = ?"
                     + "     VLE_grade = ?"
-                    + "WHERE SEQ_discussion = ?;";
+                    + "WHERE COD_userIDUseLog = ? AND COD_question = ? AND SEQ_discussion = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, dissertiveQuestionAnswer.getUserID());
-            pstmt.setLong(2, dissertiveQuestionAnswer.getQuestionID());
-            pstmt.setString(3, dissertiveQuestionAnswer.getTxtAnswer());
-            pstmt.setDouble(4, dissertiveQuestionAnswer.getValueScore());
+            pstmt.setString(1, dissertiveQuestionAnswer.getTxtAnswer());
+            pstmt.setDouble(2, dissertiveQuestionAnswer.getValueScore());
+            pstmt.setLong(3, dissertiveQuestionAnswer.getUserID());
+            pstmt.setLong(4, dissertiveQuestionAnswer.getQuestionID());
             pstmt.setLong(5, dissertiveQuestionAnswer.getSeqAnswerUser());
             pstmt.executeUpdate();
 

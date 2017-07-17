@@ -83,19 +83,19 @@ public class CommentaryManagementImpl implements CommentaryManagement{
     }
 
     @Override
-    public boolean commentaryRemove(Long commentarySeq) throws PersistenceException {
+    public boolean commentaryRemove(Long COD_questao, Long COD_discussao, Long commentarySeq) throws PersistenceException {
         if (commentarySeq == null) {
             throw new PersistenceException("Commentary's sequence cannot be null");
         }
-        return commentaryDAO.remove(commentarySeq);
+        return commentaryDAO.remove(COD_questao, COD_discussao, commentarySeq);
     }
 
     @Override
-    public Commentary getcommentaryBySeq(Long commentarySeq) throws PersistenceException {
+    public Commentary getcommentaryBySeq(Long COD_questao, Long COD_discussao, Long commentarySeq) throws PersistenceException {
         if (commentarySeq == null)
             throw new PersistenceException("Commentary's sequence cannot be null");
         
-        return commentaryDAO.getCommentaryBySeq(commentarySeq); //if the id isn't valid it throws an exception
+        return commentaryDAO.getCommentaryBySeq(COD_questao, COD_discussao, commentarySeq); //if the id isn't valid it throws an exception
     }
 
     @Override
@@ -106,11 +106,5 @@ public class CommentaryManagementImpl implements CommentaryManagement{
 
         return commentaryDAO.getCommentarysByForumId(forumId);
     }
-    
-    @Override
-    public List<Commentary> getAll() throws PersistenceException {
-        List<Commentary> list = commentaryDAO.listAll();
-        return list;
-    }
-    
+
 }

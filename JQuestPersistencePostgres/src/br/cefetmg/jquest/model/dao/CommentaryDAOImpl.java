@@ -74,17 +74,15 @@ public class CommentaryDAOImpl implements CommentaryDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "UPDATE commentary "
-                    + " SET COD_questao =?,"
-                    + "     COD_discussao = ?, "
-                    + "     COD_IDUser = ?,"
+                    + " SET COD_IDUser = ?,"
                     + "     TXT_commentary = ?,"
-                    + " WHERE SEQ_commentary = ?;";
+                    + " WHERE COD_questao = ? AND COD_discussao = ? AND SEQ_commentary = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, commentary.getQuestionId());
-            pstmt.setLong(2, commentary.getDiscussionId());
-            pstmt.setLong(3, commentary.getUserId());
-            pstmt.setString(4, commentary.getTextCommentary());
+            pstmt.setLong(1, commentary.getUserId());
+            pstmt.setString(2, commentary.getTextCommentary());
+            pstmt.setLong(3, commentary.getQuestionId());
+            pstmt.setLong(4, commentary.getDiscussionId());
             pstmt.setLong(5, commentary.getCommentarySeq());
             pstmt.executeUpdate();
 
@@ -100,15 +98,17 @@ public class CommentaryDAOImpl implements CommentaryDAO {
     }
 
     @Override
-    public boolean remove(Long seqCommentary) throws PersistenceException {
+    public boolean remove(Long COD_questao, Long COD_discussao, Long commentarySeq) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "DELETE FROM commentary "
-                    + "WHERE SEQ_commentary = ?;";
-
+                    + "WHERE COD_questao = ? AND COD_discussao = ? AND SEQ_commentary = ?;";
+            
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, seqCommentary);
+            pstmt.setLong(1, COD_questao);
+            pstmt.setLong(2, COD_discussao);
+            pstmt.setLong(3, commentarySeq);
             pstmt.executeUpdate();
 
             pstmt.close();
@@ -123,21 +123,23 @@ public class CommentaryDAOImpl implements CommentaryDAO {
     }
 
     @Override
-    public Commentary getCommentaryBySeq(Long seqCommentary) throws PersistenceException {
+    public Commentary getCommentaryBySeq(Long COD_questao, Long COD_discussao, Long commentarySeq) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
-            String sql = "SELECT * FROM commentary WHERE SEQ_commentary = ? ";
-
+            String sql = "SELECT * FROM commentary WHERE COD_questao = ? AND COD_discussao = ? AND SEQ_commentary = ?;";
+            
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setLong(1, seqCommentary);
+            pstmt.setLong(1, COD_questao);
+            pstmt.setLong(2, COD_discussao);
+            pstmt.setLong(3, commentarySeq);
             ResultSet rs = pstmt.executeQuery();
 
             Commentary commentary = new Commentary();
             if (rs.next()) {
-                commentary.setQuestionId(rs.getLong("COD_questao"));
-                commentary.setDiscussionId(rs.getLong("COD_discussao"));
-                commentary.setCommentarySeq(seqCommentary);
+                commentary.setQuestionId(COD_questao);
+                commentary.setDiscussionId(COD_discussao);
+                commentary.setCommentarySeq(commentarySeq);
                 commentary.setUserId(rs.getLong("COD_IDUser"));
                 commentary.setTextCommentary(rs.getString("TXT_commentary"));
             }
@@ -191,7 +193,6 @@ public class CommentaryDAOImpl implements CommentaryDAO {
         }
     }
  
-    @Override
     public List<Commentary> listAll() throws PersistenceException {
         try {    
             Connection connection = ConnectionManager.getInstance().getConnection();

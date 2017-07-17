@@ -14,7 +14,6 @@ import br.cefetmg.jquest.model.dao.UserDAOImpl;
 import br.cefetmg.jquest.model.domain.MultipleChoiceAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
-import java.util.List;
 
 public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerManagement{
     
@@ -64,21 +63,39 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
     }
 
     @Override
-    public boolean remove(Long multipleChoiceAnswerId) throws PersistenceException {
-        if (multipleChoiceAnswerId == null) {
-            throw new PersistenceException("MultipleChoiceAnswerID canot be null.");
+    public boolean remove(Long COD_userIDUseLog, Long SEQ_use, Long questionId, Long SEQ_useAnswer) throws PersistenceException {
+        if (COD_userIDUseLog == null ) {
+            throw new PersistenceException("UserID canot be null.");
         }
-        DAO.remove(multipleChoiceAnswerId);  
+        if (SEQ_use == null ) {
+            throw new PersistenceException("SeqUse canot be null.");
+        }
+        if (questionId == null ) {
+            throw new PersistenceException("questionID canot be null.");
+        }
+        if (SEQ_useAnswer == null ) {
+            throw new PersistenceException("SEQ_useAnswer canot be null.");
+        }
+        DAO.remove(COD_userIDUseLog, SEQ_use, questionId, SEQ_useAnswer);  
         return true;
     }
 
     @Override
-    public MultipleChoiceAnswer getAnswerById(Long multipleChoiceAnswerId, Long questionId) throws PersistenceException {
-        if(multipleChoiceAnswerId == null || questionId == null) {
-            throw new PersistenceException("multipleChoiceAnswerId and questionId can't be null.");
-        } 
+    public MultipleChoiceAnswer getAnswerById(Long COD_userIDUseLog, Long SEQ_use, Long questionId, Long SEQ_useAnswer) throws PersistenceException {
+        if (COD_userIDUseLog == null ) {
+            throw new PersistenceException("UserID canot be null.");
+        }
+        if (SEQ_use == null ) {
+            throw new PersistenceException("SeqUse canot be null.");
+        }
+        if (questionId == null ) {
+            throw new PersistenceException("questionID canot be null.");
+        }
+        if (SEQ_useAnswer == null ) {
+            throw new PersistenceException("SEQ_useAnswer canot be null.");
+        }
         
-        return DAO.getAnswerById(multipleChoiceAnswerId, questionId);
+        return DAO.getAnswerById(COD_userIDUseLog, SEQ_use, questionId, SEQ_useAnswer);
     }
     
     @Override
@@ -97,12 +114,6 @@ public class MultipleChoiceAnswerManagmentImpl implements MultipleChoiceAnswerMa
         }
 
         return DAO.getAllByUserId(userId);
-    }
-
-    @Override
-    public List<MultipleChoiceAnswer> getAll() throws PersistenceException {
-        List<MultipleChoiceAnswer> aux = DAO.listAll();
-        return aux;
     }
  
 }

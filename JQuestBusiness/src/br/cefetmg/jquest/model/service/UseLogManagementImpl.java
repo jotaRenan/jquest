@@ -58,19 +58,26 @@ public class UseLogManagementImpl implements UseLogManagement{
     }
 
     @Override
-    public boolean useLogRemove(Long useLogSeq, Long userId) throws PersistenceException {
+    public boolean useLogRemove(Long userId, Long useLogSeq) throws PersistenceException {
         if (useLogSeq == null) {
             throw new PersistenceException("UseLog's sequence cannot be null");
         }
-        return useLogDAO.remove(useLogSeq, userId);
+        if (userId == null) {
+            throw new PersistenceException("userID cannot be null");
+        }
+        return useLogDAO.remove(userId, useLogSeq);
     }
 
     @Override
-    public UseLog getUseLogBySeq(Long useLogSeq, Long userId) throws PersistenceException {
-        if (useLogSeq == null)
-            throw new PersistenceException("UseLogs's sequence cannot be null");
+    public UseLog getUseLogBySeq(Long userId, Long useLogSeq) throws PersistenceException {
+        if (useLogSeq == null) {
+            throw new PersistenceException("UseLog's sequence cannot be null");
+        }
+        if (userId == null) {
+            throw new PersistenceException("userID cannot be null");
+        }
         
-        return useLogDAO.getUseLogBySeq(useLogSeq, userId); //if the id isn't valid it throws an exception
+        return useLogDAO.getUseLogBySeq(userId, useLogSeq); //if the id isn't valid it throws an exception
     }
 
     @Override

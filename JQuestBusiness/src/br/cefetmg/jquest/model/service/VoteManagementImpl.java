@@ -50,7 +50,7 @@ public class VoteManagementImpl implements VoteManagement {
         if(vote == null)
             throw new PersistenceException("The object vote cannot be null.");
         
-        if(vote.getCommentarySeq() == null || commentaryManagement.getcommentaryBySeq(vote.getCommentarySeq()) == null)
+        if(vote.getCommentarySeq() == null || commentaryManagement.getcommentaryBySeq(vote.getQuestionId(), vote.getDiscussionSeq(), vote.getCommentarySeq()) == null)
             throw new PersistenceException("commentarySeq doesn't exist.");
         
         if(vote.getDiscussionSeq() == null || forumManagement.getForumById(vote.getDiscussionSeq(), vote.getQuestionId()) == null)

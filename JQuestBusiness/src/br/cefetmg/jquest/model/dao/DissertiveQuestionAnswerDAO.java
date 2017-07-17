@@ -34,21 +34,25 @@ public interface DissertiveQuestionAnswerDAO {
     
     /**
      * Removes the DissertiveQuestionAnswer object in the persistence.
+     * @param COD_userIDUseLog
+     * @param COD_question
      * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be removed by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public boolean remove(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException;
+    public boolean remove(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * Get the DissertiveQuestionAnswer object by id in the persistence.
+     * @param COD_userIDUseLog
+     * @param COD_question
      * @param seqAnswerUser The sequential number of the user answer to this question.
      * @return The object to be removed by the DAO.
      * @throws PersistenceException When occours some unexpected error in the
      * presistence.
      */
-    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_questio, Long seqAnswerUser) throws PersistenceException;
+    public DissertiveQuestionAnswer getDissertiveQuestionAnswerById(Long COD_userIDUseLog, Long COD_question, Long seqAnswerUser) throws PersistenceException;
     
     /**
      * List all the DissertiveQuestionAnswer objects in the persistence.

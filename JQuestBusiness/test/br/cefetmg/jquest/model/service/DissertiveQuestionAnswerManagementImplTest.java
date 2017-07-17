@@ -130,7 +130,7 @@ public class DissertiveQuestionAnswerManagementImplTest {
     }
     
     @Test
-    public void testDissertiveQuestionAnswerUpdateNullTxtAwnser() {
+    public void testDissertiveQuestionAnswerUpdateNullTxtanswer() {
          try {
             dissertiveQuestionAnswerManagement.DissertiveQuestionAnswerInsert(dissertiveQuestionAnswer);
         } catch (BusinessException | PersistenceException ex) {

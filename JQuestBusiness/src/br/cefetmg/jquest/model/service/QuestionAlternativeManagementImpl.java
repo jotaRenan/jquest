@@ -59,19 +59,21 @@ public class QuestionAlternativeManagementImpl implements QuestionAlternativeMan
     }
 
     @Override
-    public boolean remove(Long questionAltId, Long questionId) throws PersistenceException {
+    public boolean remove(Long questionId, Long questionAltId) throws PersistenceException {
         if (questionAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
+        if(questionAltId == null)
+            throw new PersistenceException("questionAltId cannot be null.");
         
-        return questionAltDAO.remove(questionAltId, questionId);
+        return questionAltDAO.remove(questionId, questionAltId);
     }
 
     @Override
-    public QuestionAlternative getQuestionAlternativeById(Long questionAltId, Long questionId) throws PersistenceException {
+    public QuestionAlternative getQuestionAlternativeById(Long questionId, Long questionAltId) throws PersistenceException {
         if (questionAltId == null)
             throw new PersistenceException("Answer's id cannot be null");
         
-        return questionAltDAO.getQuestionAlternativeById(questionAltId, questionId); //if the id isn't valid it throws an exception
+        return questionAltDAO.getQuestionAlternativeById(questionId, questionAltId); //if the id isn't valid it throws an exception
     }
     
     @Override
@@ -83,10 +85,5 @@ public class QuestionAlternativeManagementImpl implements QuestionAlternativeMan
         return questionAltDAO.getAlternativesByQuestionId(questionId);
     }
 
-    @Override
-    public List<QuestionAlternative> listAll() throws PersistenceException {
-        List<QuestionAlternative> list = questionAltDAO.listAll();        
-        return list;
-    }
     
 }

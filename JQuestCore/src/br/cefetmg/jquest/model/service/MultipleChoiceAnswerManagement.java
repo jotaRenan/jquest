@@ -8,7 +8,6 @@ package br.cefetmg.jquest.model.service;
 import br.cefetmg.jquest.model.domain.MultipleChoiceAnswer;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
-import java.util.List;
 
 /**
  *
@@ -17,9 +16,8 @@ import java.util.List;
 public interface MultipleChoiceAnswerManagement {
     public Long insert(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException;
     public boolean update(MultipleChoiceAnswer multipleChoiceAnswer) throws BusinessException, PersistenceException;
-    public boolean remove(Long multipleChoiceAnswerId) throws PersistenceException;
-    public MultipleChoiceAnswer getAnswerById(Long multipleChoiceAnswerId, Long questionId) throws PersistenceException;
+    public boolean remove(Long COD_userIDUseLog, Long SEQ_use, Long questionId, Long SEQ_useAnswer) throws PersistenceException;
+    public MultipleChoiceAnswer getAnswerById(Long COD_userIDUseLog, Long SEQ_use, Long questionId, Long SEQ_useAnswer) throws PersistenceException;
     public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException;
     public MultipleChoiceAnswer getAllByUserId(Long userId) throws PersistenceException;
-    public List<MultipleChoiceAnswer> getAll() throws PersistenceException;
 }

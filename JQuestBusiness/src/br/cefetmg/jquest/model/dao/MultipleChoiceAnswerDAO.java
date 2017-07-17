@@ -16,9 +16,9 @@ import java.util.List;
 public interface MultipleChoiceAnswerDAO {
     public Long insert(MultipleChoiceAnswer multChoiceAnswer) throws PersistenceException;
     public boolean update(MultipleChoiceAnswer multChoiceAnswer) throws PersistenceException;
-    public boolean remove(Long multChoiceAnswerId) throws PersistenceException;
-    public MultipleChoiceAnswer getAnswerById(Long multChoiceAnswerId, Long questionId) throws PersistenceException;
+    public boolean remove(Long COD_userIDUseLog, Long SEQ_use, Long questionId, Long SEQ_useAnswer) throws PersistenceException;
+    public MultipleChoiceAnswer getAnswerById(Long COD_userIDUseLog, Long SEQ_use, Long questionId, Long SEQ_useAnswer) throws PersistenceException;
     public MultipleChoiceAnswer getAnswersByUserAndQuestionId(Long userId, Long questionId) throws PersistenceException;
     public MultipleChoiceAnswer getAllByUserId(Long userId) throws PersistenceException;
-    public List<MultipleChoiceAnswer> listAll() throws PersistenceException;
+
 }

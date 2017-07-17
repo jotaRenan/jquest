@@ -105,7 +105,7 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
     }
 
     @Override
-    public boolean remove(Long closedEndedAltId, Long questionId) throws PersistenceException {
+    public boolean remove(Long questionId, Long closedEndedAltId) throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
@@ -196,7 +196,6 @@ public class QuestionAlternativeDAOImpl implements QuestionAlternativeDAO {
         }
     }
     
-    @Override
     public List<QuestionAlternative> listAll() throws PersistenceException {
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();

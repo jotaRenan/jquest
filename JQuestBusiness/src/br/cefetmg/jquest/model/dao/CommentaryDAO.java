@@ -16,8 +16,7 @@ import java.util.List;
 public interface CommentaryDAO {
     public Long insert(Commentary commentary) throws PersistenceException;
     public boolean update(Commentary commentary) throws PersistenceException;
-    public boolean remove(Long commentarySeq) throws PersistenceException;
-    public Commentary getCommentaryBySeq(Long commentarySeq) throws PersistenceException;
+    public boolean remove(Long COD_questao, Long COD_discussao, Long commentarySeq) throws PersistenceException;
+    public Commentary getCommentaryBySeq(Long COD_questao, Long COD_discussao, Long commentarySeq) throws PersistenceException;
     public List<Commentary> getCommentarysByForumId(Long forumId) throws PersistenceException;
-    public List<Commentary> listAll() throws PersistenceException; 
 }

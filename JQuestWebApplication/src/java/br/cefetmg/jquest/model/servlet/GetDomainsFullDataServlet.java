@@ -76,7 +76,7 @@ public class GetDomainsFullDataServlet extends HttpServlet {
                             result += "{"
                                     + "\"id\": " + module.getId()
                                     + ", \"name\": \"" + module.getName() + "\""
-                                    + ", \"description\": \"" + domain.getDescription() +"\""
+                                    + ", \"description\": \"" + module.getDescription() +"\""
                                     + "}, ";
                         }
                         int ult = result.lastIndexOf(',');

@@ -96,7 +96,8 @@ public class VoteManagementImplTest {
         } catch (BusinessException | PersistenceException ex) {
             fail("Couldn't insert vote");
         }
-        VoteManag.voteRemove(vote.getCommentarySeq(), vote.getUserId());
+        VoteManag.voteRemove(vote.getQuestionId(), vote.getDiscussionSeq(), vote.getCommentarySeq(), vote.getUserId());
+    
     }
     
     @Test

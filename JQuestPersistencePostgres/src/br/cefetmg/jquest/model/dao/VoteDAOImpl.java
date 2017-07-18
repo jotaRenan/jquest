@@ -76,7 +76,7 @@ public class VoteDAOImpl implements VoteDAO {
                     + "     SEQ_discussion = ?, "
                     + "     IDT_like = ?,"
                     + " WHERE SEQ_commentary = ?"
-                    + "AND COD_ID = ?;";
+                    + "AND COD_userID = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, vote.getQuestionId());
@@ -103,7 +103,7 @@ public class VoteDAOImpl implements VoteDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "DELETE FROM vote "
-                    + "WHERE COD_question = ? AND SEQ_discussion = ? AND SEQ_commentary = ? AND COD_ID = ?;";
+                    + "WHERE COD_question = ? AND SEQ_discussion = ? AND SEQ_commentary = ? AND COD_userID = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, COD_question);
@@ -129,7 +129,7 @@ public class VoteDAOImpl implements VoteDAO {
             Connection connection = ConnectionManager.getInstance().getConnection();
 
             String sql = "SELECT * FROM vote "
-                    + "WHERE COD_question = ? AND SEQ_discussion = ? AND SEQ_commentary = ? AND COD_ID = ?;";
+                    + "WHERE COD_question = ? AND SEQ_discussion = ? AND SEQ_commentary = ? AND COD_userID = ?;";
 
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setLong(1, COD_question);
@@ -180,7 +180,7 @@ public class VoteDAOImpl implements VoteDAO {
                     vote.setQuestionId(rs.getLong("COD_question"));
                     vote.setDiscussionSeq(rs.getLong("SEQ_discussion"));
                     vote.setCommentarySeq(rs.getLong("SEQ_commentary"));
-                    vote.setUserId(rs.getLong("COD_ID"));
+                    vote.setUserId(rs.getLong("COD_userID"));
                     vote.setIsLiked(rs.getBoolean("IDT_like"));
                     listAll.add(vote);
                 } while (rs.next());

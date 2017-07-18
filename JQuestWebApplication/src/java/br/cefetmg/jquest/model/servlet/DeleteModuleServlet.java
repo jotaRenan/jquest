@@ -56,7 +56,7 @@ private ModuleManagement moduleManagement;
             Module module = this.moduleFromJson(payload);
             moduleManagement = new ModuleManagementImpl(ModuleDAOImpl.getInstance());
             
-            moduleManagement.moduleRemove(module.getId(), module.getId());
+            moduleManagement.moduleRemove(module.getId(), module.getDomainId());
             
             response.setStatus(HttpServletResponse.SC_OK);
         } catch ( PersistenceException e) {

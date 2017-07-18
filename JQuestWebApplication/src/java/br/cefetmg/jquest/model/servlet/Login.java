@@ -5,15 +5,21 @@
  */
 package br.cefetmg.jquest.model.servlet;
 
+import br.cefetmg.jquest.model.dao.UseLogDAOImpl;
 import br.cefetmg.jquest.model.dao.UserDAOImpl;
+import br.cefetmg.jquest.model.domain.UseLog;
 import br.cefetmg.jquest.model.domain.User;
+import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
+import br.cefetmg.jquest.model.service.UseLogManagement;
+import br.cefetmg.jquest.model.service.UseLogManagementImpl;
 import br.cefetmg.jquest.model.service.UserManagement;
 import br.cefetmg.jquest.model.service.UserManagementImpl;
 import br.cefetmg.jquest.model.servlet.util.ServletUtil;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +36,8 @@ public class Login extends HttpServlet {
     private String result;
     private ServletUtil util;
     private Gson gson;
-    
+    private UseLogManagement useLogManagement;
+    private UseLog useLog;
     
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -68,6 +75,12 @@ public class Login extends HttpServlet {
                            + ", \"idt\": \"" + user.getIdtProfile() + "\""
                            + "}";
                     response.setStatus(HttpServletResponse.SC_OK);
+                    
+                    useLogManagement = new UseLogManagementImpl(UseLogDAOImpl.getInstance());
+                    useLog.setIdUser(user.getId());
+                    useLog.setUseDate(new Date());
+                    
+                    useLogManagement.useLogInsert(useLog);
                 }
                 
                 else {
@@ -78,7 +91,7 @@ public class Login extends HttpServlet {
             else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
-        } catch (PersistenceException ex) {
+        } catch (PersistenceException | BusinessException ex) {
             result = ex.getMessage();
         }
         
@@ -99,7 +112,7 @@ public class Login extends HttpServlet {
 
     private User userFromJson(String str) {
         gson = new Gson();
-        User user = gson.fromJson(str, User.class);
+        user = gson.fromJson(str, User.class);
         return user;
     }
 }

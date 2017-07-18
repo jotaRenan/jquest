@@ -9,7 +9,6 @@ import br.cefetmg.jquest.model.dao.CommentaryDAOImpl;
 import br.cefetmg.jquest.model.domain.Commentary;
 import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -79,7 +78,7 @@ public class CommentaryManagementImplTest {
     @Test(expected=PersistenceException.class)
     public void testCommentaryRemove() throws Exception {
         Long commentSeq = null;
-        commentManager.commentaryRemove(commentSeq);
+        commentManager.commentaryRemove(comment.getQuestionId(), comment.getDiscussionId(), commentSeq);
     }
 
     /**
@@ -88,7 +87,7 @@ public class CommentaryManagementImplTest {
     @Test(expected=PersistenceException.class)
     public void testGetcommentaryBySeq() throws Exception {
         Long commentSeq = null;
-        commentManager.getcommentaryBySeq(commentSeq);
+        commentManager.getcommentaryBySeq(comment.getQuestionId(), comment.getDiscussionId(), commentSeq);
     }
 
     /**
@@ -97,15 +96,19 @@ public class CommentaryManagementImplTest {
     @Test(expected=PersistenceException.class)
     public void testGetCommentariesByForumId() throws Exception {
         Long forumId = null;
-        commentManager.getCommentarysByForumId(forumId);
+        commentManager.getCommentariesByForumId(forumId, comment.getQuestionId());
     }
 
     /**
      * Test of getAll method, of class CommentaryManagementImpl.
      */
     @Test
-    public void testGetAll() throws Exception {
-        
+    public void testGetAll() {
+        try {
+            commentManager.getCommentariesByForumId(comment.getDiscussionId(), comment.getQuestionId());
+        } catch (PersistenceException ex) {
+            fail("Failed to get comments");
+        }
     }
     
 }

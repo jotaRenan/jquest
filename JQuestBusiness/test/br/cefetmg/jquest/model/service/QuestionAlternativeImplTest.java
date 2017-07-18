@@ -99,7 +99,8 @@ public class QuestionAlternativeImplTest {
     public void testQuestionAltGetQuestionAltByNullId() {
         try {
             Long id = null;
-            questionAltManagement.getQuestionAlternativeById(id);
+            Long closedEndedAltId = null;
+            questionAltManagement.getQuestionAlternativeById(id, closedEndedAltId);
         } catch (PersistenceException ex) {
             String msgErr = ex.getMessage();
             String msgEsperada = "Answer's id cannot be null";
@@ -113,7 +114,8 @@ public class QuestionAlternativeImplTest {
     public void testQuestionAltNullQuestionIdRemoval() throws PersistenceException, BusinessException {
         try {
             this.questionAlt.setQuestionId(null);
-            questionAltManagement.remove(questionAlt.getQuestionId());
+            this.questionAlt.setOptionSeq(null);
+            questionAltManagement.remove(questionAlt.getQuestionId(), questionAlt.getOptionSeq());
         } catch (PersistenceException ex) {
             ArrayList<String> msgErr = new ArrayList<>(Arrays.asList(ex.getMessage().split("\n")));
             String msgEsperada = "Answer's id cannot be null";

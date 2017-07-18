@@ -69,7 +69,10 @@ public class MultipleChoiceAnswerManagementImplTest {
     public void testMultChAnswerNullOptionSeqRemoval() {
         try {
             this.multChAnswer.setOptionSeq(null);
-            multChAnswerManag.remove(multChAnswer.getOptionSeq());
+            this.multChAnswer.setQuestionId(null);
+            this.multChAnswer.setUseSeq(null);
+            this.multChAnswer.setUserId(null);
+            multChAnswerManag.remove(multChAnswer.getUserId(), multChAnswer.getUseSeq(), multChAnswer.getQuestionId(), multChAnswer.getOptionSeq());
         } catch (PersistenceException ex) {
             return;
         }

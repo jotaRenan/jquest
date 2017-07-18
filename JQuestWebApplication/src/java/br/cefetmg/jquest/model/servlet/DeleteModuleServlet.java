@@ -7,7 +7,6 @@ package br.cefetmg.jquest.model.servlet;
 
 import br.cefetmg.jquest.model.dao.ModuleDAOImpl;
 import br.cefetmg.jquest.model.domain.Module;
-import br.cefetmg.jquest.model.exception.BusinessException;
 import br.cefetmg.jquest.model.exception.PersistenceException;
 import br.cefetmg.jquest.model.service.ModuleManagement;
 import br.cefetmg.jquest.model.service.ModuleManagementImpl;
@@ -24,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Temp
  */
-public class DeleteModuleSevlet extends HttpServlet {
+public class DeleteModuleServlet extends HttpServlet {
 private ModuleManagement moduleManagement;
     
     private String result;

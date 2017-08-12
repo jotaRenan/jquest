@@ -56,7 +56,7 @@ public class GetUserByIdServlet extends HttpServlet {
             
             if (user != null) {
                 result = "{"
-                    + "\"name\": " + user.getUserName()
+                    + "\"name\": \"" + user.getUserName() + "\""
                     + ", \"email\": \"" + user.getEmail() + "\""
                     + ", \"id\": \"" + user.getId() + "\""
                     + ", \"idt\": \"" + user.getIdtProfile() + "\""

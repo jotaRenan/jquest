@@ -72,6 +72,7 @@ public class Login extends HttpServlet {
                 if (user.getPassword().equals(password)) {
                     result = "{"
                            + "\"id\": " + user.getId()
+                           + ", \"name\": \"" + user.getUserName() + "\""
                            + ", \"idt\": \"" + user.getIdtProfile() + "\""
                            + "}";
                     response.setStatus(HttpServletResponse.SC_OK);

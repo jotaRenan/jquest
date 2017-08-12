@@ -77,6 +77,7 @@ public class Login extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
                     
                     useLogManagement = new UseLogManagementImpl(UseLogDAOImpl.getInstance());
+                    useLog = new UseLog();
                     useLog.setIdUser(user.getId());
                     useLog.setUseDate(new Date());
                     

@@ -9,3 +9,5 @@
 /JQuestBusiness/nbproject/private/
 /JQuestPersistenceRAM/dist/
 /JQuestPersistencePostgres/src/br/cefetmg/jquest/util/db/Password.java
+/JQuestPersistencePostgres/build/
+/JQuestPersistencePostgres/dist/

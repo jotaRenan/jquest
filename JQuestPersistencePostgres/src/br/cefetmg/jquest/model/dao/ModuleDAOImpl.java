@@ -74,18 +74,18 @@ public class ModuleDAOImpl implements ModuleDAO {
         try {
 
             Connection connection = ConnectionManager.getInstance().getConnection();
-
+            
             String sql = "UPDATE module "
                     + " SET nom_module = ?, "
-                    + "     desc_module = ? "
-                    + " WHERE cod_module = ? "
-                    + " AND cod_domain = ?";
-
+                    + "     desc_module = ?, "
+                    + "     cod_domain = ?"
+                    + " WHERE cod_module = ? ";
+            
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, module.getName());
             pstmt.setString(2, module.getDescription());
-            pstmt.setLong(3, module.getId());
-            pstmt.setLong(4, module.getDomainId());
+            pstmt.setLong(3, module.getDomainId());
+            pstmt.setLong(4, module.getId());
             pstmt.executeUpdate();
 
             pstmt.close();

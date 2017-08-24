@@ -16,15 +16,13 @@ public class Module {
     private String description;
     private Long domainId;
     private Long id;
-    private List<Question> questions;
 
     public Module() {}
-    public Module(String name, String description, Long domainId, Long id, List<Question> questions) {
+    public Module(String name, String description, Long domainId, Long id) {
         this.name = name;
         this.description = description;
         this.domainId = domainId;
         this.id = id;
-        this.questions = questions;
     }
 
     public String getName() {
@@ -58,21 +56,5 @@ public class Module {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-    
-    public void addQuestion(Question question) {
-        questions.add(question);
-    }
-    
-    public void deleteQuestion(Question question) {
-        questions.remove(question);
-    } 
     
 }

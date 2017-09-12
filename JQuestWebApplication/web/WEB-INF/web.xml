@@ -68,6 +68,18 @@
         <servlet-name>GetQuestionsByModuleIdServlet</servlet-name>
         <servlet-class>br.cefetmg.jquest.model.servlet.GetQuestionsByModuleIdServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteUser</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.DeleteUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteQuestion</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.DeleteQuestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetQuestionsByGC</servlet-name>
+        <servlet-class>br.cefetmg.jquest.model.servlet.GetQuestionsByGC</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -135,6 +147,18 @@
     <servlet-mapping>
         <servlet-name>GetQuestionsByModuleIdServlet</servlet-name>
         <url-pattern>/GetQuestionsByModuleIdServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUser</servlet-name>
+        <url-pattern>/DeleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteQuestion</servlet-name>
+        <url-pattern>/DeleteQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetQuestionsByGC</servlet-name>
+        <url-pattern>/GetQuestionsByGC</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -218,7 +218,7 @@ public class VoteManagementImplTest {
             Logger.getLogger(VoteManagementImplTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            list = VoteManag.getAll();
+            list = VoteManag.listAll();
         } catch (PersistenceException ex) {
             fail("Failed to get all domains");
             return;

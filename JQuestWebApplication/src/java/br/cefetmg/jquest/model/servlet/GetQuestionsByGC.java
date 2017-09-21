@@ -48,14 +48,15 @@ public class GetQuestionsByGC extends HttpServlet {
         questionManagement = new QuestionManagementImpl(QuestionDAOImpl.getInstance());
         
         try {
-            //pega parametro da URL
+            //pega parametros da URL
             String user = request.getParameter("userId");
             Long userId = new Long(user);
+            String IdtUser = request.getParameter("IdtUser");
+            Long IdtProfileUser = new Long(IdtUser);
+            
             questionsList = questionManagement.getQuestionsByCreatorId(userId);
-            
-            
-            if () { //checa se o usuário é GC
-                
+
+            if (IdtProfileUser.equals(2)) { //checa se o usuário é GC
                 if (questionsList != null) {
                     result = "[";
                     for (Question question : questionsList) {

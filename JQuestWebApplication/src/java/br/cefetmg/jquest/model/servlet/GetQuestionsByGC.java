@@ -54,7 +54,7 @@ public class GetQuestionsByGC extends HttpServlet {
             String IdtUser = request.getParameter("IdtUser");
             Long IdtProfileUser = new Long(IdtUser);
             
-            questionsList = questionManagement.getQuestionsByCreatorId(userId);
+            questionsList = questionManagement.getQuestionsByCreatorId(userId); //Pega somente as questıes do usu·rio passado na URL
 
             if (IdtProfileUser.equals(2)) { //checa se o usu√°rio √© GC
                 if (questionsList != null) {
